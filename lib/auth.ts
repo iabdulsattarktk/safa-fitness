@@ -1,18 +1,16 @@
 import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { PrismaClient } from "@/app/generated/prisma"
+import { db } from "@/lib/db"
 import type { Role } from "@/app/generated/prisma"
 
-const prisma = new PrismaClient()
-
-// Emails jo admin hain (env se aata hai)
+// Emails that get ADMIN role (from .env)
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS ?? "")
   .split(",")
   .map((e) => e.trim().toLowerCase())
   .filter(Boolean)
 
-// Emails jo trainer hain (env se aata hai)
+// Emails that get TRAINER role (from .env)
 const TRAINER_EMAILS = (process.env.TRAINER_EMAILS ?? "")
   .split(",")
   .map((e) => e.trim().toLowerCase())
@@ -26,7 +24,7 @@ function getRoleForEmail(email: string): Role {
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(db),
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID!,
@@ -36,29 +34,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "database" },
   callbacks: {
     async session({ session, user }) {
-      // Role aur id session mein add karo
       if (session.user) {
         session.user.id = user.id
         session.user.role = (user as { role: Role }).role
       }
       return session
     },
-    async signIn({ user }) {
-      // Pehli baar login par role assign karo
+  },
+  events: {
+    // Runs after adapter creates the user — set role based on email
+    async createUser({ user }) {
       if (user.email) {
         const role = getRoleForEmail(user.email)
-        await prisma.user.upsert({
-          where: { email: user.email },
-          update: {}, // already exists — role mat badlo
-          create: {
-            email: user.email,
-            name: user.name,
-            image: user.image,
-            role,
-          },
-        })
+        if (role !== "MEMBER") {
+          await db.user.update({
+            where: { id: user.id },
+            data: { role },
+          })
+        }
       }
-      return true
     },
   },
   pages: {
