@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 const quickLinks = [
   { href: "/about", label: "About Us" },
@@ -30,14 +31,14 @@ export default function Footer() {
 
           {/* Column 1 — Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <span className="text-[#f5a623] text-2xl">⚡</span>
-              <span
-                className="text-white font-bold text-lg tracking-widest uppercase"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                Safa <span className="text-[#f5a623]">Fitness</span>
-              </span>
+            <Link href="/" className="flex items-center mb-4">
+              <Image
+                src="/images/logo.webp"
+                alt="Safa Fitness Club"
+                width={160}
+                height={46}
+                className="h-10 w-auto object-contain"
+              />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               Where Wellness meets Elegance in the Heart of Islamabad. Transforming lives for 8+ years.

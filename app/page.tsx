@@ -1,18 +1,19 @@
 import Link from "next/link"
+import Image from "next/image"
 import CTABanner from "@/components/layout/CTABanner"
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const facilities = [
-  { icon: "🏋️", title: "Gym & Fitness", desc: "Boost your strength and endurance with expert-guided training in a premium environment.", href: "/about#gym" },
-  { icon: "🏊", title: "Swimming Pool", desc: "Enjoy a luxurious heated indoor pool for fitness, strength, relaxation, and swim classes.", href: "/about#pool" },
-  { icon: "🥊", title: "Boxing Ring", desc: "Step into the ring for professional-level boxing, kickboxing, and combat training.", href: "/about#boxing" },
-  { icon: "💆", title: "Massage & Spa", desc: "Unwind with therapeutic massages and rejuvenating spa treatments.", href: "/about#spa" },
-  { icon: "🧖", title: "Steam, Sauna & Jacuzzi", desc: "Detox and relax with our wellness-focused heat and hydrotherapy zone.", href: "/about#sauna" },
-  { icon: "💈", title: "Beauty Salon – Men", desc: "Modern grooming and styling services tailored for the modern gentleman.", href: "/about#salon" },
-  { icon: "🔐", title: "VIP Lockers & Shower", desc: "Spacious private lockers and premium showers for your comfort and security.", href: "/about#lockers" },
-  { icon: "🎱", title: "Snooker Lounge", desc: "Chill and compete in a lounge designed for snooker lovers.", href: "/about#snooker" },
-  { icon: "🥤", title: "Safa Bar", desc: "Refuel with healthy drinks, smoothies, and premium refreshments in style.", href: "/about#bar" },
+  { img: "/images/facilities/gym.webp", title: "Gym & Fitness", desc: "Boost your strength and endurance with expert-guided training in a premium environment.", href: "/about#gym" },
+  { img: "/images/facilities/swimming-pool.webp", title: "Swimming Pool", desc: "Enjoy a luxurious heated indoor pool for fitness, strength, relaxation, and swim classes.", href: "/about#pool" },
+  { img: "/images/facilities/boxing.webp", title: "Boxing Ring", desc: "Step into the ring for professional-level boxing, kickboxing, and combat training.", href: "/about#boxing" },
+  { img: "/images/facilities/massage-spa.webp", title: "Massage & Spa", desc: "Unwind with therapeutic massages and rejuvenating spa treatments.", href: "/about#spa" },
+  { img: "/images/facilities/sauna.webp", title: "Steam, Sauna & Jacuzzi", desc: "Detox and relax with our wellness-focused heat and hydrotherapy zone.", href: "/about#sauna" },
+  { img: "/images/facilities/salon.webp", title: "Beauty Salon – Men", desc: "Modern grooming and styling services tailored for the modern gentleman.", href: "/about#salon" },
+  { img: "/images/facilities/lockers.webp", title: "VIP Lockers & Shower", desc: "Spacious private lockers and premium showers for your comfort and security.", href: "/about#lockers" },
+  { img: "/images/facilities/snooker.webp", title: "Snooker Lounge", desc: "Chill and compete in a lounge designed for snooker lovers.", href: "/about#snooker" },
+  { img: "/images/facilities/safa-bar.webp", title: "Safa Bar", desc: "Refuel with healthy drinks, smoothies, and premium refreshments in style.", href: "/about#bar" },
 ]
 
 const classes = [
@@ -25,11 +26,11 @@ const classes = [
 ]
 
 const trainers = [
-  { name: "Rahila Sher", role: "Professional Boxer", exp: "6+ years", medals: "2 Gold, 1 Silver, 1 Bronze" },
-  { name: "Huma Mumtaz", role: "Transformation Expert", exp: "10+ years", medals: "ISSA Certified USA" },
-  { name: "Kishwar Ali", role: "Combat Trainer", exp: "28+ years", medals: "Floor In-Charge" },
-  { name: "Danish Masih Gill", role: "Personal Trainer", exp: "8+ years", medals: "200+ Clients" },
-  { name: "Muhammad Sohail", role: "Swimming Coach", exp: "8+ years", medals: "BLS Certified" },
+  { name: "Rahila Sher", role: "Professional Boxer", exp: "6+ years", medals: "2 Gold, 1 Silver, 1 Bronze", img: null },
+  { name: "Huma Mumtaz", role: "Transformation Expert", exp: "10+ years", medals: "ISSA Certified USA", img: null },
+  { name: "Kishwar Ali", role: "Combat Trainer", exp: "28+ years", medals: "Floor In-Charge", img: "/images/trainers/kishwar-ali.webp" },
+  { name: "Danish Masih Gill", role: "Personal Trainer", exp: "8+ years", medals: "200+ Clients", img: null },
+  { name: "Muhammad Sohail", role: "Swimming Coach", exp: "8+ years", medals: "BLS Certified", img: null },
 ]
 
 const plans = [
@@ -73,10 +74,10 @@ const testimonials = [
 ]
 
 const steps = [
-  { num: "01", title: "Movement", desc: "Every great journey begins with a single step. Lace up and get moving — walk, run, or hit the gym." },
-  { num: "02", title: "Time", desc: "Consistency is key. Make time for your fitness, even if it's just a few minutes a day — it all adds up!" },
-  { num: "03", title: "Practise", desc: "Push your limits, challenge yourself, and improve every day. Progress comes with persistence." },
-  { num: "04", title: "Results", desc: "Stay dedicated and the results will follow. A healthier, stronger you is just around the corner." },
+  { num: "01", title: "Movement", desc: "Every great journey begins with a single step. Lace up and get moving — walk, run, or hit the gym.", img: "/images/step-movement.webp" },
+  { num: "02", title: "Time", desc: "Consistency is key. Make time for your fitness, even if it's just a few minutes a day — it all adds up!", img: "/images/step-time.webp" },
+  { num: "03", title: "Practise", desc: "Push your limits, challenge yourself, and improve every day. Progress comes with persistence.", img: "/images/step-practice.webp" },
+  { num: "04", title: "Results", desc: "Stay dedicated and the results will follow. A healthier, stronger you is just around the corner.", img: "/images/step-results.webp" },
 ]
 
 // ─── Page ────────────────────────────────────────────────────────────────────
@@ -86,9 +87,17 @@ export default function HomePage() {
     <>
       {/* ── HERO ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#1a1a1a]" />
-        <div className="absolute inset-0 opacity-20"
+        {/* Background image */}
+        <Image
+          src="/images/facilities/run-banner.webp"
+          alt="Safa Fitness Club"
+          fill
+          priority
+          className="object-cover object-center"
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-[#0a0a0a]/75" />
+        <div className="absolute inset-0 opacity-30"
           style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #f5a623 0%, transparent 50%)" }} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
@@ -156,13 +165,18 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {facilities.map((f) => (
               <Link key={f.title} href={f.href}
-                className="group p-6 bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg transition-all duration-300 hover:-translate-y-1">
-                <span className="text-3xl mb-4 block">{f.icon}</span>
-                <h3 className="text-white font-bold text-lg mb-2 group-hover:text-[#f5a623] transition-colors"
-                  style={{ fontFamily: "var(--font-display)" }}>
-                  {f.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
+                className="group overflow-hidden bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg transition-all duration-300 hover:-translate-y-1">
+                <div className="relative h-48 overflow-hidden">
+                  <Image src={f.img} alt={f.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
+                </div>
+                <div className="p-5">
+                  <h3 className="text-white font-bold text-lg mb-2 group-hover:text-[#f5a623] transition-colors"
+                    style={{ fontFamily: "var(--font-display)" }}>
+                    {f.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
+                </div>
               </Link>
             ))}
           </div>
@@ -208,23 +222,30 @@ export default function HomePage() {
       </section>
 
       {/* ── 4-STEP JOURNEY ── */}
-      <section className="section-padding bg-[#f5a623]">
+      <section className="section-padding bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="text-4xl sm:text-5xl font-bold uppercase text-black"
+            <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Your Path to Success</p>
+            <h2 className="text-4xl sm:text-5xl font-bold uppercase text-white"
               style={{ fontFamily: "var(--font-display)" }}>
-              Stop Wishing. Start Doing.
+              Stop Wishing.<span className="text-[#f5a623]"> Start Doing.</span>
             </h2>
-            <p className="text-black/70 mt-3 text-lg">Your transformation journey in 4 simple steps</p>
+            <p className="text-gray-400 mt-3 text-lg">Your transformation journey in 4 simple steps</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {steps.map((s) => (
-              <div key={s.num} className="text-center p-6 bg-black/10 rounded-lg">
-                <p className="text-6xl font-bold text-black/20 mb-3"
-                  style={{ fontFamily: "var(--font-display)" }}>{s.num}</p>
-                <h3 className="text-black font-bold text-2xl uppercase mb-3"
-                  style={{ fontFamily: "var(--font-display)" }}>{s.title}</h3>
-                <p className="text-black/70 text-sm leading-relaxed">{s.desc}</p>
+              <div key={s.num} className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1">
+                <div className="relative h-48 overflow-hidden">
+                  <Image src={s.img} alt={s.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/40 to-transparent" />
+                  <span className="absolute top-4 left-4 text-5xl font-bold text-white/20 leading-none"
+                    style={{ fontFamily: "var(--font-display)" }}>{s.num}</span>
+                </div>
+                <div className="p-5">
+                  <h3 className="text-white font-bold text-xl uppercase mb-2 group-hover:text-[#f5a623] transition-colors"
+                    style={{ fontFamily: "var(--font-display)" }}>{s.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -250,14 +271,27 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
             {trainers.map((t) => (
               <Link key={t.name} href="/trainers"
-                className="group p-6 bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg text-center transition-all duration-300 hover:-translate-y-1">
-                <div className="w-16 h-16 rounded-full bg-[#f5a623]/20 flex items-center justify-center mx-auto mb-4 text-2xl">
-                  💪
+                className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden text-center transition-all duration-300 hover:-translate-y-1">
+                {t.img ? (
+                  <div className="relative h-48 overflow-hidden">
+                    <Image src={t.img} alt={t.name} fill className="object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
+                  </div>
+                ) : (
+                  <div className="h-48 bg-[#1a1a1a] flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-full bg-[#f5a623]/20 border-2 border-[#f5a623]/30 flex items-center justify-center">
+                      <span className="text-[#f5a623] text-3xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
+                        {t.name[0]}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                <div className="p-5">
+                  <h3 className="text-white font-bold text-sm mb-1">{t.name}</h3>
+                  <p className="text-[#f5a623] text-xs font-medium mb-2">{t.role}</p>
+                  <p className="text-gray-500 text-xs">{t.exp}</p>
+                  <p className="text-gray-600 text-xs mt-1">{t.medals}</p>
                 </div>
-                <h3 className="text-white font-bold text-sm mb-1">{t.name}</h3>
-                <p className="text-[#f5a623] text-xs font-medium mb-2">{t.role}</p>
-                <p className="text-gray-500 text-xs">{t.exp}</p>
-                <p className="text-gray-600 text-xs mt-1">{t.medals}</p>
               </Link>
             ))}
           </div>
