@@ -277,9 +277,13 @@ export default function ClassesPage() {
               </tbody>
             </table>
           </div>
-          <p className="text-gray-600 text-xs text-center mt-4">
-            * Schedule is indicative. Contact us to confirm current timings: +92-311-5156949
-          </p>
+          <div className="mt-5 flex items-start gap-3 p-4 bg-[#1a1a1a] border border-yellow-500/30 rounded-lg">
+            <span className="text-yellow-400 text-lg flex-shrink-0">⚠️</span>
+            <p className="text-yellow-300 text-sm leading-relaxed">
+              <span className="font-bold">Note:</span> Ye schedule approximate hai — real website par class timetable available nahi tha.
+              Confirm karne ke liye call karain: <a href="tel:+923115156949" className="underline hover:text-yellow-200">+92-311-5156949</a>
+            </p>
+          </div>
         </div>
       </section>
 
@@ -297,20 +301,32 @@ export default function ClassesPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: "🏅", title: "Certified Trainers", desc: "All coaches are internationally certified with years of real-world experience." },
-              { icon: "🔧", title: "Premium Equipment", desc: "State-of-the-art machines and equipment maintained to the highest standards." },
-              { icon: "👥", title: "All Levels Welcome", desc: "From complete beginners to competitive athletes — every class adapts to you." },
-              { icon: "📋", title: "Personalized Plans", desc: "Your trainer builds a program around your specific goals and fitness level." },
+              { title: "Certified Trainers", desc: "All coaches are internationally certified with years of real-world experience.", img: "/images/trainers/kishwar-trainer.webp" },
+              { title: "Premium Equipment", desc: "State-of-the-art machines and equipment maintained to the highest standards.", img: "/images/facilities/gym.webp" },
+              { title: "All Levels Welcome", desc: "From complete beginners to competitive athletes — every class adapts to you.", img: "/images/team-banner2.webp" },
+              { title: "Personalized Plans", desc: "Your trainer builds a program around your specific goals and fitness level.", img: "/images/trainers/trainer-2.webp" },
             ].map((f) => (
-              <div key={f.title} className="p-6 bg-[#141414] border border-[#2a2a2a] rounded-lg hover:border-[#f5a623]/40 transition-colors text-center">
-                <div className="text-4xl mb-4">{f.icon}</div>
-                <h3
-                  className="text-white font-bold text-lg uppercase mb-2"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {f.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
+              <div key={f.title} className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1">
+                <div className="relative h-44 overflow-hidden">
+                  <Image
+                    src={f.img}
+                    alt={f.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 px-4 pb-3">
+                    <h3
+                      className="text-white font-bold text-lg uppercase group-hover:text-[#f5a623] transition-colors"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    >
+                      {f.title}
+                    </h3>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <p className="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
+                </div>
               </div>
             ))}
           </div>
