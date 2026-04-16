@@ -74,73 +74,6 @@ const classes = [
   },
 ]
 
-// Weekly timetable — days × time slots
-const timetable = [
-  {
-    time: "7:00 AM",
-    mon: { name: "Strength", color: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
-    tue: { name: "Boxing", color: "bg-red-600/20 text-red-400 border-red-500/30" },
-    wed: { name: "Strength", color: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
-    thu: { name: "Boxing", color: "bg-red-600/20 text-red-400 border-red-500/30" },
-    fri: { name: "Strength", color: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
-    sat: { name: "Combat", color: "bg-red-600/20 text-red-400 border-red-500/30" },
-    sun: null,
-  },
-  {
-    time: "9:00 AM",
-    mon: { name: "Swimming", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
-    tue: { name: "Body Transform", color: "bg-purple-600/20 text-purple-400 border-purple-500/30" },
-    wed: { name: "Swimming", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
-    thu: { name: "Body Transform", color: "bg-purple-600/20 text-purple-400 border-purple-500/30" },
-    fri: { name: "Swimming", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
-    sat: { name: "Swimming", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
-    sun: { name: "Swimming", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
-  },
-  {
-    time: "11:00 AM",
-    mon: { name: "HIIT", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
-    tue: { name: "Strength", color: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
-    wed: { name: "HIIT", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
-    thu: { name: "Strength", color: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
-    fri: { name: "HIIT", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
-    sat: { name: "Body Transform", color: "bg-purple-600/20 text-purple-400 border-purple-500/30" },
-    sun: null,
-  },
-  {
-    time: "5:00 PM",
-    mon: { name: "Boxing", color: "bg-red-600/20 text-red-400 border-red-500/30" },
-    tue: { name: "Swimming", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
-    wed: { name: "Boxing", color: "bg-red-600/20 text-red-400 border-red-500/30" },
-    thu: { name: "Swimming", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
-    fri: { name: "Combat", color: "bg-red-600/20 text-red-400 border-red-500/30" },
-    sat: { name: "HIIT", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
-    sun: { name: "Boxing", color: "bg-red-600/20 text-red-400 border-red-500/30" },
-  },
-  {
-    time: "7:00 PM",
-    mon: { name: "Body Transform", color: "bg-purple-600/20 text-purple-400 border-purple-500/30" },
-    tue: { name: "Combat", color: "bg-red-600/20 text-red-400 border-red-500/30" },
-    wed: { name: "Strength", color: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
-    thu: { name: "Boxing", color: "bg-red-600/20 text-red-400 border-red-500/30" },
-    fri: { name: "Body Transform", color: "bg-purple-600/20 text-purple-400 border-purple-500/30" },
-    sat: { name: "Strength", color: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
-    sun: { name: "Swimming", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
-  },
-  {
-    time: "9:00 PM",
-    mon: { name: "Strength", color: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
-    tue: { name: "HIIT", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
-    wed: { name: "Combat", color: "bg-red-600/20 text-red-400 border-red-500/30" },
-    thu: { name: "HIIT", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
-    fri: { name: "Strength", color: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
-    sat: null,
-    sun: null,
-  },
-]
-
-const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-type DayKey = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun"
-const dayKeys: DayKey[] = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 
@@ -227,62 +160,83 @@ export default function ClassesPage() {
         </div>
       </section>
 
-      {/* ── WEEKLY TIMETABLE ── */}
+      {/* ── CLASS TIMINGS ── */}
       <section className="section-padding bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Plan Your Week</p>
+            <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Plan Your Visit</p>
             <h2
               className="text-4xl sm:text-5xl font-bold uppercase text-white"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Weekly <span className="text-[#f5a623]">Schedule</span>
+              Club <span className="text-[#f5a623]">Hours</span>
             </h2>
-            <p className="text-gray-500 text-sm mt-3">Open Monday – Saturday 7AM–11PM · Sunday 12PM–10PM</p>
           </div>
 
-          {/* Timetable — scrollable on mobile */}
-          <div className="overflow-x-auto rounded-lg border border-[#2a2a2a]">
-            <table className="w-full min-w-[640px] border-collapse">
-              <thead>
-                <tr className="bg-[#1a1a1a]">
-                  <th className="p-4 text-left text-gray-500 text-xs uppercase tracking-wider font-medium w-24">Time</th>
-                  {days.map((d) => (
-                    <th key={d} className="p-4 text-center text-white text-xs uppercase tracking-wider font-bold">
-                      {d}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {timetable.map((row, i) => (
-                  <tr key={row.time} className={i % 2 === 0 ? "bg-[#141414]" : "bg-[#111]"}>
-                    <td className="p-4 text-[#f5a623] text-xs font-bold whitespace-nowrap">{row.time}</td>
-                    {dayKeys.map((dk) => {
-                      const cell = row[dk]
-                      return (
-                        <td key={dk} className="p-2 text-center">
-                          {cell ? (
-                            <span className={`inline-block px-2 py-1.5 rounded border text-xs font-medium whitespace-nowrap ${cell.color}`}>
-                              {cell.name}
-                            </span>
-                          ) : (
-                            <span className="text-gray-700 text-xs">—</span>
-                          )}
-                        </td>
-                      )
-                    })}
-                  </tr>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            {/* Opening hours */}
+            <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg overflow-hidden">
+              <div className="px-6 py-4 bg-[#1a1a1a] border-b border-[#2a2a2a]">
+                <h3 className="text-white font-bold uppercase tracking-wider text-sm" style={{ fontFamily: "var(--font-display)" }}>
+                  Opening Hours
+                </h3>
+              </div>
+              <div className="divide-y divide-[#2a2a2a]">
+                {[
+                  { day: "Monday", hours: "7:00 AM – 11:00 PM" },
+                  { day: "Tuesday", hours: "7:00 AM – 11:00 PM" },
+                  { day: "Wednesday", hours: "7:00 AM – 11:00 PM" },
+                  { day: "Thursday", hours: "7:00 AM – 11:00 PM" },
+                  { day: "Friday", hours: "7:00 AM – 11:00 PM" },
+                  { day: "Saturday", hours: "7:00 AM – 11:00 PM" },
+                  { day: "Sunday", hours: "12:00 PM – 10:00 PM" },
+                ].map((row) => (
+                  <div key={row.day} className="flex justify-between items-center px-6 py-3.5">
+                    <span className="text-gray-300 text-sm">{row.day}</span>
+                    <span className="text-[#f5a623] font-bold text-sm">{row.hours}</span>
+                  </div>
                 ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="mt-5 flex items-start gap-3 p-4 bg-[#1a1a1a] border border-yellow-500/30 rounded-lg">
-            <span className="text-yellow-400 text-lg flex-shrink-0">⚠️</span>
-            <p className="text-yellow-300 text-sm leading-relaxed">
-              <span className="font-bold">Note:</span> Ye schedule approximate hai — real website par class timetable available nahi tha.
-              Confirm karne ke liye call karain: <a href="tel:+923115156949" className="underline hover:text-yellow-200">+92-311-5156949</a>
-            </p>
+              </div>
+            </div>
+
+            {/* Book a session */}
+            <div className="flex flex-col gap-5">
+              <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6">
+                <h3 className="text-white font-bold uppercase text-lg mb-3" style={{ fontFamily: "var(--font-display)" }}>
+                  Book a Class
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed mb-5">
+                  To find out class timings, book a personal training session, or enquire about any program — contact us directly. Walk-ins are always welcome.
+                </p>
+                <div className="space-y-3">
+                  <a href="tel:+923115156949" className="flex items-center gap-3 p-3 bg-[#1a1a1a] rounded-lg hover:bg-[#222] transition-colors">
+                    <span className="text-[#f5a623]">📞</span>
+                    <span className="text-gray-300 text-sm">+92-311-5156949</span>
+                  </a>
+                  <a href="tel:+923300007232" className="flex items-center gap-3 p-3 bg-[#1a1a1a] rounded-lg hover:bg-[#222] transition-colors">
+                    <span className="text-[#f5a623]">📞</span>
+                    <span className="text-gray-300 text-sm">+92-330-0007232</span>
+                  </a>
+                  <a href="mailto:contact@safafitnessclub.com" className="flex items-center gap-3 p-3 bg-[#1a1a1a] rounded-lg hover:bg-[#222] transition-colors">
+                    <span className="text-[#f5a623]">✉️</span>
+                    <span className="text-gray-300 text-sm">contact@safafitnessclub.com</span>
+                  </a>
+                </div>
+              </div>
+              <div className="bg-[#f5a623] rounded-lg p-6 flex flex-col justify-between gap-4">
+                <div>
+                  <h3 className="text-black font-bold uppercase text-xl mb-2" style={{ fontFamily: "var(--font-display)" }}>
+                    Walk-ins Welcome
+                  </h3>
+                  <p className="text-black/70 text-sm leading-relaxed">
+                    Bring a valid ID for first-time registration. Our team will guide you through the facilities and match you with the right class.
+                  </p>
+                </div>
+                <Link href="/contact" className="inline-block text-center bg-black text-white text-sm font-bold uppercase tracking-wider px-6 py-3 rounded hover:bg-[#111] transition-colors">
+                  Get Directions
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
