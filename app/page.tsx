@@ -17,20 +17,20 @@ const facilities = [
 ]
 
 const classes = [
-  { name: "Strength Training", category: "Gym", trainer: "Kishwar Ali", level: "All Levels" },
-  { name: "Boxing & Kickboxing", category: "Combat", trainer: "Rahila Sher", level: "Beginner–Advanced" },
-  { name: "Body Transformation", category: "Fitness", trainer: "Huma Mumtaz", level: "All Levels" },
-  { name: "HIIT & CrossFit", category: "Cardio", trainer: "Huma Mumtaz", level: "Intermediate" },
-  { name: "Swimming", category: "Aquatics", trainer: "Muhammad Sohail", level: "All Levels" },
-  { name: "Combat Training", category: "Combat", trainer: "Kishwar Ali", level: "All Levels" },
+  { name: "Strength Training", category: "Gym", trainer: "Kishwar Ali", level: "All Levels", img: "/images/classes/strength-training.jpg" },
+  { name: "Boxing & Kickboxing", category: "Combat", trainer: "Rahila Sher", level: "Beginner–Advanced", img: "/images/classes/boxing.jpg" },
+  { name: "Body Transformation", category: "Fitness", trainer: "Huma Mumtaz", level: "All Levels", img: "/images/classes/transformation.jpg" },
+  { name: "HIIT & CrossFit", category: "Cardio", trainer: "Huma Mumtaz", level: "Intermediate", img: "/images/classes/hiit.jpg" },
+  { name: "Swimming", category: "Aquatics", trainer: "Muhammad Sohail", level: "All Levels", img: "/images/classes/swimming.jpg" },
+  { name: "Combat Training", category: "Combat", trainer: "Kishwar Ali", level: "All Levels", img: "/images/classes/combat.jpg" },
 ]
 
 const trainers = [
-  { name: "Rahila Sher", role: "Professional Boxer", exp: "6+ years", medals: "2 Gold, 1 Silver, 1 Bronze", img: null },
-  { name: "Huma Mumtaz", role: "Transformation Expert", exp: "10+ years", medals: "ISSA Certified USA", img: null },
+  { name: "Rahila Sher", role: "Professional Boxer", exp: "6+ years", medals: "2 Gold, 1 Silver, 1 Bronze", img: "/images/trainers/trainer-1.webp" },
+  { name: "Huma Mumtaz", role: "Transformation Expert", exp: "10+ years", medals: "ISSA Certified USA", img: "/images/trainers/trainer-2.webp" },
   { name: "Kishwar Ali", role: "Combat Trainer", exp: "28+ years", medals: "Floor In-Charge", img: "/images/trainers/kishwar-ali.webp" },
-  { name: "Danish Masih Gill", role: "Personal Trainer", exp: "8+ years", medals: "200+ Clients", img: null },
-  { name: "Muhammad Sohail", role: "Swimming Coach", exp: "8+ years", medals: "BLS Certified", img: null },
+  { name: "Danish Masih Gill", role: "Personal Trainer", exp: "8+ years", medals: "200+ Clients", img: "/images/trainers/trainer-3.webp" },
+  { name: "Muhammad Sohail", role: "Swimming Coach", exp: "8+ years", medals: "BLS Certified", img: "/images/trainers/trainer-4.webp" },
 ]
 
 const plans = [
@@ -87,17 +87,29 @@ export default function HomePage() {
     <>
       {/* ── HERO ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
-        {/* Background image */}
-        <Image
-          src="/images/facilities/run-banner.webp"
-          alt="Safa Fitness Club"
-          fill
-          priority
-          className="object-cover object-center"
-        />
+        {/* YouTube background video */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <iframe
+            src="https://www.youtube.com/embed/-nteQqHD754?autoplay=1&mute=1&loop=1&playlist=-nteQqHD754&controls=0&rel=0&modestbranding=1&playsinline=1"
+            title="Safa Fitness Club"
+            allow="autoplay; encrypted-media"
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "100vw",
+              height: "56.25vw",
+              minWidth: "177.78vh",
+              minHeight: "100vh",
+              border: 0,
+              pointerEvents: "none",
+            }}
+          />
+        </div>
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-[#0a0a0a]/75" />
-        <div className="absolute inset-0 opacity-30"
+        <div className="absolute inset-0 bg-[#0a0a0a]/70" />
+        <div className="absolute inset-0 opacity-20"
           style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #f5a623 0%, transparent 50%)" }} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
@@ -201,21 +213,25 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {classes.map((c) => (
-              <div key={c.name}
-                className="group p-6 bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg transition-all duration-300">
-                <span className="inline-block px-3 py-1 bg-[#f5a623]/10 text-[#f5a623] text-xs font-bold uppercase tracking-wider rounded mb-4">
-                  {c.category}
-                </span>
-                <h3 className="text-white font-bold text-xl mb-2"
-                  style={{ fontFamily: "var(--font-display)" }}>{c.name}</h3>
-                <p className="text-gray-500 text-sm mb-1">Trainer: <span className="text-gray-300">{c.trainer}</span></p>
-                <p className="text-gray-500 text-sm">Level: <span className="text-gray-300">{c.level}</span></p>
-                <div className="mt-4 pt-4 border-t border-[#2a2a2a]">
-                  <Link href="/classes" className="text-[#f5a623] text-sm font-medium hover:underline">
-                    Learn more →
-                  </Link>
+              <Link key={c.name} href="/classes"
+                className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1">
+                <div className="relative h-48 overflow-hidden">
+                  <Image src={c.img} alt={c.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
+                  <span className="absolute top-3 left-3 px-2 py-1 bg-[#f5a623] text-black text-xs font-bold uppercase tracking-wider rounded">
+                    {c.category}
+                  </span>
                 </div>
-              </div>
+                <div className="p-5">
+                  <h3 className="text-white font-bold text-xl mb-2 group-hover:text-[#f5a623] transition-colors"
+                    style={{ fontFamily: "var(--font-display)" }}>{c.name}</h3>
+                  <p className="text-gray-500 text-sm mb-1">Trainer: <span className="text-gray-300">{c.trainer}</span></p>
+                  <p className="text-gray-500 text-sm">Level: <span className="text-gray-300">{c.level}</span></p>
+                  <div className="mt-4 pt-4 border-t border-[#2a2a2a] flex items-center justify-between">
+                    <span className="text-[#f5a623] text-sm font-medium">Learn more →</span>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
