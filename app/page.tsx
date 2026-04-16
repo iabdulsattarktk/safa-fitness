@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import CTABanner from "@/components/layout/CTABanner"
+import ScrollDown from "@/components/ui/ScrollDown"
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -154,17 +155,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-gray-500 text-xs uppercase tracking-widest">Scroll</span>
-          <svg className="w-4 h-4 text-[#f5a623]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
+        <ScrollDown targetId="facilities" />
       </section>
 
       {/* ── FACILITIES ── */}
-      <section className="section-padding bg-[#0a0a0a]">
+      <section id="facilities" className="section-padding bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">What We Offer</p>
