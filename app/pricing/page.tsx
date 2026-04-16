@@ -8,6 +8,43 @@ export const metadata: Metadata = {
     "Explore Safa Fitness Club membership plans — Gym, Swimming Pool, Gym + VIP Lockers, Gym + Pool, Kids, and Day Pass. PKR pricing with 3, 6 & 12-month discounts available.",
 }
 
+// ─── Icons ───────────────────────────────────────────────────────────────────
+
+const PhoneIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+  </svg>
+)
+
+const MailIcon = () => (
+  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+  </svg>
+)
+
+const LocationIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+  </svg>
+)
+
+const InfoIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+)
+
+const CheckIcon = () => (
+  <svg className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+  </svg>
+)
+
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const plans = [
@@ -194,16 +231,16 @@ export default function PricingPage() {
       <section className="bg-[#141414] border-b border-[#2a2a2a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <span className="text-[#f5a623] text-lg flex-shrink-0">ℹ️</span>
+            <span className="text-[#f5a623] flex-shrink-0"><InfoIcon /></span>
             <p className="text-gray-300 text-sm">
               All plans require a <span className="text-white font-semibold">one-time registration fee of PKR 18,000</span> (Kids: PKR 10,000). Monthly rates shown below.
             </p>
           </div>
           <a
             href="tel:+923115156949"
-            className="whitespace-nowrap text-[#f5a623] font-bold text-sm hover:text-[#e09410] transition-colors"
+            className="flex items-center gap-2 whitespace-nowrap text-[#f5a623] font-bold text-sm hover:text-[#e09410] transition-colors"
           >
-            📞 +92-311-5156949
+            <PhoneIcon /> +92-311-5156949
           </a>
         </div>
       </section>
@@ -245,12 +282,7 @@ export default function PricingPage() {
 
                 {/* Image */}
                 <div className="relative h-44 overflow-hidden">
-                  <Image
-                    src={plan.img}
-                    alt={plan.name}
-                    fill
-                    className="object-cover"
-                  />
+                  <Image src={plan.img} alt={plan.name} fill className="object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/40 to-transparent" />
                 </div>
 
@@ -281,7 +313,7 @@ export default function PricingPage() {
                   <ul className="space-y-2 mb-6 flex-1">
                     {plan.features.map((f) => (
                       <li key={f} className="flex items-start gap-2 text-gray-400 text-sm">
-                        <span className="text-[#f5a623] mt-0.5 flex-shrink-0">✓</span>
+                        <span className="text-[#f5a623]"><CheckIcon /></span>
                         {f}
                       </li>
                     ))}
@@ -329,15 +361,15 @@ export default function PricingPage() {
             <div className="flex flex-col sm:flex-row gap-4 lg:flex-shrink-0">
               <a
                 href="tel:+923115156949"
-                className="px-8 py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors text-center"
+                className="flex items-center justify-center gap-2 px-8 py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors"
               >
-                Call for Discount Rates
+                <PhoneIcon /> Call for Discount Rates
               </a>
               <a
                 href="mailto:contact@safafitnessclub.com"
-                className="px-8 py-3 border border-[#f5a623] text-[#f5a623] hover:bg-[#f5a623] hover:text-black font-bold text-sm uppercase tracking-wider rounded transition-colors text-center"
+                className="flex items-center justify-center gap-2 px-8 py-3 border border-[#f5a623] text-[#f5a623] hover:bg-[#f5a623] hover:text-black font-bold text-sm uppercase tracking-wider rounded transition-colors"
               >
-                Email Us
+                <MailIcon /> Email Us
               </a>
             </div>
           </div>
@@ -432,33 +464,53 @@ export default function PricingPage() {
                 step: "01",
                 title: "Walk In",
                 desc: "Visit us at Safa Gold Mall, 5th Floor, F-7 Markaz, Islamabad. No appointment needed — walk in any time during opening hours.",
+                img: "/images/facilities/services-banner.webp",
               },
               {
                 step: "02",
                 title: "Choose a Plan",
                 desc: "Our staff will walk you through all available membership plans and help you choose the one that fits your goals and budget.",
+                img: "/images/facilities/pricing-banner.webp",
               },
               {
                 step: "03",
                 title: "Start Training",
                 desc: "Complete your registration with a valid ID, pay the one-time fee, and start your fitness journey the same day.",
+                img: "/images/facilities/gym.webp",
               },
             ].map((s) => (
-              <div key={s.step} className="relative bg-[#141414] border border-[#2a2a2a] rounded-lg p-7">
-                <span
-                  className="text-7xl font-bold text-[#1a1a1a] absolute top-4 right-5 select-none pointer-events-none"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {s.step}
-                </span>
-                <p className="text-[#f5a623] font-bold text-xs uppercase tracking-[0.3em] mb-2">{s.step}</p>
-                <h3
-                  className="text-white font-bold text-2xl uppercase mb-3 relative z-10"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {s.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed relative z-10">{s.desc}</p>
+              <div key={s.step} className="group relative bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1">
+                {/* Image */}
+                <div className="relative h-52 overflow-hidden">
+                  <Image
+                    src={s.img}
+                    alt={s.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/30 to-transparent" />
+                  {/* Step number overlay */}
+                  <span
+                    className="absolute top-4 left-4 text-6xl font-bold text-white/10 select-none pointer-events-none leading-none"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {s.step}
+                  </span>
+                  {/* Step badge */}
+                  <span className="absolute top-4 right-4 px-3 py-1 bg-[#f5a623] text-black text-xs font-bold uppercase tracking-wider rounded">
+                    Step {s.step}
+                  </span>
+                </div>
+                {/* Content */}
+                <div className="p-6">
+                  <h3
+                    className="text-white font-bold text-2xl uppercase mb-3 group-hover:text-[#f5a623] transition-colors"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {s.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -500,15 +552,15 @@ export default function PricingPage() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
                 href="tel:+923115156949"
-                className="px-8 py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors"
+                className="flex items-center justify-center gap-2 px-8 py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors"
               >
-                📞 Call Us
+                <PhoneIcon /> Call Us
               </a>
               <a
                 href="mailto:contact@safafitnessclub.com"
-                className="px-8 py-3 border border-[#2a2a2a] hover:border-[#f5a623] text-gray-300 hover:text-[#f5a623] font-bold text-sm uppercase tracking-wider rounded transition-colors"
+                className="flex items-center justify-center gap-2 px-8 py-3 border border-[#2a2a2a] hover:border-[#f5a623] text-gray-300 hover:text-[#f5a623] font-bold text-sm uppercase tracking-wider rounded transition-colors"
               >
-                ✉️ Email Us
+                <MailIcon /> Email Us
               </a>
             </div>
           </div>
@@ -518,11 +570,14 @@ export default function PricingPage() {
       {/* ── LOCATION STRIP ── */}
       <section className="py-10 bg-[#0d0d0d] border-y border-[#2a2a2a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div>
-            <p className="text-white font-bold text-lg" style={{ fontFamily: "var(--font-display)" }}>
-              📍 Safa Gold Mall, 5th Floor, F-7 Markaz, Islamabad
-            </p>
-            <p className="text-gray-400 text-sm mt-1">Mon–Sat: 7:00 AM – 11:00 PM &nbsp;|&nbsp; Sun: 12:00 PM – 10:00 PM</p>
+          <div className="flex items-start gap-3">
+            <span className="text-[#f5a623] mt-0.5 flex-shrink-0"><LocationIcon /></span>
+            <div>
+              <p className="text-white font-bold text-lg" style={{ fontFamily: "var(--font-display)" }}>
+                Safa Gold Mall, 5th Floor, F-7 Markaz, Islamabad
+              </p>
+              <p className="text-gray-400 text-sm mt-1">Mon–Sat: 7:00 AM – 11:00 PM &nbsp;|&nbsp; Sun: 12:00 PM – 10:00 PM</p>
+            </div>
           </div>
           <a
             href="https://maps.google.com/?q=Safa+Fitness+Club,Safa+Gold+Mall,F-7+Markaz,Islamabad"

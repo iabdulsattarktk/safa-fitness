@@ -8,6 +8,10 @@ interface CTABannerProps {
   variant?: "orange" | "dark"
 }
 
+function isExternal(href: string) {
+  return href.startsWith("tel:") || href.startsWith("mailto:") || href.startsWith("http")
+}
+
 export default function CTABanner({
   heading = "Ready to Transform?",
   subheading = "Join Islamabad's most complete fitness club. Your journey starts today.",
@@ -16,6 +20,15 @@ export default function CTABanner({
   variant = "orange",
 }: CTABannerProps) {
   const isOrange = variant === "orange"
+
+  const primaryClass = `w-full sm:w-auto px-8 py-3 text-sm font-bold uppercase tracking-wider rounded transition-colors duration-200 ${
+    isOrange ? "bg-black text-white hover:bg-[#1a1a1a]" : "bg-[#f5a623] text-black hover:bg-[#e09410]"
+  }`
+  const secondaryClass = `w-full sm:w-auto px-8 py-3 text-sm font-bold uppercase tracking-wider rounded border-2 transition-colors duration-200 ${
+    isOrange
+      ? "border-black text-black hover:bg-black hover:text-white"
+      : "border-[#f5a623] text-[#f5a623] hover:bg-[#f5a623] hover:text-black"
+  }`
 
   return (
     <section
@@ -36,26 +49,16 @@ export default function CTABanner({
           {subheading}
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link
-            href={primaryBtn.href}
-            className={`w-full sm:w-auto px-8 py-3 text-sm font-bold uppercase tracking-wider rounded transition-colors duration-200 ${
-              isOrange
-                ? "bg-black text-white hover:bg-[#1a1a1a]"
-                : "bg-[#f5a623] text-black hover:bg-[#e09410]"
-            }`}
-          >
-            {primaryBtn.label}
-          </Link>
-          <Link
-            href={secondaryBtn.href}
-            className={`w-full sm:w-auto px-8 py-3 text-sm font-bold uppercase tracking-wider rounded border-2 transition-colors duration-200 ${
-              isOrange
-                ? "border-black text-black hover:bg-black hover:text-white"
-                : "border-[#f5a623] text-[#f5a623] hover:bg-[#f5a623] hover:text-black"
-            }`}
-          >
-            {secondaryBtn.label}
-          </Link>
+          {isExternal(primaryBtn.href) ? (
+            <a href={primaryBtn.href} className={primaryClass}>{primaryBtn.label}</a>
+          ) : (
+            <Link href={primaryBtn.href} className={primaryClass}>{primaryBtn.label}</Link>
+          )}
+          {isExternal(secondaryBtn.href) ? (
+            <a href={secondaryBtn.href} className={secondaryClass}>{secondaryBtn.label}</a>
+          ) : (
+            <Link href={secondaryBtn.href} className={secondaryClass}>{secondaryBtn.label}</Link>
+          )}
         </div>
       </div>
     </section>
