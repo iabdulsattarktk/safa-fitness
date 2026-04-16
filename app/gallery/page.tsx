@@ -1,5 +1,4 @@
 import Image from "next/image"
-import Link from "next/link"
 import CTABanner from "@/components/layout/CTABanner"
 import SocialLinks from "@/components/ui/SocialLinks"
 import type { Metadata } from "next"
@@ -7,35 +6,106 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Gallery | Safa Fitness Club – Islamabad",
   description:
-    "Explore Safa Fitness Club's world-class facilities — gym floor, swimming pool, boxing ring, massage & spa, sauna, and more. Located at Safa Gold Mall, F-7 Markaz, Islamabad.",
+    "Explore Safa Fitness Club's world-class facilities — gym, swimming pool, boxing ring, massage & spa, sauna, snooker lounge, salon, lockers, and Safa Bar.",
 }
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+// ─── Category data ────────────────────────────────────────────────────────────
 
-// Bento grid items — mix of sizes for visual interest
-const grid = [
-  { img: "/images/gallery/gym-floor.webp",    alt: "Gym Floor",          label: "Gym & Fitness",       span: "col-span-2 row-span-2" },
-  { img: "/images/gallery/swimming-pool.webp", alt: "Swimming Pool",      label: "Swimming Pool",       span: "col-span-1 row-span-1" },
-  { img: "/images/gallery/boxing.webp",        alt: "Boxing Ring",        label: "Boxing Ring",         span: "col-span-1 row-span-1" },
-  { img: "/images/gallery/sauna.webp",         alt: "Steam & Sauna",      label: "Steam & Sauna",       span: "col-span-1 row-span-1" },
-  { img: "/images/gallery/massage.webp",       alt: "Massage & Spa",      label: "Massage & Spa",       span: "col-span-1 row-span-1" },
-  { img: "/images/gallery/team-1.webp",        alt: "Safa Elite Team",    label: "Our Team",            span: "col-span-2 row-span-1" },
-  { img: "/images/gallery/safa-bar.webp",      alt: "Safa Bar",           label: "Safa Bar",            span: "col-span-1 row-span-1" },
-  { img: "/images/gallery/gym-strength.webp",  alt: "Strength Training",  label: "Strength Training",   span: "col-span-1 row-span-1" },
-  { img: "/images/gallery/running.webp",       alt: "Run With Us",        label: "Run With Us",         span: "col-span-1 row-span-1" },
-  { img: "/images/gallery/kishwar-pose.webp",  alt: "Expert Trainer",     label: "Expert Trainers",     span: "col-span-1 row-span-1" },
-  { img: "/images/gallery/snooker.webp",       alt: "Snooker Lounge",     label: "Snooker Lounge",      span: "col-span-1 row-span-1" },
-  { img: "/images/gallery/services.webp",      alt: "Our Services",       label: "Our Services",        span: "col-span-2 row-span-1" },
-]
-
-// Simple uniform grid for the second section
-const morePhotos = [
-  { img: "/images/gallery/gym-2.webp",         alt: "Gym Interior" },
-  { img: "/images/gallery/gym-amenity.webp",   alt: "Gym Equipment" },
-  { img: "/images/gallery/team-2.webp",        alt: "Team at Safa" },
-  { img: "/images/facilities/lockers.webp",    alt: "VIP Lockers" },
-  { img: "/images/facilities/salon.webp",      alt: "Beauty Salon" },
-  { img: "/images/trainers/kishwar-ali.webp",  alt: "Kishwar Ali" },
+const categories = [
+  {
+    id: "gym",
+    label: "Gym & Fitness",
+    images: [
+      { src: "/images/gallery/gym-floor.webp",    alt: "Gym Floor" },
+      { src: "/images/gallery/gym-strength.webp", alt: "Strength Training" },
+      { src: "/images/gallery/gym-amenity.webp",  alt: "Gym Equipment" },
+      { src: "/images/gallery/gym-2.webp",        alt: "Gym Interior" },
+      { src: "/images/gallery/running.webp",      alt: "Run With Us" },
+      { src: "/images/gallery/kishwar-pose.webp", alt: "Trainer – Kishwar Ali" },
+    ],
+  },
+  {
+    id: "pool",
+    label: "Swimming Pool",
+    images: [
+      { src: "/images/gallery/pool-1.webp", alt: "Swimming Pool Banner" },
+      { src: "/images/gallery/pool-2.webp", alt: "Pool Amenity" },
+      { src: "/images/gallery/pool-3.webp", alt: "Swimming Pool" },
+      { src: "/images/gallery/pool-4.webp", alt: "Swimming Pool" },
+    ],
+  },
+  {
+    id: "boxing",
+    label: "Boxing Ring",
+    images: [
+      { src: "/images/gallery/boxing-1.webp", alt: "Boxing Ring" },
+      { src: "/images/gallery/boxing.webp",   alt: "Boxing Training" },
+    ],
+  },
+  {
+    id: "sauna",
+    label: "Steam, Sauna & Jacuzzi",
+    images: [
+      { src: "/images/gallery/sauna-1.webp", alt: "Sauna" },
+      { src: "/images/gallery/sauna-2.webp", alt: "Sauna Amenity" },
+      { src: "/images/gallery/sauna-3.webp", alt: "Steam Sauna Jacuzzi" },
+    ],
+  },
+  {
+    id: "spa",
+    label: "Massage & Spa",
+    images: [
+      { src: "/images/gallery/spa-1.webp",  alt: "Massage & Spa" },
+      { src: "/images/gallery/spa-2.webp",  alt: "Massage Amenity" },
+    ],
+  },
+  {
+    id: "snooker",
+    label: "Snooker Lounge",
+    images: [
+      { src: "/images/gallery/snooker-1.webp", alt: "Snooker Lounge" },
+      { src: "/images/gallery/snooker-2.webp", alt: "Snooker Amenity" },
+      { src: "/images/gallery/snooker-3.webp", alt: "Snooker Lounge Banner" },
+    ],
+  },
+  {
+    id: "salon",
+    label: "Beauty Salon – Men",
+    images: [
+      { src: "/images/gallery/salon-1.webp",        alt: "Men's Beauty Salon" },
+      { src: "/images/facilities/salon.webp",        alt: "Salon Interior" },
+    ],
+  },
+  {
+    id: "lockers",
+    label: "VIP Lockers & Shower",
+    images: [
+      { src: "/images/gallery/locker-1.webp", alt: "VIP Lockers & Showers" },
+      { src: "/images/gallery/locker-2.webp", alt: "Lockers Banner" },
+      { src: "/images/gallery/locker-3.webp", alt: "VIP Lockers" },
+    ],
+  },
+  {
+    id: "bar",
+    label: "Safa Bar",
+    images: [
+      { src: "/images/gallery/bar-1.webp", alt: "Safa Bar" },
+      { src: "/images/gallery/bar-2.webp", alt: "Safa Bar Amenity" },
+      { src: "/images/gallery/bar-3.webp", alt: "Safa Bar Banner" },
+    ],
+  },
+  {
+    id: "team",
+    label: "Our Team",
+    images: [
+      { src: "/images/gallery/team-1.webp",          alt: "Safa Elite Team" },
+      { src: "/images/gallery/team-2.webp",          alt: "Meet Our Team" },
+      { src: "/images/trainers/kishwar-ali.webp",    alt: "Kishwar Ali" },
+      { src: "/images/trainers/trainer-1.webp",      alt: "Trainer" },
+      { src: "/images/trainers/trainer-2.webp",      alt: "Trainer" },
+      { src: "/images/trainers/kishwar-trainer.webp", alt: "Trainer in Action" },
+    ],
+  },
 ]
 
 // ─── Page ────────────────────────────────────────────────────────────────────
@@ -47,7 +117,7 @@ export default function GalleryPage() {
       <section className="relative h-72 sm:h-96 flex items-end overflow-hidden bg-[#0a0a0a]">
         <Image
           src="/images/gallery/gym-floor.webp"
-          alt="Safa Fitness Club Gallery"
+          alt="Safa Fitness Club"
           fill
           priority
           className="object-cover object-center"
@@ -64,99 +134,76 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* ── BENTO GRID ── */}
-      <section className="section-padding bg-[#0a0a0a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Explore the Club</p>
-            <h2
-              className="text-4xl sm:text-5xl font-bold uppercase text-white"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              Inside <span className="text-[#f5a623]">Safa Fitness</span>
-            </h2>
-            <p className="text-gray-400 mt-3 text-sm max-w-xl mx-auto">
-              Premium facilities across 9 zones — all maintained to the highest standards of cleanliness and performance.
-            </p>
-          </div>
-
-          {/* Bento grid — 4 columns on desktop */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 auto-rows-[200px]">
-            {grid.map((item) => (
-              <div
-                key={item.img}
-                className={`group relative overflow-hidden rounded-lg ${item.span}`}
+      {/* ── CATEGORY SECTIONS ── */}
+      {categories.map((cat, catIndex) => (
+        <section
+          key={cat.id}
+          id={cat.id}
+          className={`section-padding ${catIndex % 2 === 0 ? "bg-[#0a0a0a]" : "bg-[#0d0d0d]"}`}
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Section heading */}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-px flex-1 bg-[#2a2a2a]" />
+              <h2
+                className="text-2xl sm:text-3xl font-bold uppercase text-white whitespace-nowrap"
+                style={{ fontFamily: "var(--font-display)" }}
               >
-                <Image
-                  src={item.img}
-                  alt={item.alt}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <span
-                    className="text-white font-bold text-sm uppercase tracking-wider"
-                    style={{ fontFamily: "var(--font-display)" }}
-                  >
-                    {item.label}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+                <span className="text-[#f5a623]">#</span> {cat.label}
+              </h2>
+              <div className="h-px flex-1 bg-[#2a2a2a]" />
+            </div>
 
-      {/* ── MORE PHOTOS ── */}
-      <section className="section-padding bg-[#0d0d0d]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">More From the Club</p>
-            <h2
-              className="text-4xl sm:text-5xl font-bold uppercase text-white"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              A Closer <span className="text-[#f5a623]">Look</span>
-            </h2>
+            {/* Photo grid */}
+            <div className={`grid gap-3 ${
+              cat.images.length === 1 ? "grid-cols-1 max-w-lg mx-auto" :
+              cat.images.length === 2 ? "grid-cols-1 sm:grid-cols-2" :
+              cat.images.length <= 4  ? "grid-cols-2 sm:grid-cols-2 lg:grid-cols-4" :
+                                        "grid-cols-2 sm:grid-cols-3"
+            }`}>
+              {cat.images.map((img, i) => (
+                <div
+                  key={img.src}
+                  className={`group relative overflow-hidden rounded-lg ${
+                    cat.images.length >= 5 && i === 0 ? "col-span-2 sm:col-span-1" : ""
+                  }`}
+                  style={{ aspectRatio: "4/3" }}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {morePhotos.map((p) => (
-              <div key={p.img} className="group relative h-56 sm:h-64 overflow-hidden rounded-lg">
-                <Image
-                  src={p.img}
-                  alt={p.alt}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      ))}
 
       {/* ── FOLLOW ON SOCIAL ── */}
-      <section className="section-padding bg-[#0a0a0a]">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="section-padding bg-[#0a0a0a] border-t border-[#2a2a2a]">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-4">Stay Connected</p>
           <h2
-            className="text-4xl sm:text-5xl font-bold uppercase text-white mb-4"
+            className="text-3xl sm:text-4xl font-bold uppercase text-white mb-3"
             style={{ fontFamily: "var(--font-display)" }}
           >
             Follow <span className="text-[#f5a623]">@safafitnessclubofficial</span>
           </h2>
-          <p className="text-gray-400 text-sm mb-8 leading-relaxed">
-            See the latest from our gym floor, events, member transformations, and team moments. Follow us on social media for daily updates.
+          <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+            See our latest updates, member transformations, and behind-the-scenes moments across all platforms.
           </p>
-          <div className="flex justify-center mb-8">
-            <SocialLinks />
+          <div className="flex justify-center mb-6">
+            <SocialLinks layout="row" />
           </div>
           <a
             href="https://www.instagram.com/safafitnessclubofficial/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-10 py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors"
+            className="inline-block px-8 py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors"
           >
             Follow on Instagram
           </a>

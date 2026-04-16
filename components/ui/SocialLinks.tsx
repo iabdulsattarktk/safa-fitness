@@ -55,9 +55,19 @@ const socials = [
   },
 ]
 
-export default function SocialLinks({ className = "" }: { className?: string }) {
+export default function SocialLinks({
+  className = "",
+  layout = "grid",
+}: {
+  className?: string
+  layout?: "grid" | "row"
+}) {
+  const wrapperClass =
+    layout === "row"
+      ? `flex items-center gap-2 flex-wrap ${className}`
+      : `grid grid-cols-3 gap-2 w-fit ${className}`
   return (
-    <div className={`grid grid-cols-3 gap-2 w-fit ${className}`}>
+    <div className={wrapperClass}>
       {socials.map((s) => (
         <a
           key={s.label}
