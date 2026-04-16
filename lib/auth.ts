@@ -2,7 +2,7 @@ import NextAuth from "next-auth"
 import Google from "next-auth/providers/google"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { db } from "@/lib/db"
-import type { Role } from "@/app/generated/prisma"
+import type { Role } from "@/app/generated/prisma/client"
 
 // Emails that get ADMIN role (from .env)
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS ?? "")
@@ -36,7 +36,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async session({ session, user }) {
       if (session.user) {
         session.user.id = user.id
-        session.user.role = (user as { role: Role }).role
+        session.user.role = (user as unknown as { role: Role }).role
       }
       return session
     },

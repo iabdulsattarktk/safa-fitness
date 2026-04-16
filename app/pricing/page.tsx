@@ -1,0 +1,548 @@
+import Image from "next/image"
+import CTABanner from "@/components/layout/CTABanner"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Membership & Pricing | Safa Fitness Club – Islamabad",
+  description:
+    "Explore Safa Fitness Club membership plans — Gym, Swimming Pool, Gym + VIP Lockers, Gym + Pool, Kids, and Day Pass. PKR pricing with 3, 6 & 12-month discounts available.",
+}
+
+// ─── Data ────────────────────────────────────────────────────────────────────
+
+const plans = [
+  {
+    id: "day-pass",
+    name: "Day Pass",
+    price: "2,500",
+    period: "per visit",
+    registration: null,
+    badge: null,
+    highlight: false,
+    img: "/images/facilities/gym.webp",
+    features: [
+      "Full gym access for 1 day",
+      "Boxing ring access",
+      "Snooker lounge",
+      "Safa Bar (beverages)",
+      "Standard locker use",
+      "No commitment required",
+    ],
+    cta: "Walk In Today",
+    ctaNote: "No booking required — bring valid ID",
+  },
+  {
+    id: "swimming",
+    name: "Swimming Pool",
+    price: "12,000",
+    period: "per month",
+    registration: "18,000",
+    badge: null,
+    highlight: false,
+    img: "/images/facilities/swimming-pool.webp",
+    features: [
+      "Heated indoor pool access",
+      "Professional swimming coach",
+      "Beginner to advanced programs",
+      "Aquatic fitness sessions",
+      "Locker & shower access",
+      "BLS-certified lifeguard on duty",
+    ],
+    cta: "Join Now",
+    ctaNote: "One-time registration: PKR 18,000",
+  },
+  {
+    id: "gym",
+    name: "Gym Only",
+    price: "18,000",
+    period: "per month",
+    registration: "18,000",
+    badge: null,
+    highlight: false,
+    img: "/images/facilities/gym.webp",
+    features: [
+      "Full gym & fitness floor",
+      "Boxing ring access",
+      "Snooker lounge",
+      "Safa Bar (beverages)",
+      "Standard locker & shower",
+      "Certified trainer guidance",
+    ],
+    cta: "Join Now",
+    ctaNote: "One-time registration: PKR 18,000",
+  },
+  {
+    id: "gym-vip",
+    name: "Gym + VIP Lockers",
+    price: "24,000",
+    period: "per month",
+    registration: "18,000",
+    badge: "Enhanced",
+    highlight: false,
+    img: "/images/gallery/locker-1.webp",
+    features: [
+      "Everything in Gym Only",
+      "Dedicated VIP locker",
+      "Premium shower facilities",
+      "Secure personal storage",
+      "Priority locker room access",
+      "Certified trainer guidance",
+    ],
+    cta: "Join Now",
+    ctaNote: "One-time registration: PKR 18,000",
+  },
+  {
+    id: "gym-pool",
+    name: "Gym + Pool",
+    price: "28,000",
+    period: "per month",
+    registration: "18,000",
+    badge: "Most Popular",
+    highlight: true,
+    img: "/images/facilities/swimming-pool.webp",
+    features: [
+      "Full gym & fitness floor",
+      "Heated indoor swimming pool",
+      "Boxing ring access",
+      "Steam, Sauna & Jacuzzi",
+      "VIP lockers & premium showers",
+      "Snooker lounge & Safa Bar",
+    ],
+    cta: "Join Now",
+    ctaNote: "One-time registration: PKR 18,000",
+  },
+  {
+    id: "kids",
+    name: "Kids",
+    price: "18,000",
+    period: "per month",
+    registration: "10,000",
+    badge: "Ages 6–16",
+    highlight: false,
+    img: "/images/facilities/swimming-pool.webp",
+    features: [
+      "Supervised gym access",
+      "Swimming pool sessions",
+      "Age-appropriate training",
+      "Professional coach guidance",
+      "Safe and structured environment",
+      "Lower one-time registration",
+    ],
+    cta: "Enroll Now",
+    ctaNote: "One-time registration: PKR 10,000",
+  },
+]
+
+const faqs = [
+  {
+    q: "Is there a one-time registration fee?",
+    a: "Yes. All plans (except the Day Pass) require a one-time registration fee of PKR 18,000. The Kids plan has a reduced registration fee of PKR 10,000. This is a one-time payment per member.",
+  },
+  {
+    q: "Can I pay for 3, 6, or 12 months at once?",
+    a: "Yes — discounts are available when you pay for 3, 6, or 12 months upfront on all monthly plans. Contact us directly on +92-311-5156949 or +92-330-0007232 to get the current discount rates.",
+  },
+  {
+    q: "Do you offer day passes for visitors?",
+    a: "Yes. A Day Pass is available for PKR 2,500 per visit and gives you full access to the gym for that day. No booking required — just walk in with a valid ID.",
+  },
+  {
+    q: "What facilities are shared across all memberships?",
+    a: "The Snooker Lounge and Safa Bar (fresh juices, smoothies, and beverages) are accessible to all members. The Boxing Ring is also available to all gym plan members.",
+  },
+  {
+    q: "Is the Massage & Spa included in memberships?",
+    a: "Massage & Spa services are available at the club but are charged separately from memberships. Please speak to our front desk staff for session pricing.",
+  },
+  {
+    q: "How do I sign up or upgrade my membership?",
+    a: "Walk in to Safa Fitness Club at Safa Gold Mall, 5th Floor, F-7 Markaz, Islamabad, and bring a valid ID. You can also call us at +92-311-5156949 to enquire or arrange a visit.",
+  },
+  {
+    q: "Are there female-only gym hours?",
+    a: "Yes — dedicated hours are available for female members. Contact us directly for the current schedule as timings may vary.",
+  },
+]
+
+// ─── Page ────────────────────────────────────────────────────────────────────
+
+export default function PricingPage() {
+  return (
+    <>
+      {/* ── PAGE HERO ── */}
+      <section className="relative h-72 sm:h-96 flex items-end overflow-hidden bg-[#0a0a0a]">
+        <Image
+          src="/images/facilities/pricing-banner.webp"
+          alt="Safa Fitness Club Membership Plans"
+          fill
+          priority
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
+          <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">Join the Club</p>
+          <h1
+            className="text-5xl sm:text-7xl font-bold uppercase text-white leading-none"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            Membership <span className="text-[#f5a623]">Plans</span>
+          </h1>
+        </div>
+      </section>
+
+      {/* ── REGISTRATION FEE NOTICE ── */}
+      <section className="bg-[#141414] border-b border-[#2a2a2a]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span className="text-[#f5a623] text-lg flex-shrink-0">ℹ️</span>
+            <p className="text-gray-300 text-sm">
+              All plans require a <span className="text-white font-semibold">one-time registration fee of PKR 18,000</span> (Kids: PKR 10,000). Monthly rates shown below.
+            </p>
+          </div>
+          <a
+            href="tel:+923115156949"
+            className="whitespace-nowrap text-[#f5a623] font-bold text-sm hover:text-[#e09410] transition-colors"
+          >
+            📞 +92-311-5156949
+          </a>
+        </div>
+      </section>
+
+      {/* ── PLANS GRID ── */}
+      <section className="section-padding bg-[#0a0a0a]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Choose Your Plan</p>
+            <h2
+              className="text-4xl sm:text-5xl font-bold uppercase text-white"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Membership <span className="text-[#f5a623]">Options</span>
+            </h2>
+            <p className="text-gray-400 mt-3 max-w-xl mx-auto text-sm">
+              Flexible plans to match your goals. All prices in PKR. Discounts available for 3, 6 &amp; 12-month commitments.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {plans.map((plan) => (
+              <div
+                key={plan.id}
+                className={`relative flex flex-col rounded-lg overflow-hidden border transition-all duration-300 hover:-translate-y-1 ${
+                  plan.highlight
+                    ? "border-[#f5a623] bg-[#141414] shadow-[0_0_30px_rgba(245,166,35,0.15)]"
+                    : "border-[#2a2a2a] bg-[#141414] hover:border-[#f5a623]/40"
+                }`}
+              >
+                {/* Badge */}
+                {plan.badge && (
+                  <div className={`absolute top-3 right-3 z-10 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded ${
+                    plan.highlight ? "bg-[#f5a623] text-black" : "bg-[#2a2a2a] text-[#f5a623] border border-[#f5a623]/30"
+                  }`}>
+                    {plan.badge}
+                  </div>
+                )}
+
+                {/* Image */}
+                <div className="relative h-44 overflow-hidden">
+                  <Image
+                    src={plan.img}
+                    alt={plan.name}
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/40 to-transparent" />
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-col flex-1 p-6">
+                  <h3
+                    className="text-white font-bold text-2xl uppercase mb-1"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {plan.name}
+                  </h3>
+
+                  {/* Price */}
+                  <div className="mb-5">
+                    <div className="flex items-end gap-2">
+                      <span className="text-[#f5a623] text-xs font-bold uppercase">PKR</span>
+                      <span
+                        className="text-4xl font-bold text-white leading-none"
+                        style={{ fontFamily: "var(--font-display)" }}
+                      >
+                        {plan.price}
+                      </span>
+                    </div>
+                    <p className="text-gray-500 text-xs mt-1">{plan.period}</p>
+                  </div>
+
+                  {/* Features */}
+                  <ul className="space-y-2 mb-6 flex-1">
+                    {plan.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-gray-400 text-sm">
+                        <span className="text-[#f5a623] mt-0.5 flex-shrink-0">✓</span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA */}
+                  <div>
+                    <a
+                      href="tel:+923115156949"
+                      className={`block text-center py-3 px-6 font-bold text-sm uppercase tracking-wider rounded transition-colors ${
+                        plan.highlight
+                          ? "bg-[#f5a623] hover:bg-[#e09410] text-black"
+                          : "bg-[#1a1a1a] hover:bg-[#222] text-white border border-[#2a2a2a] hover:border-[#f5a623]/50"
+                      }`}
+                    >
+                      {plan.cta}
+                    </a>
+                    {plan.ctaNote && (
+                      <p className="text-gray-600 text-xs text-center mt-2">{plan.ctaNote}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── DISCOUNT BANNER ── */}
+      <section className="bg-[#0d0d0d] border-y border-[#2a2a2a]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="flex flex-col lg:flex-row items-center gap-8">
+            <div className="flex-1 text-center lg:text-left">
+              <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">Save More</p>
+              <h2
+                className="text-3xl sm:text-4xl font-bold uppercase text-white"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                3, 6 &amp; 12 Month <span className="text-[#f5a623]">Discounts</span>
+              </h2>
+              <p className="text-gray-400 mt-2 text-sm max-w-lg">
+                Pay upfront for 3, 6, or 12 months on any monthly plan and receive a discount. Contact us to get the current rates before signing up.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 lg:flex-shrink-0">
+              <a
+                href="tel:+923115156949"
+                className="px-8 py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors text-center"
+              >
+                Call for Discount Rates
+              </a>
+              <a
+                href="mailto:contact@safafitnessclub.com"
+                className="px-8 py-3 border border-[#f5a623] text-[#f5a623] hover:bg-[#f5a623] hover:text-black font-bold text-sm uppercase tracking-wider rounded transition-colors text-center"
+              >
+                Email Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHAT'S INCLUDED ── */}
+      <section className="section-padding bg-[#0a0a0a]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">The Full Experience</p>
+            <h2
+              className="text-4xl sm:text-5xl font-bold uppercase text-white"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Every Member <span className="text-[#f5a623]">Gets</span>
+            </h2>
+            <p className="text-gray-400 mt-3 max-w-xl mx-auto text-sm">
+              Regardless of your plan, you have access to world-class facilities and a team that is invested in your results.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                img: "/images/trainers/kishwar-trainer.webp",
+                title: "Certified Trainers",
+                desc: "5 internationally certified trainers on the floor. Expert guidance, form correction, and personalized programming.",
+              },
+              {
+                img: "/images/facilities/gym.webp",
+                title: "Premium Equipment",
+                desc: "State-of-the-art gym machines and free weights maintained to the highest standards for optimal performance.",
+              },
+              {
+                img: "/images/facilities/safa-bar.webp",
+                title: "Safa Bar",
+                desc: "Fresh juices, smoothies, protein shakes, and beverages available at our in-house Safa Bar after every session.",
+              },
+              {
+                img: "/images/facilities/snooker.webp",
+                title: "Snooker Lounge",
+                desc: "Unwind after your workout at our premium snooker lounge — exclusive to Safa Fitness Club members.",
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className="relative h-44 overflow-hidden">
+                  <Image
+                    src={item.img}
+                    alt={item.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 px-4 pb-3">
+                    <h3
+                      className="text-white font-bold text-lg uppercase group-hover:text-[#f5a623] transition-colors"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    >
+                      {item.title}
+                    </h3>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── HOW TO JOIN ── */}
+      <section className="section-padding bg-[#0d0d0d]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Simple Process</p>
+            <h2
+              className="text-4xl sm:text-5xl font-bold uppercase text-white"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              How to <span className="text-[#f5a623]">Join</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              {
+                step: "01",
+                title: "Walk In",
+                desc: "Visit us at Safa Gold Mall, 5th Floor, F-7 Markaz, Islamabad. No appointment needed — walk in any time during opening hours.",
+              },
+              {
+                step: "02",
+                title: "Choose a Plan",
+                desc: "Our staff will walk you through all available membership plans and help you choose the one that fits your goals and budget.",
+              },
+              {
+                step: "03",
+                title: "Start Training",
+                desc: "Complete your registration with a valid ID, pay the one-time fee, and start your fitness journey the same day.",
+              },
+            ].map((s) => (
+              <div key={s.step} className="relative bg-[#141414] border border-[#2a2a2a] rounded-lg p-7">
+                <span
+                  className="text-7xl font-bold text-[#1a1a1a] absolute top-4 right-5 select-none pointer-events-none"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {s.step}
+                </span>
+                <p className="text-[#f5a623] font-bold text-xs uppercase tracking-[0.3em] mb-2">{s.step}</p>
+                <h3
+                  className="text-white font-bold text-2xl uppercase mb-3 relative z-10"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {s.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed relative z-10">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="section-padding bg-[#0a0a0a]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Got Questions?</p>
+            <h2
+              className="text-4xl sm:text-5xl font-bold uppercase text-white"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Frequently Asked <span className="text-[#f5a623]">Questions</span>
+            </h2>
+          </div>
+
+          <div className="space-y-3">
+            {faqs.map((faq) => (
+              <details
+                key={faq.q}
+                className="group bg-[#141414] border border-[#2a2a2a] rounded-lg overflow-hidden open:border-[#f5a623]/40"
+              >
+                <summary className="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer list-none select-none text-white font-semibold text-sm hover:text-[#f5a623] transition-colors">
+                  {faq.q}
+                  <span className="text-[#f5a623] flex-shrink-0 text-lg transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <div className="px-6 pb-5 pt-1 border-t border-[#2a2a2a]">
+                  <p className="text-gray-400 text-sm leading-relaxed">{faq.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <p className="text-gray-400 text-sm mb-4">Still have questions? We are happy to help.</p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a
+                href="tel:+923115156949"
+                className="px-8 py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors"
+              >
+                📞 Call Us
+              </a>
+              <a
+                href="mailto:contact@safafitnessclub.com"
+                className="px-8 py-3 border border-[#2a2a2a] hover:border-[#f5a623] text-gray-300 hover:text-[#f5a623] font-bold text-sm uppercase tracking-wider rounded transition-colors"
+              >
+                ✉️ Email Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── LOCATION STRIP ── */}
+      <section className="py-10 bg-[#0d0d0d] border-y border-[#2a2a2a]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="text-white font-bold text-lg" style={{ fontFamily: "var(--font-display)" }}>
+              📍 Safa Gold Mall, 5th Floor, F-7 Markaz, Islamabad
+            </p>
+            <p className="text-gray-400 text-sm mt-1">Mon–Sat: 7:00 AM – 11:00 PM &nbsp;|&nbsp; Sun: 12:00 PM – 10:00 PM</p>
+          </div>
+          <a
+            href="https://maps.google.com/?q=Safa+Fitness+Club,Safa+Gold+Mall,F-7+Markaz,Islamabad"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="whitespace-nowrap px-8 py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors"
+          >
+            Get Directions
+          </a>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <CTABanner
+        heading="Ready to Join the Club?"
+        subheading="Walk in to Safa Fitness Club today. Our team will help you find the right plan and get you started immediately."
+        primaryBtn={{ label: "Call to Join", href: "tel:+923115156949" }}
+        secondaryBtn={{ label: "Contact Us", href: "/contact" }}
+        variant="orange"
+      />
+    </>
+  )
+}
