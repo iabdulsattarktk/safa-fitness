@@ -13,24 +13,24 @@ export const metadata: Metadata = {
 
 const values = [
   {
-    icon: "🏆",
     title: "Excellence",
     desc: "State-of-the-art equipment and world-class facilities that match international fitness standards.",
+    img: "/images/facilities/gym.webp",
   },
   {
-    icon: "🤝",
     title: "Community",
     desc: "A welcoming environment where members of all fitness levels feel motivated and supported.",
+    img: "/images/team-banner2.webp",
   },
   {
-    icon: "💡",
     title: "Expertise",
     desc: "Certified trainers with decades of combined experience delivering personalized programs.",
+    img: "/images/trainers/kishwar-trainer.webp",
   },
   {
-    icon: "✨",
     title: "Wellness",
     desc: "Holistic approach to health — from gym and pool to spa, sauna, and nutrition guidance.",
+    img: "/images/facilities/sauna.webp",
   },
 ]
 
@@ -183,16 +183,28 @@ export default function AboutPage() {
             {values.map((v) => (
               <div
                 key={v.title}
-                className="p-6 bg-[#141414] border border-[#2a2a2a] rounded-lg hover:border-[#f5a623]/40 transition-colors"
+                className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="text-4xl mb-4">{v.icon}</div>
-                <h3
-                  className="text-white font-bold text-xl uppercase mb-3"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {v.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{v.desc}</p>
+                <div className="relative h-44 overflow-hidden">
+                  <Image
+                    src={v.img}
+                    alt={v.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 px-4 pb-3">
+                    <h3
+                      className="text-white font-bold text-xl uppercase group-hover:text-[#f5a623] transition-colors"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    >
+                      {v.title}
+                    </h3>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <p className="text-gray-400 text-sm leading-relaxed">{v.desc}</p>
+                </div>
               </div>
             ))}
           </div>

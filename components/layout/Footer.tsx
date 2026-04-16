@@ -142,12 +142,14 @@ export default function Footer() {
                 📍 Walk-ins welcome. Bring a valid ID for first-time registration.
               </p>
             </div>
-            <Link
-              href="/contact"
+            <a
+              href="https://maps.google.com/?q=Safa+Fitness+Club,Safa+Gold+Mall,F-7+Markaz,Islamabad"
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-4 block text-center py-2.5 border border-[#f5a623] text-[#f5a623] hover:bg-[#f5a623] hover:text-black text-sm font-bold rounded transition-colors duration-200"
             >
               Get Directions
-            </Link>
+            </a>
           </div>
         </div>
       </div>
