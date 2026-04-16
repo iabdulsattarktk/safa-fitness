@@ -3,6 +3,7 @@ import { Inter, Oswald } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
+import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp"
 
 const inter = Inter({
   variable: "--font-body",
@@ -68,6 +69,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <FloatingWhatsApp />
       </body>
     </html>
   )

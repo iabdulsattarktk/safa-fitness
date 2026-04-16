@@ -191,22 +191,20 @@ export default function GalleryPage() {
             className="text-3xl sm:text-4xl font-bold uppercase text-white mb-3"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Follow <span className="text-[#f5a623]">@safafitnessclubofficial</span>
+            We Are <span className="text-[#f5a623]">Everywhere</span>
           </h2>
-          <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-            See our latest updates, member transformations, and behind-the-scenes moments across all platforms.
+          <p className="text-gray-400 text-sm mb-2 leading-relaxed">
+            Follow Safa Fitness Club across all platforms for daily workout content, member transformation stories, facility tours, trainer tips, and exclusive offers — wherever you spend your time online.
           </p>
-          <div className="flex justify-center mb-6">
+          <p className="text-gray-500 text-xs mb-6">
+            Instagram &bull; Facebook &bull; YouTube &bull; X &bull; Pinterest &bull; LinkedIn
+          </p>
+          <div className="flex justify-center mb-7">
             <SocialLinks layout="row" />
           </div>
-          <a
-            href="https://www.instagram.com/safafitnessclubofficial/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-8 py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors"
-          >
-            Follow on Instagram
-          </a>
+          <p className="text-gray-500 text-xs">
+            Handle: <span className="text-[#f5a623] font-semibold">@safafitnessclubofficial</span> on Instagram &amp; Facebook
+          </p>
         </div>
       </section>
 
