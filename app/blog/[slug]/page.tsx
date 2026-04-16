@@ -53,7 +53,7 @@ export default async function BlogPostPage({
           priority
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-[#0a0a0a]/20 to-transparent" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 w-full">
           <span
             className={`inline-block px-3 py-1 ${post.categoryColor} text-white text-xs font-bold uppercase tracking-wider rounded mb-3`}

@@ -42,6 +42,52 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ── Light Theme ──────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --background: #f0f0f0;
+  --foreground: #111111;
+  background-color: #f0f0f0;
+  color: #111111;
+}
+
+[data-theme="light"] body {
+  background-color: #f0f0f0;
+  color: #111111;
+}
+
+[data-theme="light"] header {
+  background-color: rgba(240, 240, 240, 0.95) !important;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+[data-theme="light"] main,
+[data-theme="light"] section,
+[data-theme="light"] footer {
+  background-color: #f0f0f0 !important;
+  color: #111111 !important;
+}
+
+[data-theme="light"] div {
+  border-color: #d0d0d0;
+}
+
+[data-theme="light"] input,
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  background-color: #f8f8f8 !important;
+  color: #111111 !important;
+  border-color: #d0d0d0 !important;
+}
+
+[data-theme="light"] ::placeholder {
+  color: #aaaaaa !important;
+}
+
+/* ── Hide Next.js dev overlay ─────────────────────────────────────────────── */
+nextjs-portal {
+  display: none !important;
+}
+
 /* ── Scrollbar ────────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;

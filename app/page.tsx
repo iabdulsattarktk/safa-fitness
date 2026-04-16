@@ -109,7 +109,7 @@ export default function HomePage() {
           />
         </div>
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-[#0a0a0a]/70" />
+        <div className="absolute inset-0 bg-[#0a0a0a]/45" />
         <div className="absolute inset-0 opacity-20"
           style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #f5a623 0%, transparent 50%)" }} />
 

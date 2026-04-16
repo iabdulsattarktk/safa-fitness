@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
+import ThemeToggle from "@/components/ui/ThemeToggle"
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -75,8 +76,9 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Desktop CTA + Hamburger */}
+          {/* Desktop CTA + Toggle + Hamburger */}
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <Link
               href="/pricing"
               className="hidden sm:inline-flex items-center px-5 py-2 bg-[#f5a623] hover:bg-[#e09410] text-black text-sm font-bold rounded transition-colors duration-200 whitespace-nowrap"
