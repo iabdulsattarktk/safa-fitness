@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/gallery", label: "Gallery" },
   { href: "/pricing", label: "Membership & Pricing" },
   { href: "/tools", label: "Free Tools" },
+  { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ]
 
@@ -53,19 +54,25 @@ export default function Navbar() {
 
           {/* Desktop Links */}
           <div className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`px-3 py-2 text-sm font-medium rounded transition-colors duration-200 whitespace-nowrap ${
-                  pathname === link.href
-                    ? "text-[#f5a623]"
-                    : "text-gray-300 hover:text-white"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const active = pathname === link.href
+              return active ? (
+                <span
+                  key={link.href}
+                  className="px-3 py-2 text-sm font-medium rounded whitespace-nowrap text-[#f5a623] cursor-default"
+                >
+                  {link.label}
+                </span>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="px-3 py-2 text-sm font-medium rounded transition-colors duration-200 whitespace-nowrap text-gray-300 hover:text-white"
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
           </div>
 
           {/* Desktop CTA + Hamburger */}
@@ -100,19 +107,25 @@ export default function Navbar() {
         {menuOpen && (
           <div className="lg:hidden border-t border-[#2a2a2a] py-4">
             <div className="flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`px-4 py-3 text-sm font-medium rounded transition-colors duration-200 ${
-                    pathname === link.href
-                      ? "text-[#f5a623] bg-[#1a1a1a]"
-                      : "text-gray-300 hover:text-white hover:bg-[#1a1a1a]"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const active = pathname === link.href
+                return active ? (
+                  <span
+                    key={link.href}
+                    className="px-4 py-3 text-sm font-medium rounded text-[#f5a623] bg-[#1a1a1a] cursor-default"
+                  >
+                    {link.label}
+                  </span>
+                ) : (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="px-4 py-3 text-sm font-medium rounded transition-colors duration-200 text-gray-300 hover:text-white hover:bg-[#1a1a1a]"
+                  >
+                    {link.label}
+                  </Link>
+                )
+              })}
               <Link
                 href="/pricing"
                 className="mt-3 mx-4 py-3 bg-[#f5a623] hover:bg-[#e09410] text-black text-sm font-bold rounded text-center transition-colors duration-200"

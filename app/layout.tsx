@@ -4,6 +4,7 @@ import "./globals.css"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp"
+import ScrollToTop from "@/components/ui/ScrollToTop"
 
 const inter = Inter({
   variable: "--font-body",
@@ -64,6 +65,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${oswald.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-[#0a0a0a] text-white antialiased">
+        <ScrollToTop />
         <Navbar />
         <main className="flex-1 pt-16">
           {children}
