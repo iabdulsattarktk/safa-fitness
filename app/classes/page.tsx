@@ -232,9 +232,14 @@ export default function ClassesPage() {
                     Bring a valid ID for first-time registration. Our team will guide you through the facilities and match you with the right class.
                   </p>
                 </div>
-                <Link href="/contact" className="inline-block text-center bg-black text-white text-sm font-bold uppercase tracking-wider px-6 py-3 rounded hover:bg-[#111] transition-colors">
+                <a
+                  href="https://maps.google.com/?q=Safa+Fitness+Club,Safa+Gold+Mall,F-7+Markaz,Islamabad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-center bg-black text-white text-sm font-bold uppercase tracking-wider px-6 py-3 rounded hover:bg-[#111] transition-colors"
+                >
                   Get Directions
-                </Link>
+                </a>
               </div>
             </div>
           </div>

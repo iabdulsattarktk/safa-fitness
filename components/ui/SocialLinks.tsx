@@ -57,7 +57,7 @@ const socials = [
 
 export default function SocialLinks({ className = "" }: { className?: string }) {
   return (
-    <div className={`flex items-center gap-3 flex-wrap ${className}`}>
+    <div className={`grid grid-cols-3 gap-2 w-fit ${className}`}>
       {socials.map((s) => (
         <a
           key={s.label}
