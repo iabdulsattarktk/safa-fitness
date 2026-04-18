@@ -1,15 +1,14 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
-import LoginForm from "@/components/auth/LoginForm"
+import RegisterForm from "@/components/auth/RegisterForm"
 import type { Metadata } from "next"
 import Image from "next/image"
 
 export const metadata: Metadata = {
-  title: "Member Login | Safa Fitness Club",
-  description: "Login to your Safa Fitness Club member account.",
+  title: "Register | Safa Fitness Club",
 }
 
-export default async function LoginPage() {
+export default async function RegisterPage() {
   const session = await auth()
   if (session) redirect("/dashboard")
 
@@ -38,20 +37,20 @@ export default async function LoginPage() {
               className="text-3xl font-bold uppercase text-white mb-2"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Member <span className="text-[#f5a623]">Login</span>
+              Create <span className="text-[#f5a623]">Account</span>
             </h1>
             <p className="text-gray-500 text-sm">
-              Apne member portal mein sign in karo
+              Naya member account banao
             </p>
           </div>
 
-          <LoginForm />
+          <RegisterForm />
 
           <div className="mt-8 pt-6 border-t border-[#2a2a2a] text-center">
             <p className="text-gray-600 text-xs">
-              Not a member yet?{" "}
-              <a href="/pricing" className="text-[#f5a623] hover:text-[#e09410] transition-colors">
-                View Membership Plans
+              Pehle se account hai?{" "}
+              <a href="/login" className="text-[#f5a623] hover:text-[#e09410] transition-colors">
+                Sign In karo
               </a>
             </p>
           </div>

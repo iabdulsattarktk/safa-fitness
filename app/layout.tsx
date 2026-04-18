@@ -130,7 +130,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[#0a0a0a] text-white antialiased">
+      <body className="min-h-full flex flex-col bg-[#faf7f2] text-[#1a1505] antialiased">
         <Providers>
           <PageDecorations />
           <ScrollRevealInit />

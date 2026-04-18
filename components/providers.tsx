@@ -8,7 +8,7 @@ import ToolModal from "@/components/tools/ToolModal"
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <SessionProvider>
-      <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false}>
+      <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem={false}>
         <ToolModalProvider>
           {children}
           <ToolModal />
