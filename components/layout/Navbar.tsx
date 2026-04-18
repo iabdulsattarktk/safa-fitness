@@ -19,12 +19,18 @@ const navLinks = [
 ]
 
 const toolsMenu = [
-  { slug: "bmi",         label: "BMI Calculator",       hint: "Height · Weight" },
-  { slug: "calories",    label: "Calorie Calculator",    hint: "Age · Gender · Activity" },
-  { slug: "body-fat",    label: "Body Fat % Estimator",  hint: "Height · Waist · Neck" },
-  { slug: "macros",      label: "Macro Planner",         hint: "Calories · Goal" },
-  { slug: "one-rep-max", label: "One Rep Max",           hint: "Weight · Reps" },
-  { slug: "ideal-weight",label: "Ideal Weight",          hint: "Height · Gender" },
+  { slug: "bmi",          label: "BMI Calculator",        hint: "Height · Weight" },
+  { slug: "calories",     label: "Calorie Calculator",     hint: "Age · Gender · Activity" },
+  { slug: "body-fat",     label: "Body Fat % Estimator",   hint: "Height · Waist · Neck" },
+  { slug: "macros",       label: "Macro Planner",          hint: "Calories · Goal" },
+  { slug: "one-rep-max",  label: "One Rep Max",            hint: "Weight · Reps" },
+  { slug: "ideal-weight", label: "Ideal Weight",           hint: "Height · Gender" },
+  { slug: "water",        label: "Water Intake",           hint: "Weight · Activity" },
+  { slug: "heart-rate",   label: "Heart Rate Zones",       hint: "Age" },
+  { slug: "lean-mass",    label: "Lean Body Mass",         hint: "Weight · Height · Gender" },
+  { slug: "protein",      label: "Protein Calculator",     hint: "Weight · Goal" },
+  { slug: "running-pace", label: "Running Pace",           hint: "Distance · Time" },
+  { slug: "waist-height", label: "Waist-Height Ratio",     hint: "Waist · Height" },
 ]
 
 export default function Navbar() {
@@ -174,7 +180,7 @@ export default function Navbar() {
               {/* Dropdown Panel */}
               {toolsOpen && (
                 <div
-                  className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[420px]"
+                  className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[480px]"
                   onMouseEnter={handleToolsEnter}
                   onMouseLeave={handleToolsLeave}
                 >

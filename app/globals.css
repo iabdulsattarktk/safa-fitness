@@ -112,11 +112,11 @@ header {
 }
 /* Scrolled state */
 .bg-\[\#0a0a0a\]\/80 {
-  background-color: rgba(250,247,242,0.92) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom-color: rgba(232,220,200,0.8) !important;
-  box-shadow: 0 1px 12px rgba(26,21,5,0.06) !important;
+  background-color: rgba(250,247,242,0.72) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: rgba(232,220,200,0.6) !important;
+  box-shadow: 0 1px 12px rgba(26,21,5,0.05) !important;
 }
 
 /* Nav links */
@@ -199,9 +199,9 @@ summary { color: #1a1505 !important; }
 [data-theme="dark"] .hover\:bg-\[\#1a1a1a\]:hover { background-color: #1a1a1a; }
 [data-theme="dark"] .hover\:text-white:hover       { color: #ffffff; }
 [data-theme="dark"] .bg-\[\#0a0a0a\]\/80 {
-  background-color: rgba(10,10,10,0.8) !important;
+  background-color: rgba(10,10,10,0.6) !important;
   border-bottom-color: rgba(255,255,255,0.05) !important;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.4) !important;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.3) !important;
 }
 [data-theme="dark"] .bg-\[\#141414\]\/95 {
   background-color: rgba(20,20,20,0.95) !important;

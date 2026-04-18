@@ -466,14 +466,243 @@ function IdealWeightCalc() {
   )
 }
 
+// ─── Water Intake ─────────────────────────────────────────────────────────────
+function WaterCalc() {
+  const [weight,setWeight]=useState("")
+  const [activity,setActivity]=useState("moderate")
+  const [result,setResult]=useState<number|null>(null)
+  const levels=[
+    {key:"sedentary",  label:"Sedentary",   mult:35},
+    {key:"moderate",   label:"Moderate",    mult:40},
+    {key:"active",     label:"Very Active", mult:45},
+  ]
+  function calc(){const w=parseFloat(weight);if(!w||w<20)return;const m=levels.find(l=>l.key===activity)!.mult;setResult(Math.round(w*m/100)/10)}
+  return(
+    <div className="space-y-5">
+      <p className="text-gray-400 text-sm">Calculate your recommended daily water intake based on body weight and activity level.</p>
+      <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-5 space-y-4">
+        <div><label className={lbl}>Body Weight (kg)</label><input type="number" value={weight} onChange={e=>{setWeight(e.target.value);setResult(null)}} placeholder="70" className={inp}/></div>
+        <div><label className={lbl}>Activity Level</label>
+          <div className="flex gap-2">{levels.map(l=>(
+            <button key={l.key} onClick={()=>{setActivity(l.key);setResult(null)}} className={`flex-1 py-2.5 text-xs font-bold uppercase rounded transition-colors ${activity===l.key?"bg-[#f5a623] text-black":"bg-[#1a1a1a] text-gray-400 hover:text-white"}`}>{l.label}</button>
+          ))}</div>
+        </div>
+        <button onClick={calc} className="w-full py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors">Calculate Water Intake</button>
+      </div>
+      {result&&(<div className="bg-[#141414] border border-[#f5a623]/40 rounded-lg p-5 text-center">
+        <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Daily Water Intake</p>
+        <span className="text-5xl font-bold text-white" style={{fontFamily:"var(--font-display)"}}>{result}</span>
+        <span className="text-xl text-[#f5a623] font-bold ml-2">L / day</span>
+        <p className="text-gray-500 text-xs mt-2">{Math.round(result*1000)} ml · approx {Math.round(result*4)} glasses (250ml each)</p>
+        <CTA line1="Stay hydrated. Train harder." line2="Our coaches at Safa Fitness Club track your hydration and recovery as part of your personalised program." />
+      </div>)}
+    </div>
+  )
+}
+
+// ─── Max Heart Rate ────────────────────────────────────────────────────────────
+function HeartRateCalc() {
+  const [age,setAge]=useState("")
+  const [result,setResult]=useState<{max:number;zones:{name:string;min:number;max:number;desc:string}[]}|null>(null)
+  function calc(){
+    const a=parseInt(age);if(!a||a<10||a>100)return
+    const max=Math.round(208-0.7*a)
+    setResult({max,zones:[
+      {name:"Fat Burn",    min:Math.round(max*0.5),  max:Math.round(max*0.6),  desc:"Light activity, fat oxidation"},
+      {name:"Aerobic",     min:Math.round(max*0.6),  max:Math.round(max*0.7),  desc:"Builds endurance & cardio base"},
+      {name:"Cardio",      min:Math.round(max*0.7),  max:Math.round(max*0.85), desc:"Improves cardiovascular fitness"},
+      {name:"Peak",        min:Math.round(max*0.85), max:max,                  desc:"Maximum effort, short bursts"},
+    ]})
+  }
+  return(
+    <div className="space-y-5">
+      <p className="text-gray-400 text-sm">Calculate your maximum heart rate and target training zones using the Tanaka formula (208 − 0.7 × age).</p>
+      <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-5 space-y-4">
+        <div><label className={lbl}>Age (years)</label><input type="number" value={age} onChange={e=>{setAge(e.target.value);setResult(null)}} placeholder="30" className={inp}/></div>
+        <button onClick={calc} className="w-full py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors">Calculate Heart Rate Zones</button>
+      </div>
+      {result&&(<div className="bg-[#141414] border border-[#f5a623]/40 rounded-lg p-5">
+        <div className="text-center mb-5 pb-5 border-b border-[#2a2a2a]">
+          <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Max Heart Rate</p>
+          <span className="text-5xl font-bold text-white" style={{fontFamily:"var(--font-display)"}}>{result.max}</span>
+          <span className="text-xl text-[#f5a623] font-bold ml-2">BPM</span>
+        </div>
+        <div className="space-y-2">
+          {result.zones.map((z,i)=>(
+            <div key={z.name} className="flex items-center justify-between px-4 py-3 bg-[#1a1a1a] rounded-lg">
+              <div><p className="text-white text-sm font-semibold">{z.name} Zone</p><p className="text-gray-500 text-xs">{z.desc}</p></div>
+              <span className="text-[#f5a623] font-bold">{z.min}–{z.max} bpm</span>
+            </div>
+          ))}
+        </div>
+        <CTA line1="Train in the right zone with expert coaching" line2="Safa Fitness Club trainers design zone-specific cardio programs for fat loss, endurance, and peak performance." />
+      </div>)}
+    </div>
+  )
+}
+
+// ─── Lean Body Mass ────────────────────────────────────────────────────────────
+function LeanMassCalc() {
+  const [weight,setWeight]=useState("")
+  const [height,setHeight]=useState("")
+  const [gender,setGender]=useState("male")
+  const [result,setResult]=useState<number|null>(null)
+  function calc(){
+    const w=parseFloat(weight),h=parseFloat(height)
+    if(!w||!h||h<100)return
+    setResult(gender==="male"
+      ?Math.round((0.407*w+0.267*h-19.2)*10)/10
+      :Math.round((0.252*w+0.473*h-48.3)*10)/10)
+  }
+  return(
+    <div className="space-y-5">
+      <p className="text-gray-400 text-sm">Estimate your lean body mass (muscle, bone, organs — excluding fat) using the Boer formula.</p>
+      <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-5 space-y-4">
+        <div><label className={lbl}>Gender</label>
+          <div className="flex bg-[#1a1a1a] rounded p-1 w-fit">
+            {["male","female"].map(g=>(
+              <button key={g} onClick={()=>{setGender(g);setResult(null)}} className={`px-6 py-2 text-sm font-bold uppercase rounded transition-colors ${gender===g?"bg-[#f5a623] text-black":"text-gray-400 hover:text-white"}`}>{g}</button>
+            ))}
+          </div>
+        </div>
+        <div><label className={lbl}>Weight (kg)</label><input type="number" value={weight} onChange={e=>{setWeight(e.target.value);setResult(null)}} placeholder="75" className={inp}/></div>
+        <div><label className={lbl}>Height (cm)</label><input type="number" value={height} onChange={e=>{setHeight(e.target.value);setResult(null)}} placeholder="175" className={inp}/></div>
+        <button onClick={calc} className="w-full py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors">Calculate Lean Mass</button>
+      </div>
+      {result&&(<div className="bg-[#141414] border border-[#f5a623]/40 rounded-lg p-5 text-center">
+        <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Lean Body Mass</p>
+        <span className="text-5xl font-bold text-white" style={{fontFamily:"var(--font-display)"}}>{result}</span>
+        <span className="text-xl text-[#f5a623] font-bold ml-2">kg</span>
+        <p className="text-gray-500 text-xs mt-2">Fat mass ≈ {Math.round((parseFloat(weight)-result)*10)/10} kg</p>
+        <CTA line1="Build more lean muscle at Safa Fitness Club" line2="Our strength coaches will design a program to increase your lean mass and reduce body fat." />
+      </div>)}
+    </div>
+  )
+}
+
+// ─── Protein Calculator ────────────────────────────────────────────────────────
+function ProteinCalc() {
+  const [weight,setWeight]=useState("")
+  const [goal,setGoal]=useState("maintain")
+  const goals=[
+    {key:"lose",     label:"Lose Fat",      mult:1.8, note:"High protein to preserve muscle during a cut"},
+    {key:"maintain", label:"Maintain",      mult:1.6, note:"General health & muscle maintenance"},
+    {key:"gain",     label:"Build Muscle",  mult:2.2, note:"Higher intake to support muscle synthesis"},
+    {key:"athlete",  label:"Athlete",       mult:2.5, note:"For intense daily training"},
+  ]
+  const [result,setResult]=useState<number|null>(null)
+  function calc(){const w=parseFloat(weight);if(!w||w<20)return;const g=goals.find(g=>g.key===goal)!;setResult(Math.round(w*g.mult))}
+  const sel=goals.find(g=>g.key===goal)!
+  return(
+    <div className="space-y-5">
+      <p className="text-gray-400 text-sm">Calculate your daily protein requirement based on body weight and fitness goal.</p>
+      <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-5 space-y-4">
+        <div><label className={lbl}>Body Weight (kg)</label><input type="number" value={weight} onChange={e=>{setWeight(e.target.value);setResult(null)}} placeholder="75" className={inp}/></div>
+        <div><label className={lbl}>Goal</label>
+          <div className="grid grid-cols-2 gap-2">{goals.map(g=>(
+            <button key={g.key} onClick={()=>{setGoal(g.key);setResult(null)}} className={`py-2.5 text-xs font-bold uppercase rounded transition-colors ${goal===g.key?"bg-[#f5a623] text-black":"bg-[#1a1a1a] text-gray-400 hover:text-white"}`}>{g.label}</button>
+          ))}</div>
+        </div>
+        <button onClick={calc} className="w-full py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors">Calculate Protein</button>
+      </div>
+      {result&&(<div className="bg-[#141414] border border-[#f5a623]/40 rounded-lg p-5 text-center">
+        <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Daily Protein Target</p>
+        <span className="text-5xl font-bold text-white" style={{fontFamily:"var(--font-display)"}}>{result}</span>
+        <span className="text-xl text-[#f5a623] font-bold ml-2">g / day</span>
+        <p className="text-gray-500 text-xs mt-2">{sel.note}</p>
+        <p className="text-gray-500 text-xs">{Math.round(result/parseFloat(weight)*10)/10} g per kg of body weight</p>
+        <CTA line1="Hit your protein goals with expert guidance" line2="Safa Fitness Club nutrition coaches can help you plan meals to meet your daily protein target." />
+      </div>)}
+    </div>
+  )
+}
+
+// ─── Running Pace ─────────────────────────────────────────────────────────────
+function RunningPaceCalc() {
+  const [dist,setDist]=useState("")
+  const [mins,setMins]=useState("")
+  const [secs,setSecs]=useState("")
+  const [result,setResult]=useState<{paceMpk:string;paceKph:number;cal:number}|null>(null)
+  function calc(){
+    const d=parseFloat(dist),m=parseInt(mins)||0,s=parseInt(secs)||0
+    if(!d||d<=0||(m===0&&s===0))return
+    const totalSec=m*60+s
+    const secPerKm=totalSec/d
+    const paceMin=Math.floor(secPerKm/60)
+    const paceSec=Math.round(secPerKm%60)
+    const kph=Math.round((3600/secPerKm)*10)/10
+    const cal=Math.round(d*65)
+    setResult({paceMpk:`${paceMin}:${paceSec.toString().padStart(2,"0")}`,paceKph:kph,cal})
+  }
+  return(
+    <div className="space-y-5">
+      <p className="text-gray-400 text-sm">Calculate your running pace, speed, and estimated calories burned from your distance and time.</p>
+      <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-5 space-y-4">
+        <div><label className={lbl}>Distance (km)</label><input type="number" value={dist} onChange={e=>{setDist(e.target.value);setResult(null)}} placeholder="5" className={inp}/></div>
+        <div className="grid grid-cols-2 gap-3">
+          <div><label className={lbl}>Minutes</label><input type="number" value={mins} onChange={e=>{setMins(e.target.value);setResult(null)}} placeholder="25" className={inp}/></div>
+          <div><label className={lbl}>Seconds</label><input type="number" value={secs} onChange={e=>{setSecs(e.target.value);setResult(null)}} placeholder="30" className={inp}/></div>
+        </div>
+        <button onClick={calc} className="w-full py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors">Calculate Pace</button>
+      </div>
+      {result&&(<div className="bg-[#141414] border border-[#f5a623]/40 rounded-lg p-5">
+        <div className="grid grid-cols-3 gap-3 text-center">
+          <div><p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Pace</p><p className="text-2xl font-bold text-white">{result.paceMpk}</p><p className="text-gray-500 text-xs">min/km</p></div>
+          <div><p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Speed</p><p className="text-2xl font-bold text-[#f5a623]">{result.paceKph}</p><p className="text-gray-500 text-xs">km/h</p></div>
+          <div><p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Calories</p><p className="text-2xl font-bold text-white">~{result.cal}</p><p className="text-gray-500 text-xs">kcal</p></div>
+        </div>
+        <CTA line1="Improve your running with expert coaching" line2="Safa Fitness Club's cardio coaches design structured running programs to improve your pace and endurance." />
+      </div>)}
+    </div>
+  )
+}
+
+// ─── Waist-to-Height Ratio ────────────────────────────────────────────────────
+function WaistHeightCalc() {
+  const [waist,setWaist]=useState("")
+  const [height,setHeight]=useState("")
+  const [result,setResult]=useState<number|null>(null)
+  function getCategory(r:number){
+    if(r<0.4)  return{label:"Underweight",color:"text-blue-400",  desc:"Waist may be too small relative to height"}
+    if(r<0.5)  return{label:"Healthy",    color:"text-green-400", desc:"Healthy waist-to-height ratio"}
+    if(r<0.6)  return{label:"Overweight", color:"text-yellow-400",desc:"Increased health risk, consider lifestyle changes"}
+    return       {label:"Obese",         color:"text-red-400",   desc:"High health risk — consult a professional"}
+  }
+  function calc(){const w=parseFloat(waist),h=parseFloat(height);if(!w||!h||h<100)return;setResult(Math.round(w/h*100)/100)}
+  const cat=result?getCategory(result):null
+  return(
+    <div className="space-y-5">
+      <p className="text-gray-400 text-sm">Waist-to-height ratio is a strong predictor of cardiovascular risk. A ratio below 0.5 is considered healthy.</p>
+      <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-5 space-y-4">
+        <div><label className={lbl}>Waist Circumference (cm)</label><input type="number" value={waist} onChange={e=>{setWaist(e.target.value);setResult(null)}} placeholder="80" className={inp}/></div>
+        <div><label className={lbl}>Height (cm)</label><input type="number" value={height} onChange={e=>{setHeight(e.target.value);setResult(null)}} placeholder="175" className={inp}/></div>
+        <button onClick={calc} className="w-full py-3 bg-[#f5a623] hover:bg-[#e09410] text-black font-bold text-sm uppercase tracking-wider rounded transition-colors">Calculate Ratio</button>
+      </div>
+      {result&&cat&&(<div className="bg-[#141414] border border-[#f5a623]/40 rounded-lg p-5 text-center">
+        <p className="text-gray-400 text-xs uppercase tracking-wider mb-1">Waist-to-Height Ratio</p>
+        <span className="text-5xl font-bold text-white" style={{fontFamily:"var(--font-display)"}}>{result}</span>
+        <p className={`text-lg font-bold uppercase mt-2 mb-1 ${cat.color}`}>{cat.label}</p>
+        <p className="text-gray-500 text-xs">{cat.desc}</p>
+        <CTA line1="Reduce your waist with targeted training" line2="Safa Fitness Club's trainers can help you reduce visceral fat through structured cardio and strength programs." />
+      </div>)}
+    </div>
+  )
+}
+
 // ─── Tool registry ────────────────────────────────────────────────────────────
 const TOOLS: Record<string, { title: string; sub: string; component: React.ReactNode }> = {
-  "bmi":          { title: "BMI Calculator",       sub: "Body Mass Index",      component: <BmiCalc /> },
-  "calories":     { title: "Calorie Calculator",    sub: "Daily Energy Needs",   component: <CalorieCalc /> },
-  "body-fat":     { title: "Body Fat Estimator",    sub: "US Navy Method",       component: <BodyFatCalc /> },
-  "macros":       { title: "Macro Planner",          sub: "Protein · Carbs · Fat",component: <MacroCalc /> },
-  "one-rep-max":  { title: "One Rep Max",            sub: "Epley Formula",        component: <OneRepMaxCalc /> },
-  "ideal-weight": { title: "Ideal Weight",           sub: "4 Medical Formulas",   component: <IdealWeightCalc /> },
+  "bmi":          { title: "BMI Calculator",       sub: "Body Mass Index",        component: <BmiCalc /> },
+  "calories":     { title: "Calorie Calculator",    sub: "Daily Energy Needs",     component: <CalorieCalc /> },
+  "body-fat":     { title: "Body Fat Estimator",    sub: "US Navy Method",         component: <BodyFatCalc /> },
+  "macros":       { title: "Macro Planner",          sub: "Protein · Carbs · Fat", component: <MacroCalc /> },
+  "one-rep-max":  { title: "One Rep Max",            sub: "Epley Formula",          component: <OneRepMaxCalc /> },
+  "ideal-weight": { title: "Ideal Weight",           sub: "4 Medical Formulas",     component: <IdealWeightCalc /> },
+  "water":        { title: "Water Intake",           sub: "Daily Hydration",        component: <WaterCalc /> },
+  "heart-rate":   { title: "Heart Rate Zones",       sub: "Tanaka Formula",         component: <HeartRateCalc /> },
+  "lean-mass":    { title: "Lean Body Mass",         sub: "Boer Formula",           component: <LeanMassCalc /> },
+  "protein":      { title: "Protein Calculator",     sub: "Daily Requirements",     component: <ProteinCalc /> },
+  "running-pace": { title: "Running Pace",           sub: "Speed & Calories",       component: <RunningPaceCalc /> },
+  "waist-height": { title: "Waist-Height Ratio",     sub: "Cardiovascular Risk",    component: <WaistHeightCalc /> },
 }
 
 // ─── Modal shell ──────────────────────────────────────────────────────────────
