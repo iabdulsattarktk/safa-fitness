@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import CTABanner from "@/components/layout/CTABanner"
+import CountUp from "@/components/ui/CountUp"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -103,7 +104,11 @@ export default function TrainersPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
             {stats.map((s) => (
               <div key={s.label}>
-                <p className="text-4xl font-bold text-black" style={{ fontFamily: "var(--font-display)" }}>{s.val}</p>
+                <CountUp
+                  value={s.val}
+                  className="text-5xl font-bold text-black"
+                  style={{ fontFamily: "var(--font-display)" }}
+                />
                 <p className="text-black/70 text-xs mt-1 uppercase tracking-wider">{s.label}</p>
               </div>
             ))}
@@ -114,7 +119,7 @@ export default function TrainersPage() {
       {/* ── TRAINER CARDS ── */}
       <section className="section-padding bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div data-reveal className="text-center mb-14">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Certified Professionals</p>
             <h2
               className="text-4xl sm:text-5xl font-bold uppercase text-white"
@@ -128,6 +133,7 @@ export default function TrainersPage() {
             {trainers.map((t, i) => (
               <div
                 key={t.name}
+                data-reveal data-delay="1"
                 className={`grid grid-cols-1 lg:grid-cols-3 gap-0 bg-[#141414] border border-[#2a2a2a] rounded-lg overflow-hidden ${i % 2 !== 0 ? "lg:[direction:rtl]" : ""}`}
               >
                 {/* Photo */}
@@ -195,7 +201,7 @@ export default function TrainersPage() {
       <section className="section-padding bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <div data-reveal>
               <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-4">One-on-One</p>
               <h2
                 className="text-4xl sm:text-5xl font-bold uppercase text-white mb-6"

@@ -256,7 +256,7 @@ export default function PricingPage() {
       {/* ── PLANS GRID ── */}
       <section className="section-padding bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div data-reveal className="text-center mb-14">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Choose Your Plan</p>
             <h2
               className="text-4xl sm:text-5xl font-bold uppercase text-white"
@@ -270,9 +270,10 @@ export default function PricingPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {plans.map((plan) => (
+            {plans.map((plan, i) => (
               <div
                 key={plan.id}
+                data-reveal data-delay={String((i % 3) + 1)}
                 className={`relative flex flex-col rounded-lg overflow-hidden border transition-all duration-300 hover:-translate-y-1 ${
                   plan.highlight
                     ? "border-[#f5a623] bg-[#141414] shadow-[0_0_30px_rgba(245,166,35,0.15)]"
@@ -391,7 +392,7 @@ export default function PricingPage() {
       {/* ── WHAT'S INCLUDED ── */}
       <section className="section-padding bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div data-reveal className="text-center mb-14">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">The Full Experience</p>
             <h2
               className="text-4xl sm:text-5xl font-bold uppercase text-white"
@@ -426,9 +427,10 @@ export default function PricingPage() {
                 title: "Snooker Lounge",
                 desc: "Unwind after your workout at our premium snooker lounge — exclusive to Safa Fitness Club members.",
               },
-            ].map((item) => (
+            ].map((item, i) => (
               <div
                 key={item.title}
+                data-reveal data-delay={String(i + 1)}
                 className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="relative h-44 overflow-hidden">
@@ -460,7 +462,7 @@ export default function PricingPage() {
       {/* ── HOW TO JOIN ── */}
       <section className="section-padding bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div data-reveal className="text-center mb-14">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Simple Process</p>
             <h2
               className="text-4xl sm:text-5xl font-bold uppercase text-white"
@@ -490,8 +492,8 @@ export default function PricingPage() {
                 desc: "Complete your registration with a valid ID, pay the one-time fee, and start your fitness journey the same day.",
                 img: "/images/facilities/gym.webp",
               },
-            ].map((s) => (
-              <div key={s.step} className="group relative bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1">
+            ].map((s, i) => (
+              <div key={s.step} data-reveal data-delay={String(i + 1)} className="group relative bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1">
                 {/* Image */}
                 <div className="relative h-52 overflow-hidden">
                   <Image
@@ -532,7 +534,7 @@ export default function PricingPage() {
       {/* ── FAQ ── */}
       <section className="section-padding bg-[#0a0a0a]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div data-reveal className="text-center mb-14">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Got Questions?</p>
             <h2
               className="text-4xl sm:text-5xl font-bold uppercase text-white"
@@ -543,8 +545,9 @@ export default function PricingPage() {
           </div>
 
           <div className="space-y-3">
-            {faqs.map((faq) => (
+            {faqs.map((faq, i) => (
               <details
+                data-reveal data-delay={String((i % 4) + 1)}
                 key={faq.q}
                 className="group bg-[#141414] border border-[#2a2a2a] rounded-lg overflow-hidden open:border-[#f5a623]/40"
               >

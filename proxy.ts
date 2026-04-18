@@ -4,17 +4,16 @@ import type { NextRequest } from "next/server"
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Check session cookie (NextAuth v5 sets this)
+  // Check session cookie (Auth.js v5 uses "authjs." prefix)
   const sessionToken =
-    request.cookies.get("next-auth.session-token")?.value ||
-    request.cookies.get("__Secure-next-auth.session-token")?.value
+    request.cookies.get("authjs.session-token")?.value ||
+    request.cookies.get("__Secure-authjs.session-token")?.value
 
   const isLoggedIn = !!sessionToken
 
   // All protected routes require login
   const isProtected =
     pathname.startsWith("/dashboard") ||
-    pathname.startsWith("/trainer") ||
     pathname.startsWith("/admin")
 
   if (isProtected && !isLoggedIn) {
@@ -32,5 +31,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/trainer/:path*", "/admin/:path*", "/login"],
+  matcher: ["/dashboard/:path*", "/admin/:path*", "/login"],
 }

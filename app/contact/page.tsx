@@ -100,7 +100,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
             {/* ── LEFT: Form ── */}
-            <div>
+            <div data-reveal>
               <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Send a Message</p>
               <h2
                 className="text-3xl sm:text-4xl font-bold uppercase text-white mb-2"
@@ -117,7 +117,7 @@ export default function ContactPage() {
             </div>
 
             {/* ── RIGHT: Info ── */}
-            <div className="flex flex-col gap-6">
+            <div data-reveal data-delay="2" className="flex flex-col gap-6">
               {/* Contact details */}
               <div>
                 <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Find Us</p>
@@ -174,7 +174,7 @@ export default function ContactPage() {
       {/* ── MAP ── */}
       <section className="bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center mb-8">
+          <div data-reveal className="text-center mb-8">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">5th Floor, Safa Gold Mall</p>
             <h2
               className="text-3xl sm:text-4xl font-bold uppercase text-white"
@@ -246,8 +246,8 @@ export default function ContactPage() {
                 title: "Free Tour",
                 desc: "Ask for a free facility tour on your first visit. Our team will walk you through everything and match you with the right plan.",
               },
-            ].map((item) => (
-              <div key={item.title} className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300">
+            ].map((item, i) => (
+              <div key={item.title} data-reveal data-delay={String(i + 1)} className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300">
                 <div className="relative h-40 overflow-hidden">
                   <Image
                     src={item.img}

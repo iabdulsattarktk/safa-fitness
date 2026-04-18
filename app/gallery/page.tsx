@@ -143,7 +143,7 @@ export default function GalleryPage() {
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Section heading */}
-            <div className="flex items-center gap-4 mb-8">
+            <div data-reveal className="flex items-center gap-4 mb-8">
               <div className="h-px flex-1 bg-[#2a2a2a]" />
               <h2
                 className="text-2xl sm:text-3xl font-bold uppercase text-white whitespace-nowrap"
@@ -164,6 +164,7 @@ export default function GalleryPage() {
               {cat.images.map((img, i) => (
                 <div
                   key={img.src}
+                  data-reveal data-delay={String((i % 4) + 1)}
                   className={`group relative overflow-hidden rounded-lg ${
                     cat.images.length >= 5 && i === 0 ? "col-span-2 sm:col-span-1" : ""
                   }`}

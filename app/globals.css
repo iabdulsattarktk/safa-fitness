@@ -32,6 +32,7 @@
 
 html {
   scroll-behavior: auto;
+  overflow-x: hidden;
 }
 
 body {
@@ -40,48 +41,113 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 /* ── Light Theme ──────────────────────────────────────────────────────────── */
-[data-theme="light"] {
-  --background: #f0f0f0;
-  --foreground: #111111;
-  background-color: #f0f0f0;
-  color: #111111;
-}
+/*
+  Palette:
+    bg-base    #faf7f2  warm cream
+    bg-card    #ffffff  white cards
+    bg-section #f0ebe0  slightly deeper cream
+    bg-input   #f2ede4  input fields
+    border     #e8dcc8  warm beige border
+    text       #1a1505  near-black warm
+    text-sub   #5a5040  warm brown secondary
+    accent     #f5a623  orange — unchanged in both themes
+*/
 
+[data-theme="light"],
 [data-theme="light"] body {
-  background-color: #f0f0f0;
-  color: #111111;
+  --background: #faf7f2;
+  --foreground: #1a1505;
+  background-color: #faf7f2;
+  color: #1a1505;
 }
 
+/* ── Navbar ── */
 [data-theme="light"] header {
-  background-color: rgba(240, 240, 240, 0.95) !important;
-  border-bottom: 1px solid #d0d0d0;
+  background-color: rgba(250,247,242,0.92) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(232,220,200,0.8) !important;
+  box-shadow: 0 1px 12px rgba(26,21,5,0.06) !important;
 }
 
-[data-theme="light"] main,
-[data-theme="light"] section,
-[data-theme="light"] footer {
-  background-color: #f0f0f0 !important;
-  color: #111111 !important;
+/* ── Section & card backgrounds ── */
+[data-theme="light"] .bg-\[\#0a0a0a\]   { background-color: #faf7f2 !important; }
+[data-theme="light"] .bg-\[\#0d0d0d\]   { background-color: #f0ebe0 !important; }
+[data-theme="light"] .bg-\[\#141414\]   { background-color: #ffffff !important; box-shadow: 0 1px 6px rgba(26,21,5,0.07) !important; }
+[data-theme="light"] .bg-\[\#1a1a1a\]   { background-color: #f2ede4 !important; }
+[data-theme="light"] .bg-black          { background-color: #1a1505 !important; }
+
+/* ── Footer ── */
+[data-theme="light"] footer { background-color: #f0ebe0 !important; color: #1a1505 !important; }
+
+/* ── Text ── */
+[data-theme="light"] .text-white    { color: #1a1505 !important; }
+[data-theme="light"] .text-gray-300 { color: #5a5040 !important; }
+[data-theme="light"] .text-gray-400 { color: #6b5e48 !important; }
+[data-theme="light"] .text-gray-500 { color: #7a6d58 !important; }
+[data-theme="light"] .text-gray-600 { color: #8a7d68 !important; }
+
+/* Keep white text INSIDE dark / orange containers */
+[data-theme="light"] .bg-\[\#1a1505\] .text-white,
+[data-theme="light"] .bg-black .text-white,
+[data-theme="light"] .bg-\[\#f5a623\] .text-white { color: #ffffff !important; }
+
+/* Same-element: e.g. <button class="bg-black text-white"> */
+[data-theme="light"] .bg-\[\#1a1505\].text-white,
+[data-theme="light"] .bg-black.text-white { color: #ffffff !important; }
+
+/* Colored badges keep their bg color — just enforce white text */
+[data-theme="light"] .bg-blue-500,
+[data-theme="light"] .bg-red-600,
+[data-theme="light"] .bg-green-500,
+[data-theme="light"] .bg-purple-600,
+[data-theme="light"] .bg-orange-500 { color: #ffffff !important; }
+
+/* ── Borders ── */
+[data-theme="light"] .border-\[\#2a2a2a\]        { border-color: #e8dcc8 !important; }
+[data-theme="light"] .divide-\[\#2a2a2a\] > * + * { border-color: #e8dcc8 !important; }
+[data-theme="light"] .border-white\/5             { border-color: rgba(26,21,5,0.08) !important; }
+
+/* ── Hover states ── */
+[data-theme="light"] .hover\:bg-\[\#1a1a1a\]:hover { background-color: #e8dcc8 !important; }
+[data-theme="light"] .hover\:text-white:hover       { color: #1a1505 !important; }
+
+/* ── Gradients — blend edges into light bg instead of dark ── */
+[data-theme="light"] .from-\[\#0a0a0a\] {
+  --tw-gradient-from: #faf7f2 !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent) !important;
+}
+[data-theme="light"] .from-\[\#141414\] {
+  --tw-gradient-from: #ffffff !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent) !important;
 }
 
-[data-theme="light"] div {
-  border-color: #d0d0d0;
-}
-
+/* ── Inputs & forms ── */
 [data-theme="light"] input,
 [data-theme="light"] textarea,
 [data-theme="light"] select {
-  background-color: #f8f8f8 !important;
-  color: #111111 !important;
-  border-color: #d0d0d0 !important;
+  background-color: #f2ede4 !important;
+  color: #1a1505 !important;
+  border-color: #e8dcc8 !important;
 }
+[data-theme="light"] ::placeholder { color: #b0a090 !important; }
 
-[data-theme="light"] ::placeholder {
-  color: #aaaaaa !important;
-}
+/* ── Tables ── */
+[data-theme="light"] table { background-color: #ffffff !important; }
+[data-theme="light"] th { background-color: #f2ede4 !important; color: #1a1505 !important; border-color: #e8dcc8 !important; }
+[data-theme="light"] td { color: #1a1505 !important; border-color: #e8dcc8 !important; }
+[data-theme="light"] tr:hover td { background-color: #faf0dc !important; }
+
+/* ── FAQ accordion ── */
+[data-theme="light"] details { background-color: #ffffff !important; border-color: #e8dcc8 !important; }
+[data-theme="light"] summary { color: #1a1505 !important; }
+
+/* ── Scrollbar ── */
+[data-theme="light"] ::-webkit-scrollbar-track { background: #f2ede4; }
 
 /* ── Hide Next.js dev overlay ─────────────────────────────────────────────── */
 nextjs-portal {
@@ -104,6 +170,51 @@ nextjs-portal {
 ::selection {
   background-color: #f5a623;
   color: #000000;
+}
+
+/* ── Sidebar Pattern Animations ──────────────────────────────────────────── */
+@keyframes orbFloat {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-30px) scale(1.05); }
+}
+
+@keyframes fadeShift {
+  0%, 100% { opacity: 0.06; transform: translateY(0); }
+  50%       { opacity: 0.10; transform: translateY(-12px); }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-50%); }
+  to   { transform: translateY(0); }
+}
+
+/* ── Scroll Reveal ────────────────────────────────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for cards */
+[data-reveal][data-delay="1"] { transition-delay: 0.08s; }
+[data-reveal][data-delay="2"] { transition-delay: 0.16s; }
+[data-reveal][data-delay="3"] { transition-delay: 0.24s; }
+[data-reveal][data-delay="4"] { transition-delay: 0.32s; }
+[data-reveal][data-delay="5"] { transition-delay: 0.40s; }
+[data-reveal][data-delay="6"] { transition-delay: 0.48s; }
+
+/* No animation for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* ── Utility: Orange gradient text ───────────────────────────────────────── */

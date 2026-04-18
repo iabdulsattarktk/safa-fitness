@@ -74,7 +74,7 @@ export default async function BlogPostPage({
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Back link + meta */}
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-10 pb-6 border-b border-[#2a2a2a]">
+          <div data-reveal className="flex flex-wrap items-center justify-between gap-4 mb-10 pb-6 border-b border-[#2a2a2a]">
             <Link
               href="/blog"
               className="inline-flex items-center gap-2 text-gray-500 hover:text-[#f5a623] text-sm transition-colors"
@@ -99,7 +99,7 @@ export default async function BlogPostPage({
           {/* Sections */}
           <div className="space-y-8">
             {post.sections.map((section, i) => (
-              <div key={i}>
+              <div key={i} data-reveal data-delay="1">
                 {section.heading && (
                   <h2
                     className="text-white font-bold text-xl sm:text-2xl uppercase mb-4"
@@ -155,7 +155,7 @@ export default async function BlogPostPage({
           )}
 
           {/* ── JOIN CTA ── */}
-          <div className="mt-14 bg-[#141414] border border-[#f5a623]/30 rounded-lg p-7 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+          <div data-reveal className="mt-14 bg-[#141414] border border-[#f5a623]/30 rounded-lg p-7 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
             <div className="flex-1">
               <p
                 className="text-white font-bold text-xl sm:text-2xl uppercase mb-2"
@@ -193,10 +193,11 @@ export default async function BlogPostPage({
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-6">More Articles</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            {related.map((p) => (
+            {related.map((p, i) => (
               <Link
                 key={p.slug}
                 href={`/blog/${p.slug}`}
+                data-reveal data-delay={String(i + 1)}
                 className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col"
               >
                 <div className="relative h-40 overflow-hidden">

@@ -62,7 +62,7 @@ export default function BodyFatPage() {
           All Tools
         </Link>
 
-        <div className="mb-8">
+        <div data-reveal className="mb-8">
           <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">Free Calculator</p>
           <h1 className="text-4xl sm:text-5xl font-bold uppercase text-white" style={{ fontFamily: "var(--font-display)" }}>
             Body Fat <span className="text-[#f5a623]">Estimator</span>
@@ -70,7 +70,7 @@ export default function BodyFatPage() {
           <p className="text-gray-400 text-sm mt-2">US Navy method — accurate to within 3–4% using only a tape measure.</p>
         </div>
 
-        <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6 sm:p-8 mb-6">
+        <div data-reveal data-delay="1" className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6 sm:p-8 mb-6">
 
           <div className="mb-5">
             <label className={labelClass}>Gender</label>

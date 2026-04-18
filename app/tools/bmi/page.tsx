@@ -53,7 +53,7 @@ export default function BMIPage() {
         </Link>
 
         {/* Header */}
-        <div className="mb-8">
+        <div data-reveal className="mb-8">
           <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">Free Calculator</p>
           <h1 className="text-4xl sm:text-5xl font-bold uppercase text-white" style={{ fontFamily: "var(--font-display)" }}>
             BMI <span className="text-[#f5a623]">Calculator</span>
@@ -62,7 +62,7 @@ export default function BMIPage() {
         </div>
 
         {/* Calculator */}
-        <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6 sm:p-8 mb-6">
+        <div data-reveal data-delay="1" className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6 sm:p-8 mb-6">
 
           {/* Unit toggle */}
           <div className="flex bg-[#1a1a1a] rounded p-1 mb-6 w-fit">

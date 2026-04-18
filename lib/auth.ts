@@ -10,17 +10,8 @@ const ADMIN_EMAILS = (process.env.ADMIN_EMAILS ?? "")
   .map((e) => e.trim().toLowerCase())
   .filter(Boolean)
 
-// Emails that get TRAINER role (from .env)
-const TRAINER_EMAILS = (process.env.TRAINER_EMAILS ?? "")
-  .split(",")
-  .map((e) => e.trim().toLowerCase())
-  .filter(Boolean)
-
 function getRoleForEmail(email: string): Role {
-  const lower = email.toLowerCase()
-  if (ADMIN_EMAILS.includes(lower)) return "ADMIN"
-  if (TRAINER_EMAILS.includes(lower)) return "TRAINER"
-  return "MEMBER"
+  return ADMIN_EMAILS.includes(email.toLowerCase()) ? "ADMIN" : "MEMBER"
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({

@@ -104,7 +104,7 @@ export default function ClassesPage() {
       {/* ── CLASSES GRID ── */}
       <section className="section-padding bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div data-reveal className="text-center mb-14">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Expert-Led Sessions</p>
             <h2
               className="text-4xl sm:text-5xl font-bold uppercase text-white"
@@ -117,9 +117,10 @@ export default function ClassesPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {classes.map((c) => (
+            {classes.map((c, i) => (
               <div
                 key={c.name}
+                data-reveal data-delay={String((i % 3) + 1)}
                 className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="relative h-52 overflow-hidden">
@@ -166,7 +167,7 @@ export default function ClassesPage() {
       {/* ── CLASS TIMINGS ── */}
       <section className="section-padding bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div data-reveal className="text-center mb-14">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Plan Your Visit</p>
             <h2
               className="text-4xl sm:text-5xl font-bold uppercase text-white"
@@ -252,7 +253,7 @@ export default function ClassesPage() {
       {/* ── WHY OUR CLASSES ── */}
       <section className="section-padding bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div data-reveal className="text-center mb-14">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">What Sets Us Apart</p>
             <h2
               className="text-4xl sm:text-5xl font-bold uppercase text-white"
@@ -267,8 +268,8 @@ export default function ClassesPage() {
               { title: "Premium Equipment", desc: "State-of-the-art machines and equipment maintained to the highest standards.", img: "/images/facilities/gym.webp" },
               { title: "All Levels Welcome", desc: "From complete beginners to competitive athletes — every class adapts to you.", img: "/images/team-banner2.webp" },
               { title: "Personalized Plans", desc: "Your trainer builds a program around your specific goals and fitness level.", img: "/images/trainers/trainer-2.webp" },
-            ].map((f) => (
-              <div key={f.title} className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1">
+            ].map((f, i) => (
+              <div key={f.title} data-reveal data-delay={String(i + 1)} className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1">
                 <div className="relative h-44 overflow-hidden">
                   <Image
                     src={f.img}

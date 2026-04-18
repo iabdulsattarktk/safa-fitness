@@ -40,7 +40,7 @@ export default function BlogPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* ── FEATURED POST ── */}
-          <div className="mb-14">
+          <div data-reveal className="mb-14">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-6">Featured Article</p>
             <Link
               href={`/blog/${featured.slug}`}
@@ -85,10 +85,11 @@ export default function BlogPage() {
           <div className="mb-6">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-8">All Articles</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {rest.map((post) => (
+              {rest.map((post, i) => (
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
+                  data-reveal data-delay={String((i % 3) + 1)}
                   className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col"
                 >
                   <div className="relative h-48 overflow-hidden">

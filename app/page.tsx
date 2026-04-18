@@ -1,7 +1,9 @@
 import Link from "next/link"
 import Image from "next/image"
 import CTABanner from "@/components/layout/CTABanner"
-import ScrollDown from "@/components/ui/ScrollDown"
+import CountUp from "@/components/ui/CountUp"
+import TestimonialsCarousel from "@/components/ui/TestimonialsCarousel"
+import ParallaxBreak from "@/components/ui/ParallaxBreak"
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -72,6 +74,16 @@ const testimonials = [
     since: "6 months member",
     text: "This place is just love. It offers lockers, towels, shower, swimming pool, jacuzzi, weight area, cardio area, exceptional trainers, sauna, steam, massage, and many more.",
   },
+  {
+    name: "Ayesha Tariq",
+    since: "Member since 2021",
+    text: "The swimming pool and sauna facilities are absolutely top notch. Staff is very professional and the trainers are extremely knowledgeable. Best investment I have made for my health.",
+  },
+  {
+    name: "Bilal Hussain",
+    since: "Member since 2020",
+    text: "Came for the gym, stayed for everything else. The boxing ring, steam room, and jacuzzi make this far more than just a gym. Kishwar sir's training completely transformed my fitness.",
+  },
 ]
 
 const steps = [
@@ -88,30 +100,19 @@ export default function HomePage() {
     <>
       {/* ── HERO ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
-        {/* YouTube background video */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <iframe
-            src="https://www.youtube.com/embed/-nteQqHD754?autoplay=1&mute=1&loop=1&playlist=-nteQqHD754&controls=0&rel=0&modestbranding=1&playsinline=1"
-            title="Safa Fitness Club"
-            allow="autoplay; encrypted-media"
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "100vw",
-              height: "56.25vw",
-              minWidth: "177.78vh",
-              minHeight: "100vh",
-              border: 0,
-              pointerEvents: "none",
-            }}
-          />
-        </div>
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-[#0a0a0a]/45" />
-        <div className="absolute inset-0 opacity-20"
-          style={{ backgroundImage: "radial-gradient(circle at 20% 50%, #f5a623 0%, transparent 50%)" }} />
+        {/* Hero background image */}
+        <Image
+          src="/images/gallery/gym-strength.webp"
+          alt="Safa Fitness Club"
+          fill
+          priority
+          className="object-cover object-center"
+          quality={90}
+        />
+        {/* Overlays */}
+        <div className="absolute inset-0 bg-[#0a0a0a]/55" />
+        <div className="absolute inset-0"
+          style={{ backgroundImage: "radial-gradient(circle at 20% 60%, rgba(245,166,35,0.18) 0%, transparent 55%), radial-gradient(circle at 80% 30%, rgba(180,20,20,0.12) 0%, transparent 50%)" }} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
           <p className="text-[#f5a623] text-sm font-bold uppercase tracking-[0.3em] mb-6">
@@ -147,21 +148,23 @@ export default function HomePage() {
               { val: "F-7", label: "Markaz, Islamabad" },
             ].map((s) => (
               <div key={s.label} className="text-center">
-                <p className="text-3xl font-bold text-[#f5a623]"
-                  style={{ fontFamily: "var(--font-display)" }}>{s.val}</p>
+                <CountUp
+                  value={s.val}
+                  className="text-5xl font-bold text-[#f5a623]"
+                  style={{ fontFamily: "var(--font-display)" }}
+                />
                 <p className="text-gray-400 text-xs mt-1 uppercase tracking-wider">{s.label}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <ScrollDown targetId="facilities" />
       </section>
 
       {/* ── FACILITIES ── */}
       <section id="facilities" className="section-padding bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div className="text-center mb-14" data-reveal>
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">What We Offer</p>
             <h2 className="text-4xl sm:text-5xl font-bold uppercase text-white"
               style={{ fontFamily: "var(--font-display)" }}>
@@ -170,8 +173,9 @@ export default function HomePage() {
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {facilities.map((f) => (
+            {facilities.map((f, i) => (
               <Link key={f.title} href={f.href}
+                data-reveal data-delay={String((i % 6) + 1)}
                 className="group overflow-hidden bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg transition-all duration-300 hover:-translate-y-1">
                 <div className="relative h-48 overflow-hidden">
                   <Image src={f.img} alt={f.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -190,10 +194,70 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── SPLIT FEATURES ── */}
+      {[
+        {
+          img: "/images/facilities/swimming-pool.webp",
+          tag: "Premium Facility",
+          title: "Heated Indoor\nSwimming Pool",
+          body: "Islamabad's finest indoor heated pool — open year-round. Perfect for lap swimming, aqua fitness, or simply unwinding. Professional swim coaching available for all levels.",
+          cta: { label: "Learn More", href: "/about#pool" },
+          flip: false,
+        },
+        {
+          img: "/images/facilities/boxing.webp",
+          tag: "Combat Zone",
+          title: "Professional\nBoxing Ring",
+          body: "A full-size boxing ring with professional coaching from Rahila Sher — Pakistan Army veteran and national medal winner. Open to complete beginners and competitive athletes alike.",
+          cta: { label: "Meet the Coach", href: "/trainers" },
+          flip: true,
+        },
+        {
+          img: "/images/facilities/sauna.webp",
+          tag: "Recovery & Wellness",
+          title: "Steam · Sauna\n· Jacuzzi",
+          body: "Recover faster, sleep deeper, and de-stress completely. Our wellness zone combines dry sauna, steam room, and a heated jacuzzi — the ideal post-workout ritual.",
+          cta: { label: "Explore Facilities", href: "/about#sauna" },
+          flip: false,
+        },
+      ].map((f) => (
+        <section key={f.tag} className="bg-[#0a0a0a] overflow-hidden">
+          <div className={`flex flex-col ${f.flip ? "lg:flex-row-reverse" : "lg:flex-row"}`}>
+            {/* Image */}
+            <div className="relative w-full lg:w-1/2 h-72 sm:h-96 lg:h-auto lg:min-h-[480px]">
+              <Image src={f.img} alt={f.title.replace("\n", " ")} fill className="object-cover" />
+              <div className={`absolute inset-0 ${f.flip ? "bg-gradient-to-l" : "bg-gradient-to-r"} from-[#0a0a0a] via-transparent to-transparent lg:block hidden`} />
+            </div>
+            {/* Text */}
+            <div className="w-full lg:w-1/2 flex items-center px-8 sm:px-12 lg:px-16 py-14 lg:py-20" data-reveal>
+              <div className="max-w-lg">
+                <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-4">{f.tag}</p>
+                <h2
+                  className="text-4xl sm:text-5xl font-bold uppercase text-white leading-tight mb-5 whitespace-pre-line"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {f.title}
+                </h2>
+                <p className="text-gray-400 leading-relaxed mb-8">{f.body}</p>
+                <Link
+                  href={f.cta.href}
+                  className="inline-flex items-center gap-2 text-[#f5a623] font-bold text-sm uppercase tracking-wider hover:gap-4 transition-all duration-300"
+                >
+                  {f.cta.label}
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      ))}
+
       {/* ── CLASSES ── */}
       <section className="section-padding bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-14 gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-14 gap-4" data-reveal>
             <div>
               <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Train With The Best</p>
               <h2 className="text-4xl sm:text-5xl font-bold uppercase text-white"
@@ -207,8 +271,9 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {classes.map((c) => (
+            {classes.map((c, i) => (
               <Link key={c.name} href="/classes"
+                data-reveal data-delay={String(i + 1)}
                 className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1">
                 <div className="relative h-48 overflow-hidden">
                   <Image src={c.img} alt={c.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -235,7 +300,7 @@ export default function HomePage() {
       {/* ── 4-STEP JOURNEY ── */}
       <section className="section-padding bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div className="text-center mb-14" data-reveal>
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Your Path to Success</p>
             <h2 className="text-4xl sm:text-5xl font-bold uppercase text-white"
               style={{ fontFamily: "var(--font-display)" }}>
@@ -243,30 +308,54 @@ export default function HomePage() {
             </h2>
             <p className="text-gray-400 mt-3 text-lg">Your transformation journey in 4 simple steps</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {steps.map((s) => (
-              <div key={s.num} className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1">
-                <div className="relative h-48 overflow-hidden">
-                  <Image src={s.img} alt={s.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/40 to-transparent" />
-                  <span className="absolute top-4 left-4 text-5xl font-bold text-white/20 leading-none"
-                    style={{ fontFamily: "var(--font-display)" }}>{s.num}</span>
+          {/* Connecting line — desktop only */}
+          <div className="relative">
+            <div className="hidden lg:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-[#f5a623]/40 to-transparent" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {steps.map((s, i) => (
+                <div key={s.num} data-reveal data-delay={String(i + 1)} className="group flex flex-col">
+                  {/* Step circle */}
+                  <div className="flex justify-center mb-5">
+                    <div className="relative w-20 h-20 rounded-full bg-[#141414] border-2 border-[#2a2a2a] group-hover:border-[#f5a623] transition-colors duration-300 flex items-center justify-center z-10">
+                      <span
+                        className="text-3xl font-bold text-[#f5a623]"
+                        style={{ fontFamily: "var(--font-display)" }}
+                      >
+                        {s.num}
+                      </span>
+                    </div>
+                  </div>
+                  {/* Image */}
+                  <div className="relative h-48 rounded-lg overflow-hidden mb-4">
+                    <Image src={s.img} alt={s.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d]/60 to-transparent" />
+                  </div>
+                  {/* Text */}
+                  <h3
+                    className="text-white font-bold text-xl uppercase mb-2 group-hover:text-[#f5a623] transition-colors text-center"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {s.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed text-center">{s.desc}</p>
                 </div>
-                <div className="p-5">
-                  <h3 className="text-white font-bold text-xl uppercase mb-2 group-hover:text-[#f5a623] transition-colors"
-                    style={{ fontFamily: "var(--font-display)" }}>{s.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
+      {/* ── PARALLAX BREAK 1 ── */}
+      <ParallaxBreak
+        src="/images/gallery/boxing.webp"
+        quote="Push Your Limits Every Single Day"
+        sub="Safa Fitness Club — Islamabad"
+      />
+
       {/* ── TRAINERS ── */}
       <section className="section-padding bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-14 gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-14 gap-4" data-reveal>
             <div>
               <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">The Safa Elite Team</p>
               <h2 className="text-4xl sm:text-5xl font-bold uppercase text-white"
@@ -280,8 +369,9 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-            {trainers.map((t) => (
+            {trainers.map((t, i) => (
               <Link key={t.name} href="/trainers"
+                data-reveal data-delay={String(i + 1)}
                 className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden text-center transition-all duration-300 hover:-translate-y-1">
                 {t.img ? (
                   <div className="relative h-48 overflow-hidden">
@@ -312,7 +402,7 @@ export default function HomePage() {
       {/* ── PRICING ── */}
       <section className="section-padding bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div className="text-center mb-14" data-reveal>
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Choose Your Level</p>
             <h2 className="text-4xl sm:text-5xl font-bold uppercase text-white"
               style={{ fontFamily: "var(--font-display)" }}>
@@ -321,8 +411,9 @@ export default function HomePage() {
             <p className="text-gray-400 mt-3">All plans include PKR 18,000 one-time registration fee</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {plans.map((p) => (
+            {plans.map((p, i) => (
               <div key={p.name}
+                data-reveal data-delay={String(i + 1)}
                 className={`relative p-8 bg-[#141414] border-2 ${p.color} rounded-lg ${p.popular ? "scale-105" : ""}`}>
                 {p.popular && (
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#f5a623] text-black text-xs font-bold uppercase tracking-wider rounded-full">
@@ -362,33 +453,87 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── PARALLAX BREAK 2 ── */}
+      <ParallaxBreak
+        src="/images/gallery/running.webp"
+        quote="Your Only Competition Is Who You Were Yesterday"
+        overlay="rgba(0,0,0,0.65)"
+      />
+
       {/* ── TESTIMONIALS ── */}
       <section className="section-padding bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div className="text-center mb-14" data-reveal>
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Real Members</p>
             <h2 className="text-4xl sm:text-5xl font-bold uppercase text-white"
               style={{ fontFamily: "var(--font-display)" }}>
               What They<span className="text-[#f5a623]"> Say</span>
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {testimonials.map((t) => (
-              <div key={t.name} className="p-8 bg-[#141414] border border-[#2a2a2a] rounded-lg">
-                <p className="text-[#f5a623] text-3xl mb-4">"</p>
-                <p className="text-gray-300 leading-relaxed mb-6 text-sm">{t.text}</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#f5a623]/20 flex items-center justify-center text-[#f5a623] font-bold">
-                    {t.name[0]}
-                  </div>
-                  <div>
-                    <p className="text-white font-bold text-sm">{t.name}</p>
-                    <p className="text-gray-500 text-xs">{t.since}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <TestimonialsCarousel testimonials={testimonials} />
+        </div>
+      </section>
+
+      {/* ── GALLERY STRIP ── */}
+      <section className="bg-[#0a0a0a] pb-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6" data-reveal>
+          <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">Inside Safa Fitness</p>
+          <div className="flex items-end justify-between">
+            <h2
+              className="text-3xl sm:text-4xl font-bold uppercase text-white"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              See Our <span className="text-[#f5a623]">World</span>
+            </h2>
+            <Link
+              href="/gallery"
+              className="hidden sm:inline-flex items-center gap-2 text-[#f5a623] font-bold text-xs uppercase tracking-wider hover:gap-4 transition-all duration-300"
+            >
+              Full Gallery
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
+        </div>
+        {/* Scrollable strip */}
+        <div className="flex gap-3 overflow-x-auto px-4 sm:px-6 lg:px-8 pb-3 scroll-smooth snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {[
+            "/images/gallery/gym-floor.webp",
+            "/images/gallery/swimming-pool.webp",
+            "/images/gallery/boxing.webp",
+            "/images/gallery/sauna.webp",
+            "/images/gallery/massage.webp",
+            "/images/gallery/gym-strength.webp",
+            "/images/gallery/team-1.webp",
+            "/images/gallery/safa-bar.webp",
+            "/images/gallery/snooker.webp",
+          ].map((src, i) => (
+            <Link
+              key={src}
+              href="/gallery"
+              className="relative shrink-0 w-64 h-44 rounded-lg overflow-hidden snap-start group"
+            >
+              <Image
+                src={src}
+                alt={`Safa Fitness Club facility ${i + 1}`}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
+            </Link>
+          ))}
+          {/* View all tile */}
+          <Link
+            href="/gallery"
+            className="relative shrink-0 w-64 h-44 rounded-lg overflow-hidden snap-start bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 flex flex-col items-center justify-center gap-2 transition-colors"
+          >
+            <svg className="w-8 h-8 text-[#f5a623]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span className="text-white font-bold text-sm uppercase tracking-wider">View All</span>
+            <span className="text-gray-500 text-xs">Full Gallery</span>
+          </Link>
         </div>
       </section>
 

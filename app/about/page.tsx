@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import CTABanner from "@/components/layout/CTABanner"
+import CountUp from "@/components/ui/CountUp"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -120,7 +121,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             {/* Text */}
-            <div>
+            <div data-reveal>
               <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-4">Our Story</p>
               <h2
                 className="text-4xl sm:text-5xl font-bold uppercase text-white mb-6 leading-tight"
@@ -147,7 +148,11 @@ export default function AboutPage() {
                   { val: "5", label: "Expert Trainers" },
                 ].map((s) => (
                   <div key={s.label} className="text-center p-4 bg-[#141414] border border-[#2a2a2a] rounded-lg">
-                    <p className="text-3xl font-bold text-[#f5a623]" style={{ fontFamily: "var(--font-display)" }}>{s.val}</p>
+                    <CountUp
+                      value={s.val}
+                      className="text-5xl font-bold text-[#f5a623]"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    />
                     <p className="text-gray-500 text-xs mt-1 uppercase tracking-wider">{s.label}</p>
                   </div>
                 ))}
@@ -170,7 +175,7 @@ export default function AboutPage() {
       {/* ── CORE VALUES ── */}
       <section className="section-padding bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div data-reveal className="text-center mb-14">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">What Drives Us</p>
             <h2
               className="text-4xl sm:text-5xl font-bold uppercase text-white"
@@ -180,9 +185,10 @@ export default function AboutPage() {
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map((v) => (
+            {values.map((v, i) => (
               <div
                 key={v.title}
+                data-reveal data-delay={String(i + 1)}
                 className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="relative h-44 overflow-hidden">
@@ -214,7 +220,7 @@ export default function AboutPage() {
       {/* ── MEET THE TEAM ── */}
       <section className="section-padding bg-[#0a0a0a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-14 gap-4">
+          <div data-reveal className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-14 gap-4">
             <div>
               <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">The Safa Elite Team</p>
               <h2
@@ -232,9 +238,10 @@ export default function AboutPage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            {trainers.map((t) => (
+            {trainers.map((t, i) => (
               <Link
                 key={t.name}
+                data-reveal data-delay={String((i % 5) + 1)}
                 href="/trainers"
                 className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1"
               >
@@ -262,7 +269,7 @@ export default function AboutPage() {
       {/* ── FACILITY TOUR ── */}
       <section className="section-padding bg-[#0d0d0d]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div data-reveal className="text-center mb-14">
             <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-3">Explore the Club</p>
             <h2
               className="text-4xl sm:text-5xl font-bold uppercase text-white"
@@ -275,10 +282,11 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {facilities.map((f) => (
+            {facilities.map((f, i) => (
               <div
                 key={f.id}
                 id={f.id}
+                data-reveal data-delay={String((i % 3) + 1)}
                 className="group overflow-hidden bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg transition-all duration-300"
               >
                 <div className="relative h-52 overflow-hidden">

@@ -32,7 +32,7 @@ export default function OneRepMaxPage() {
           All Tools
         </Link>
 
-        <div className="mb-8">
+        <div data-reveal className="mb-8">
           <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">Free Calculator</p>
           <h1 className="text-4xl sm:text-5xl font-bold uppercase text-white" style={{ fontFamily: "var(--font-display)" }}>
             One Rep <span className="text-[#f5a623]">Max</span>
@@ -40,7 +40,7 @@ export default function OneRepMaxPage() {
           <p className="text-gray-400 text-sm mt-2">Estimate your maximum single-rep strength using the Epley formula.</p>
         </div>
 
-        <div className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6 sm:p-8 mb-6">
+        <div data-reveal data-delay="1" className="bg-[#141414] border border-[#2a2a2a] rounded-lg p-6 sm:p-8 mb-6">
 
           <div className="flex bg-[#1a1a1a] rounded p-1 mb-5 w-fit">
             {(["kg", "lbs"] as const).map((u) => (
