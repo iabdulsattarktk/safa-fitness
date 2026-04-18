@@ -109,8 +109,8 @@ export default function HomePage() {
           className="object-cover object-center"
           quality={90}
         />
-        {/* Overlays */}
-        <div className="absolute inset-0 bg-[#0a0a0a]/55" />
+        {/* Overlay — subtle dark tint only, keeps image clear */}
+        <div className="absolute inset-0 bg-black/30" />
         <div className="absolute inset-0"
           style={{ backgroundImage: "radial-gradient(circle at 20% 60%, rgba(245,166,35,0.18) 0%, transparent 55%), radial-gradient(circle at 80% 30%, rgba(180,20,20,0.12) 0%, transparent 50%)" }} />
 

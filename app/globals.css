@@ -78,13 +78,16 @@ body {
 .bg-black .text-white,
 .bg-black.text-white { color: #ffffff; }
 
-/* Hero sections: always white text (full-bleed background image) */
+/* Hero & banner sections: always white text + shadow for readability */
 .min-h-screen .text-white,
-.overflow-hidden.items-end .text-white  { color: #ffffff !important; }
+.overflow-hidden.items-end .text-white    { color: #ffffff !important; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
 .min-h-screen .text-gray-300,
-.overflow-hidden.items-end .text-gray-300 { color: rgba(255,255,255,0.82) !important; }
+.overflow-hidden.items-end .text-gray-300 { color: rgba(255,255,255,0.88) !important; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
 .min-h-screen .text-gray-400,
-.overflow-hidden.items-end .text-gray-400 { color: rgba(255,255,255,0.65) !important; }
+.overflow-hidden.items-end .text-gray-400 { color: rgba(255,255,255,0.75) !important; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
+
+/* Hero image overlay — transparent in both themes (text uses shadow for readability) */
+.bg-\[\#0a0a0a\]\/55  { background-color: transparent !important; }
 
 /* Colored badges */
 .bg-blue-500,
