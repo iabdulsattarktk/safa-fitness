@@ -221,7 +221,6 @@ export default function PricingPage() {
           priority
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-[#0a0a0a]/20 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
           <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">Join the Club</p>
           <h1
@@ -292,7 +291,6 @@ export default function PricingPage() {
                 {/* Image */}
                 <div className="relative h-44 overflow-hidden">
                   <Image src={plan.img} alt={plan.name} fill className="object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/40 to-transparent" />
                 </div>
 
                 {/* Content */}
@@ -440,7 +438,6 @@ export default function PricingPage() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 px-4 pb-3">
                     <h3
                       className="text-white font-bold text-lg uppercase group-hover:text-[#f5a623] transition-colors"
@@ -502,7 +499,6 @@ export default function PricingPage() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-[#141414]/30 to-transparent" />
                   {/* Step number overlay */}
                   <span
                     className="absolute top-4 left-4 text-6xl font-bold text-white/10 select-none pointer-events-none leading-none"

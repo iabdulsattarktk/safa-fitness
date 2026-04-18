@@ -24,7 +24,6 @@ export default function BlogPage() {
           priority
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-[#0a0a0a]/20 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
           <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">Expert Guides</p>
           <h1
@@ -53,7 +52,6 @@ export default function BlogPage() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[#141414]" />
                 <span className={`absolute top-4 left-4 px-3 py-1 ${featured.categoryColor} text-white text-xs font-bold uppercase tracking-wider rounded`}>
                   {featured.category}
                 </span>
@@ -99,7 +97,6 @@ export default function BlogPage() {
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
                     <span className={`absolute top-3 left-3 px-2 py-1 ${post.categoryColor} text-white text-xs font-bold uppercase tracking-wider rounded`}>
                       {post.category}
                     </span>

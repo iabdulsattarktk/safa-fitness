@@ -53,7 +53,6 @@ export default async function BlogPostPage({
           priority
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-[#0a0a0a]/20 to-transparent" />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 w-full">
           <span
             className={`inline-block px-3 py-1 ${post.categoryColor} text-white text-xs font-bold uppercase tracking-wider rounded mb-3`}
@@ -207,7 +206,6 @@ export default async function BlogPostPage({
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
                   <span
                     className={`absolute top-3 left-3 px-2 py-1 ${p.categoryColor} text-white text-xs font-bold uppercase tracking-wider rounded`}
                   >

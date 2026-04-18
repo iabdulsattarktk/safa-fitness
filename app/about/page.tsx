@@ -104,7 +104,6 @@ export default function AboutPage() {
           priority
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-[#0a0a0a]/20 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
           <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">Who We Are</p>
           <h1
@@ -166,7 +165,6 @@ export default function AboutPage() {
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/40 to-transparent" />
             </div>
           </div>
         </div>
@@ -198,7 +196,6 @@ export default function AboutPage() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 px-4 pb-3">
                     <h3
                       className="text-white font-bold text-xl uppercase group-hover:text-[#f5a623] transition-colors"
@@ -252,7 +249,6 @@ export default function AboutPage() {
                     fill
                     className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
                 </div>
                 <div className="p-4">
                   <h3 className="text-white font-bold text-sm mb-0.5 group-hover:text-[#f5a623] transition-colors">{t.name}</h3>
@@ -296,7 +292,6 @@ export default function AboutPage() {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
                 </div>
                 <div className="p-5">
                   <h3

@@ -20,7 +20,6 @@ export default function ToolsPage() {
           alt="Fitness Calculators"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/90 via-[#0a0a0a]/30 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
           <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">Science-Based Formulas</p>
           <h1

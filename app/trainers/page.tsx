@@ -86,7 +86,6 @@ export default function TrainersPage() {
           priority
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-[#0a0a0a]/20 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
           <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">The Safa Elite Team</p>
           <h1
@@ -144,7 +143,6 @@ export default function TrainersPage() {
                     fill
                     className="object-cover object-top"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-[#141414]" />
                 </div>
 
                 {/* Content */}
@@ -248,7 +246,6 @@ export default function TrainersPage() {
                 fill
                 className="object-cover object-top"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d]/40 to-transparent" />
             </div>
           </div>
         </div>

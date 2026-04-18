@@ -137,25 +137,6 @@ footer .text-gray-600 { color: #8a7060 !important; }
 footer .border-\[\#2a2a2a\] { border-color: rgba(250,247,242,0.1) !important; }
 footer .bg-\[\#0a0a0a\] { background-color: #111 !important; }
 
-/* ── Image overlay gradients — removed in light theme ── */
-/* Card image bottom fades: fully transparent so images show clearly */
-.from-\[\#141414\] {
-  --tw-gradient-from: transparent !important;
-  --tw-gradient-stops: transparent, transparent !important;
-}
-/* Split-feature side fade: blend into page background */
-.from-\[\#0a0a0a\] {
-  --tw-gradient-from: #faf7f2 !important;
-  --tw-gradient-stops: var(--tw-gradient-from), transparent !important;
-}
-.from-\[\#0d0d0d\] {
-  --tw-gradient-from: #f0ebe0 !important;
-  --tw-gradient-stops: var(--tw-gradient-from), transparent !important;
-}
-.from-\[\#0d0d0d\]\/60 {
-  --tw-gradient-from: transparent !important;
-  --tw-gradient-stops: transparent, transparent !important;
-}
 
 /* ── Inputs & forms ── */
 input,
@@ -219,17 +200,13 @@ summary { color: #1a1505 !important; }
 [data-theme="dark"] footer .text-gray-400   { color: #9ca3af !important; }
 [data-theme="dark"] footer .text-gray-500   { color: #6b7280 !important; }
 [data-theme="dark"] footer .border-\[\#2a2a2a\] { border-color: #2a2a2a !important; }
-[data-theme="dark"] .from-\[\#141414\] {
-  --tw-gradient-from: #141414 !important;
-  --tw-gradient-stops: var(--tw-gradient-from), transparent !important;
+[data-theme="dark"] .bg-\[\#0a0a0a\]\/55 {
+  background-color: transparent !important;
 }
-[data-theme="dark"] .from-\[\#0a0a0a\] {
-  --tw-gradient-from: #0a0a0a !important;
-  --tw-gradient-stops: var(--tw-gradient-from), transparent !important;
-}
-[data-theme="dark"] .from-\[\#0d0d0d\] {
-  --tw-gradient-from: #0d0d0d !important;
-  --tw-gradient-stops: var(--tw-gradient-from), transparent !important;
+
+/* ── Card images: brighter in dark mode ── */
+[data-theme="dark"] .overflow-hidden img {
+  filter: brightness(1.15) contrast(1.05);
 }
 [data-theme="dark"] input,
 [data-theme="dark"] textarea,

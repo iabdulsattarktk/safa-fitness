@@ -179,7 +179,6 @@ export default function HomePage() {
                 className="group overflow-hidden bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg transition-all duration-300 hover:-translate-y-1">
                 <div className="relative h-48 overflow-hidden">
                   <Image src={f.img} alt={f.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
                 </div>
                 <div className="p-5">
                   <h3 className="text-white font-bold text-lg mb-2 group-hover:text-[#f5a623] transition-colors"
@@ -224,9 +223,8 @@ export default function HomePage() {
         <section key={f.tag} className="bg-[#0a0a0a] overflow-hidden">
           <div className={`flex flex-col ${f.flip ? "lg:flex-row-reverse" : "lg:flex-row"}`}>
             {/* Image */}
-            <div className="relative w-full lg:w-1/2 h-72 sm:h-96 lg:h-auto lg:min-h-[480px]">
+            <div className="relative w-full lg:w-1/2 h-72 sm:h-96 lg:h-auto lg:min-h-[480px] overflow-hidden">
               <Image src={f.img} alt={f.title.replace("\n", " ")} fill className="object-cover" />
-              <div className={`absolute inset-0 ${f.flip ? "bg-gradient-to-l" : "bg-gradient-to-r"} from-[#0a0a0a] via-transparent to-transparent lg:block hidden`} />
             </div>
             {/* Text */}
             <div className="w-full lg:w-1/2 flex items-center px-8 sm:px-12 lg:px-16 py-14 lg:py-20" data-reveal>
@@ -277,7 +275,6 @@ export default function HomePage() {
                 className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1">
                 <div className="relative h-48 overflow-hidden">
                   <Image src={c.img} alt={c.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
                   <span className="absolute top-3 left-3 px-2 py-1 bg-[#f5a623] text-black text-xs font-bold uppercase tracking-wider rounded">
                     {c.category}
                   </span>
@@ -328,7 +325,6 @@ export default function HomePage() {
                   {/* Image */}
                   <div className="relative h-48 rounded-lg overflow-hidden mb-4">
                     <Image src={s.img} alt={s.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d]/60 to-transparent" />
                   </div>
                   {/* Text */}
                   <h3
@@ -376,7 +372,6 @@ export default function HomePage() {
                 {t.img ? (
                   <div className="relative h-48 overflow-hidden">
                     <Image src={t.img} alt={t.name} fill className="object-cover object-top group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent" />
                   </div>
                 ) : (
                   <div className="h-48 bg-[#1a1a1a] flex items-center justify-center">
