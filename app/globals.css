@@ -137,25 +137,24 @@ footer .text-gray-600 { color: #8a7060 !important; }
 footer .border-\[\#2a2a2a\] { border-color: rgba(250,247,242,0.1) !important; }
 footer .bg-\[\#0a0a0a\] { background-color: #111 !important; }
 
-/* ── Image overlay gradients — softer for light theme ── */
-/* Cards: bottom fade matches white card background */
+/* ── Image overlay gradients — removed in light theme ── */
+/* Card image bottom fades: fully transparent so images show clearly */
 .from-\[\#141414\] {
-  --tw-gradient-from: rgba(255,255,255,0.85) !important;
-  --tw-gradient-stops: var(--tw-gradient-from), transparent !important;
+  --tw-gradient-from: transparent !important;
+  --tw-gradient-stops: transparent, transparent !important;
 }
-/* Split-feature side fade */
+/* Split-feature side fade: blend into page background */
 .from-\[\#0a0a0a\] {
-  --tw-gradient-from: rgba(250,247,242,0.9) !important;
+  --tw-gradient-from: #faf7f2 !important;
   --tw-gradient-stops: var(--tw-gradient-from), transparent !important;
 }
 .from-\[\#0d0d0d\] {
-  --tw-gradient-from: rgba(240,235,224,0.8) !important;
+  --tw-gradient-from: #f0ebe0 !important;
   --tw-gradient-stops: var(--tw-gradient-from), transparent !important;
 }
-/* Step cards bottom fade */
 .from-\[\#0d0d0d\]\/60 {
-  --tw-gradient-from: rgba(240,235,224,0.5) !important;
-  --tw-gradient-stops: var(--tw-gradient-from), transparent !important;
+  --tw-gradient-from: transparent !important;
+  --tw-gradient-stops: transparent, transparent !important;
 }
 
 /* ── Inputs & forms ── */
