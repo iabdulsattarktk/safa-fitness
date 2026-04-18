@@ -78,6 +78,14 @@ body {
 .bg-black .text-white,
 .bg-black.text-white { color: #ffffff; }
 
+/* Hero sections: always white text (full-bleed background image) */
+.min-h-screen .text-white,
+.overflow-hidden.items-end .text-white  { color: #ffffff !important; }
+.min-h-screen .text-gray-300,
+.overflow-hidden.items-end .text-gray-300 { color: rgba(255,255,255,0.82) !important; }
+.min-h-screen .text-gray-400,
+.overflow-hidden.items-end .text-gray-400 { color: rgba(255,255,255,0.65) !important; }
+
 /* Colored badges */
 .bg-blue-500,
 .bg-red-600,
