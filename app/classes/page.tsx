@@ -21,6 +21,8 @@ const classes = [
     duration: "60 min",
     img: "/images/facilities/gym.webp",
     desc: "Build raw strength and muscle with our progressive training system. Suitable for beginners and advanced athletes alike, with expert guidance on form and technique.",
+    popular: false,
+    proof: "28+ years experience · 200+ clients",
   },
   {
     name: "Boxing & Kickboxing",
@@ -31,6 +33,8 @@ const classes = [
     duration: "60 min",
     img: "/images/facilities/boxing.webp",
     desc: "Train with a 2-time gold medal boxer. Learn proper footwork, combinations, and defensive techniques in Safa's professional-grade boxing ring.",
+    popular: true,
+    proof: "National Boxer · 2 Gold, 1 Silver, 1 Bronze",
   },
   {
     name: "Body Transformation",
@@ -41,6 +45,8 @@ const classes = [
     duration: "60 min",
     img: "/images/classes/transformation.jpg",
     desc: "A results-focused program designed by ISSA-certified trainer Huma Mumtaz. Combines resistance training, cardio, and nutrition guidance for visible transformation.",
+    popular: false,
+    proof: "ISSA Certified USA · 10+ years",
   },
   {
     name: "HIIT & CrossFit",
@@ -51,6 +57,8 @@ const classes = [
     duration: "45 min",
     img: "/images/classes/hiit.jpg",
     desc: "High-intensity interval training that torches calories and builds endurance. Each session is different — keeping you challenged and your body adapting.",
+    popular: false,
+    proof: "Burns up to 600 kcal/session",
   },
   {
     name: "Swimming",
@@ -61,6 +69,8 @@ const classes = [
     duration: "60 min",
     img: "/images/facilities/swimming-pool.webp",
     desc: "Structured swimming programs from beginner stroke mechanics to advanced lap training. BLS-certified coach Muhammad Sohail ensures safe and effective sessions.",
+    popular: false,
+    proof: "BLS Certified · Heated indoor pool",
   },
   {
     name: "Combat Training",
@@ -71,6 +81,8 @@ const classes = [
     duration: "60 min",
     img: "/images/trainers/kamran-mma.webp",
     desc: "28+ years of martial arts expertise condensed into focused combat sessions. MMA fundamentals, self-defense, and conditioning for all levels.",
+    popular: false,
+    proof: "IFA & ISSA Certified · All levels",
   },
 ]
 
@@ -120,9 +132,21 @@ export default function ClassesPage() {
               <div
                 key={c.name}
                 data-reveal data-delay={String((i % 3) + 1)}
-                className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                className={`group relative flex flex-col rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
+                  c.popular
+                    ? "bg-[#141414] border border-[#f5a623] shadow-[0_0_32px_rgba(245,166,35,0.2)]"
+                    : "bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50"
+                }`}
               >
-                <div className="relative h-52 overflow-hidden">
+                {/* Social proof badge top */}
+                {c.popular && (
+                  <div className="absolute -top-px left-1/2 -translate-x-1/2 z-20">
+                    <span className="inline-block px-4 py-1.5 bg-[#f5a623] text-black text-xs font-bold uppercase tracking-widest rounded-b-lg shadow">
+                      ★ Most Popular
+                    </span>
+                  </div>
+                )}
+                <div className={`relative h-52 overflow-hidden ${c.popular ? "mt-4" : ""}`}>
                   <Image
                     src={c.img}
                     alt={c.name}
@@ -133,15 +157,22 @@ export default function ClassesPage() {
                     {c.category}
                   </span>
                 </div>
-                <div className="p-5">
+                <div className="p-5 flex flex-col flex-1">
                   <h3
                     className="text-white font-bold text-xl mb-2 group-hover:text-[#f5a623] transition-colors"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
                     {c.name}
                   </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed mb-4">{c.desc}</p>
-                  <div className="flex flex-wrap gap-3 pt-4 border-t border-[#2a2a2a]">
+                  <p className="text-gray-400 text-sm leading-relaxed mb-3">{c.desc}</p>
+
+                  {/* Social proof line */}
+                  <div className="flex items-center gap-1.5 mb-3">
+                    <svg className="w-3 h-3 text-[#f5a623] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                    <span className="text-gray-500 text-xs">{c.proof}</span>
+                  </div>
+
+                  <div className="flex flex-wrap gap-3 pt-3 border-t border-[#2a2a2a] mt-auto">
                     <span className="flex items-center gap-1.5 text-gray-400 text-xs">
                       <svg className="w-3.5 h-3.5 text-[#f5a623]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                       {c.trainer}
@@ -155,6 +186,19 @@ export default function ClassesPage() {
                       {c.duration}
                     </span>
                   </div>
+                  {/* CTA */}
+                  <a
+                    href="https://wa.me/923115156949"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`mt-4 block text-center py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-colors ${
+                      c.popular
+                        ? "bg-[#f5a623] text-black hover:bg-[#e09410]"
+                        : "border border-[#2a2a2a] text-gray-300 hover:border-[#f5a623]/50 hover:text-[#f5a623]"
+                    }`}
+                  >
+                    {c.popular ? "Join This Class Now" : "Book a Session"}
+                  </a>
                 </div>
               </div>
             ))}

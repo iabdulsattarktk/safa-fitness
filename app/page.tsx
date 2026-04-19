@@ -8,24 +8,24 @@ import ParallaxBreak from "@/components/ui/ParallaxBreak"
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const facilities = [
-  { img: "/images/facilities/gym.webp", title: "Gym & Fitness", desc: "Boost your strength and endurance with expert-guided training in a premium environment.", href: "/about#gym" },
-  { img: "/images/facilities/swimming-pool.webp", title: "Swimming Pool", desc: "Enjoy a luxurious heated indoor pool for fitness, strength, relaxation, and swim classes.", href: "/about#pool" },
-  { img: "/images/facilities/boxing.webp", title: "Boxing Ring", desc: "Step into the ring for professional-level boxing, kickboxing, and combat training.", href: "/about#boxing" },
-  { img: "/images/facilities/massage-spa.webp", title: "Massage & Spa", desc: "Unwind with therapeutic massages and rejuvenating spa treatments.", href: "/about#spa" },
-  { img: "/images/facilities/sauna.webp", title: "Steam, Sauna & Jacuzzi", desc: "Detox and relax with our wellness-focused heat and hydrotherapy zone.", href: "/about#sauna" },
-  { img: "/images/facilities/salon.webp", title: "Beauty Salon – Men", desc: "Modern grooming and styling services tailored for the modern gentleman.", href: "/about#salon" },
-  { img: "/images/facilities/lockers.webp", title: "VIP Lockers & Shower", desc: "Spacious private lockers and premium showers for your comfort and security.", href: "/about#lockers" },
-  { img: "/images/facilities/snooker.webp", title: "Snooker Lounge", desc: "Chill and compete in a lounge designed for snooker lovers.", href: "/about#snooker" },
-  { img: "/images/facilities/safa-bar.webp", title: "Safa Bar", desc: "Refuel with healthy drinks, smoothies, and premium refreshments in style.", href: "/about#bar" },
+  { img: "/images/facilities/gym.webp",          title: "Gym & Fitness",         desc: "Boost your strength and endurance with expert-guided training in a premium environment.",          href: "/about#gym",     badge: "★ Most Used",  featured: true  },
+  { img: "/images/facilities/swimming-pool.webp", title: "Swimming Pool",          desc: "Enjoy a luxurious heated indoor pool for fitness, strength, relaxation, and swim classes.",       href: "/about#pool",    badge: "Heated Indoor", featured: false },
+  { img: "/images/facilities/boxing.webp",        title: "Boxing Ring",            desc: "Step into the ring for professional-level boxing, kickboxing, and combat training.",              href: "/about#boxing",  badge: "High Demand",  featured: false },
+  { img: "/images/facilities/massage-spa.webp",   title: "Massage & Spa",          desc: "Unwind with therapeutic massages and rejuvenating spa treatments.",                               href: "/about#spa",     badge: null,           featured: false },
+  { img: "/images/facilities/sauna.webp",         title: "Steam, Sauna & Jacuzzi", desc: "Detox and relax with our wellness-focused heat and hydrotherapy zone.",                          href: "/about#sauna",   badge: "Recovery Zone", featured: false },
+  { img: "/images/facilities/salon.webp",         title: "Beauty Salon – Men",     desc: "Modern grooming and styling services tailored for the modern gentleman.",                         href: "/about#salon",   badge: null,           featured: false },
+  { img: "/images/facilities/lockers.webp",       title: "VIP Lockers & Shower",   desc: "Spacious private lockers and premium showers for your comfort and security.",                    href: "/about#lockers", badge: "VIP Access",   featured: false },
+  { img: "/images/facilities/snooker.webp",       title: "Snooker Lounge",         desc: "Chill and compete in a lounge designed for snooker lovers.",                                     href: "/about#snooker", badge: null,           featured: false },
+  { img: "/images/facilities/safa-bar.webp",      title: "Safa Bar",               desc: "Refuel with healthy drinks, smoothies, and premium refreshments in style.",                      href: "/about#bar",     badge: null,           featured: false },
 ]
 
 const classes = [
-  { name: "Strength Training", category: "Gym", trainer: "Kishwar Ali", level: "All Levels", img: "/images/classes/strength-training.jpg" },
-  { name: "Boxing & Kickboxing", category: "Combat", trainer: "Rahila Sher", level: "Beginner–Advanced", img: "/images/classes/boxing.jpg" },
-  { name: "Body Transformation", category: "Fitness", trainer: "Huma Mumtaz", level: "All Levels", img: "/images/classes/transformation.jpg" },
-  { name: "HIIT & CrossFit", category: "Cardio", trainer: "Huma Mumtaz", level: "Intermediate", img: "/images/classes/hiit.jpg" },
-  { name: "Swimming", category: "Aquatics", trainer: "Muhammad Sohail", level: "All Levels", img: "/images/classes/swimming.jpg" },
-  { name: "Combat Training", category: "Combat", trainer: "Kishwar Ali", level: "All Levels", img: "/images/classes/combat.jpg" },
+  { name: "Strength Training",   category: "Gym",      trainer: "Kishwar Ali",     level: "All Levels",       img: "/images/classes/strength-training.jpg", popular: false, proof: "28+ yrs experience" },
+  { name: "Boxing & Kickboxing", category: "Combat",   trainer: "Rahila Sher",     level: "Beginner–Advanced", img: "/images/classes/boxing.jpg",            popular: true,  proof: "National Gold Medalist" },
+  { name: "Body Transformation", category: "Fitness",  trainer: "Huma Mumtaz",     level: "All Levels",       img: "/images/classes/transformation.jpg",    popular: false, proof: "ISSA Certified USA" },
+  { name: "HIIT & CrossFit",     category: "Cardio",   trainer: "Huma Mumtaz",     level: "Intermediate",     img: "/images/classes/hiit.jpg",              popular: false, proof: "10+ yrs experience" },
+  { name: "Swimming",            category: "Aquatics", trainer: "Muhammad Sohail", level: "All Levels",       img: "/images/classes/swimming.jpg",          popular: false, proof: "BLS Certified Coach" },
+  { name: "Combat Training",     category: "Combat",   trainer: "Kishwar Ali",     level: "All Levels",       img: "/images/classes/combat.jpg",            popular: false, proof: "200+ clients trained" },
 ]
 
 const trainers = [
@@ -40,26 +40,35 @@ const plans = [
   {
     name: "Swimming Pool",
     price: "12,000",
+    originalPrice: null,
+    savingsTag: null,
     reg: "18,000",
     color: "border-gray-700",
     features: ["Pool access", "Steam/Sauna/Jacuzzi", "2 free gym sessions"],
     popular: false,
+    proof: null,
   },
   {
     name: "Gym Only",
     price: "18,000",
+    originalPrice: null,
+    savingsTag: null,
     reg: "18,000",
     color: "border-[#f5a623]",
     features: ["Full gym access", "Premium facilities", "2 free sauna sessions", "Expert trainers"],
     popular: true,
+    proof: "Most chosen by solo athletes",
   },
   {
     name: "Gym + Pool",
     price: "28,000",
+    originalPrice: "30,000",
+    savingsTag: "Save PKR 24,000/year",
     reg: "18,000",
     color: "border-gray-700",
     features: ["Gym + Pool access", "Steam/Sauna/Jacuzzi", "1 personal training session", "All amenities"],
     popular: false,
+    proof: null,
   },
 ]
 
@@ -176,9 +185,20 @@ export default function HomePage() {
             {facilities.map((f, i) => (
               <Link key={f.title} href={f.href}
                 data-reveal data-delay={String((i % 6) + 1)}
-                className="group overflow-hidden bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg transition-all duration-300 hover:-translate-y-1">
+                className={`group relative overflow-hidden rounded-xl transition-all duration-300 hover:-translate-y-1 ${
+                  f.featured
+                    ? "bg-[#141414] border border-[#f5a623] shadow-[0_0_28px_rgba(245,166,35,0.18)]"
+                    : "bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50"
+                }`}>
                 <div className="relative h-48 overflow-hidden">
                   <Image src={f.img} alt={f.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  {f.badge && (
+                    <span className={`absolute top-3 left-3 px-2.5 py-1 text-xs font-bold uppercase tracking-wider rounded ${
+                      f.featured ? "bg-[#f5a623] text-black" : "bg-black/60 text-[#f5a623] border border-[#f5a623]/40 backdrop-blur-sm"
+                    }`}>
+                      {f.badge}
+                    </span>
+                  )}
                 </div>
                 <div className="p-5">
                   <h3 className="text-white font-bold text-lg mb-2 group-hover:text-[#f5a623] transition-colors"
@@ -186,6 +206,10 @@ export default function HomePage() {
                     {f.title}
                   </h3>
                   <p className="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
+                  <div className="mt-3 pt-3 border-t border-[#2a2a2a] flex items-center justify-between">
+                    <span className="text-gray-600 text-xs">Included in all gym plans</span>
+                    <span className="text-[#f5a623] text-xs font-bold group-hover:gap-2 transition-all">Explore →</span>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -272,8 +296,19 @@ export default function HomePage() {
             {classes.map((c, i) => (
               <Link key={c.name} href="/classes"
                 data-reveal data-delay={String(i + 1)}
-                className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1">
-                <div className="relative h-48 overflow-hidden">
+                className={`group relative overflow-hidden rounded-xl transition-all duration-300 hover:-translate-y-1 ${
+                  c.popular
+                    ? "bg-[#141414] border border-[#f5a623] shadow-[0_0_28px_rgba(245,166,35,0.18)]"
+                    : "bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50"
+                }`}>
+                {c.popular && (
+                  <div className="absolute -top-px left-1/2 -translate-x-1/2 z-20">
+                    <span className="inline-block px-4 py-1 bg-[#f5a623] text-black text-xs font-bold uppercase tracking-widest rounded-b-lg">
+                      ★ Most Popular
+                    </span>
+                  </div>
+                )}
+                <div className={`relative h-48 overflow-hidden ${c.popular ? "mt-4" : ""}`}>
                   <Image src={c.img} alt={c.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                   <span className="absolute top-3 left-3 px-2 py-1 bg-[#f5a623] text-black text-xs font-bold uppercase tracking-wider rounded">
                     {c.category}
@@ -284,8 +319,13 @@ export default function HomePage() {
                     style={{ fontFamily: "var(--font-display)" }}>{c.name}</h3>
                   <p className="text-gray-500 text-sm mb-1">Trainer: <span className="text-gray-300">{c.trainer}</span></p>
                   <p className="text-gray-500 text-sm">Level: <span className="text-gray-300">{c.level}</span></p>
+                  {/* Social Proof */}
+                  <div className="flex items-center gap-1.5 mt-2">
+                    <svg className="w-3 h-3 text-[#f5a623]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                    <span className="text-gray-500 text-xs">{c.proof}</span>
+                  </div>
                   <div className="mt-4 pt-4 border-t border-[#2a2a2a] flex items-center justify-between">
-                    <span className="text-[#f5a623] text-sm font-medium">Learn more →</span>
+                    <span className="text-[#f5a623] text-sm font-bold">Join this class →</span>
                   </div>
                 </div>
               </Link>
@@ -409,36 +449,65 @@ export default function HomePage() {
             {plans.map((p, i) => (
               <div key={p.name}
                 data-reveal data-delay={String(i + 1)}
-                className={`relative p-8 bg-[#141414] border-2 ${p.color} rounded-lg ${p.popular ? "scale-105" : ""}`}>
+                className={`relative flex flex-col rounded-xl transition-all duration-300 ${
+                  p.popular
+                    ? "bg-[#141414] border-2 border-[#f5a623] shadow-[0_0_36px_rgba(245,166,35,0.2)] scale-105"
+                    : "bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/40 hover:-translate-y-1"
+                }`}>
+                {/* Social proof badge — centered top */}
                 {p.popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-[#f5a623] text-black text-xs font-bold uppercase tracking-wider rounded-full">
-                    Most Popular
-                  </span>
+                  <div className="absolute -top-px left-1/2 -translate-x-1/2">
+                    <span className="inline-block px-5 py-1.5 bg-[#f5a623] text-black text-xs font-bold uppercase tracking-widest rounded-b-lg shadow">
+                      ★ Most Popular
+                    </span>
+                  </div>
                 )}
-                <h3 className="text-white font-bold text-xl mb-1"
-                  style={{ fontFamily: "var(--font-display)" }}>{p.name}</h3>
-                <div className="flex items-baseline gap-1 mb-6 mt-4">
-                  <span className="text-gray-400 text-sm">PKR</span>
-                  <span className={`text-4xl font-bold ${p.popular ? "text-[#f5a623]" : "text-white"}`}
-                    style={{ fontFamily: "var(--font-display)" }}>{p.price}</span>
-                  <span className="text-gray-500 text-sm">/mo</span>
+                <div className={`p-7 flex flex-col flex-1 ${p.popular ? "pt-9" : ""}`}>
+                  <h3 className="text-white font-bold text-xl mb-3"
+                    style={{ fontFamily: "var(--font-display)" }}>{p.name}</h3>
+
+                  {/* Anchoring */}
+                  {p.originalPrice && (
+                    <p className="text-gray-500 text-sm line-through mb-0.5">PKR {p.originalPrice} /mo if bought separately</p>
+                  )}
+                  <div className="flex items-baseline gap-1 mb-2">
+                    <span className="text-gray-400 text-sm">PKR</span>
+                    <span className={`text-4xl font-bold ${p.popular ? "text-[#f5a623]" : "text-white"}`}
+                      style={{ fontFamily: "var(--font-display)" }}>{p.price}</span>
+                    <span className="text-gray-500 text-sm">/mo</span>
+                  </div>
+
+                  {/* Loss aversion */}
+                  {p.savingsTag && (
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md mb-4 bg-green-500/10 border border-green-500/30 w-fit">
+                      <svg className="w-3 h-3 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                      <span className="text-green-400 text-xs font-semibold">{p.savingsTag}</span>
+                    </div>
+                  )}
+
+                  {/* Social proof line */}
+                  {p.proof && (
+                    <p className="text-gray-500 text-xs mb-4 italic">{p.proof}</p>
+                  )}
+
+                  <ul className="space-y-3 mb-6 flex-1">
+                    {p.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-gray-300 text-sm">
+                        <span className="text-[#f5a623] mt-0.5 flex-shrink-0">✓</span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href="/pricing"
+                    className={`block text-center py-3 rounded-lg font-bold text-sm uppercase tracking-wider transition-colors ${
+                      p.popular
+                        ? "bg-[#f5a623] text-black hover:bg-[#e09410] shadow-lg shadow-[#f5a623]/25"
+                        : "border border-[#f5a623] text-[#f5a623] hover:bg-[#f5a623] hover:text-black"
+                    }`}>
+                    See Full Details
+                  </Link>
+                  <p className="text-gray-600 text-xs text-center mt-2">Save more with multi-month plans →</p>
                 </div>
-                <ul className="space-y-3 mb-8">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-gray-300 text-sm">
-                      <span className="text-[#f5a623] mt-0.5 flex-shrink-0">✓</span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/pricing"
-                  className={`block text-center py-3 rounded font-bold text-sm uppercase tracking-wider transition-colors ${
-                    p.popular
-                      ? "bg-[#f5a623] text-black hover:bg-[#e09410]"
-                      : "border border-[#f5a623] text-[#f5a623] hover:bg-[#f5a623] hover:text-black"
-                  }`}>
-                  Get Started
-                </Link>
               </div>
             ))}
           </div>
