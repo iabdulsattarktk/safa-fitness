@@ -40,21 +40,23 @@ const plans = [
   {
     name: "Swimming Pool",
     price: "12,000",
-    originalPrice: null,
-    savingsTag: null,
+    originalPrice: "15,000",
+    savingsTag: "Save PKR 36,000/year",
     reg: "18,000",
     color: "border-gray-700",
+    badge: "Aquatics",
     features: ["Pool access", "Steam/Sauna/Jacuzzi", "2 free gym sessions"],
     popular: false,
-    proof: null,
+    proof: "Heated indoor · Year-round access",
   },
   {
     name: "Gym Only",
     price: "18,000",
-    originalPrice: null,
-    savingsTag: null,
+    originalPrice: "20,000",
+    savingsTag: "Save PKR 24,000/year",
     reg: "18,000",
     color: "border-[#f5a623]",
+    badge: "Most Popular",
     features: ["Full gym access", "Premium facilities", "2 free sauna sessions", "Expert trainers"],
     popular: true,
     proof: "Most chosen by solo athletes",
@@ -66,9 +68,10 @@ const plans = [
     savingsTag: "Save PKR 24,000/year",
     reg: "18,000",
     color: "border-gray-700",
+    badge: "Best Value",
     features: ["Gym + Pool access", "Steam/Sauna/Jacuzzi", "1 personal training session", "All amenities"],
     popular: false,
-    proof: null,
+    proof: "Most complete package",
   },
 ]
 
@@ -454,21 +457,29 @@ export default function HomePage() {
                     ? "bg-[#141414] border-2 border-[#f5a623] shadow-[0_0_36px_rgba(245,166,35,0.2)] scale-105"
                     : "bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/40 hover:-translate-y-1"
                 }`}>
-                {/* Social proof badge — centered top */}
+                {/* Social proof badge — centered top (popular only) */}
                 {p.popular && (
                   <div className="absolute -top-px left-1/2 -translate-x-1/2">
                     <span className="inline-block px-5 py-1.5 bg-[#f5a623] text-black text-xs font-bold uppercase tracking-widest rounded-b-lg shadow">
-                      ★ Most Popular
+                      ★ {p.badge}
                     </span>
                   </div>
                 )}
-                <div className={`p-7 flex flex-col flex-1 ${p.popular ? "pt-9" : ""}`}>
+                {/* Corner badge for non-popular cards */}
+                {!p.popular && p.badge && (
+                  <div className="absolute top-3 right-3">
+                    <span className="inline-block px-2.5 py-1 bg-[#2a2a2a] text-[#f5a623] border border-[#f5a623]/30 text-[10px] font-bold uppercase tracking-wider rounded">
+                      {p.badge}
+                    </span>
+                  </div>
+                )}
+                <div className={`p-6 flex flex-col flex-1 ${p.popular ? "pt-9" : ""}`}>
                   <h3 className="text-white font-bold text-xl mb-3"
                     style={{ fontFamily: "var(--font-display)" }}>{p.name}</h3>
 
-                  {/* Anchoring */}
+                  {/* Anchoring — small strikethrough */}
                   {p.originalPrice && (
-                    <p className="text-gray-500 text-sm line-through mb-0.5">PKR {p.originalPrice} /mo if bought separately</p>
+                    <p className="text-gray-500 text-xs line-through mb-0.5">PKR {p.originalPrice}/mo</p>
                   )}
                   <div className="flex items-baseline gap-1 mb-2">
                     <span className="text-gray-400 text-sm">PKR</span>
@@ -479,7 +490,7 @@ export default function HomePage() {
 
                   {/* Loss aversion */}
                   {p.savingsTag && (
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md mb-4 bg-green-500/10 border border-green-500/30 w-fit">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md mb-3 bg-green-500/10 border border-green-500/30 w-fit">
                       <svg className="w-3 h-3 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                       <span className="text-green-400 text-xs font-semibold">{p.savingsTag}</span>
                     </div>
@@ -487,7 +498,7 @@ export default function HomePage() {
 
                   {/* Social proof line */}
                   {p.proof && (
-                    <p className="text-gray-500 text-xs mb-4 italic">{p.proof}</p>
+                    <p className="text-gray-500 text-xs mb-3 italic">{p.proof}</p>
                   )}
 
                   <ul className="space-y-3 mb-6 flex-1">

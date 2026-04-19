@@ -63,7 +63,7 @@ const plans = [
     socialProof: null,
     period: "per visit",
     registration: null,
-    badge: null,
+    badge: "No Commitment",
     highlight: false,
     img: "/images/facilities/gym.webp",
     features: [
@@ -81,12 +81,12 @@ const plans = [
     id: "swimming",
     name: "Swimming Pool",
     price: "12,000",
-    originalPrice: null,
-    savingsTag: null,
+    originalPrice: "15,000",
+    savingsTag: "Save PKR 36,000/year",
     socialProof: null,
     period: "per month",
     registration: "18,000",
-    badge: null,
+    badge: "Aquatics",
     highlight: false,
     img: "/images/facilities/swimming-pool.webp",
     features: [
@@ -104,12 +104,12 @@ const plans = [
     id: "gym",
     name: "Gym Only",
     price: "18,000",
-    originalPrice: null,
-    savingsTag: null,
+    originalPrice: "20,000",
+    savingsTag: "Save PKR 24,000/year",
     socialProof: null,
     period: "per month",
     registration: "18,000",
-    badge: null,
+    badge: "Top Pick",
     highlight: false,
     img: "/images/facilities/gym.webp",
     features: [
@@ -330,10 +330,7 @@ export default function PricingPage() {
                   {/* ── ANCHORING: strikethrough original + actual price ── */}
                   <div className="mb-2">
                     {plan.originalPrice && (
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-gray-500 text-sm line-through">PKR {plan.originalPrice}</span>
-                        <span className="text-xs text-gray-600">if bought separately</span>
-                      </div>
+                      <p className="text-gray-500 text-xs line-through mb-0.5">PKR {plan.originalPrice}/mo</p>
                     )}
                     <div className="flex items-end gap-2">
                       <span className="text-[#f5a623] text-xs font-bold uppercase">PKR</span>
