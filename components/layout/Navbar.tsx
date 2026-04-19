@@ -19,18 +19,18 @@ const navLinks = [
 ]
 
 const toolsMenu = [
-  { slug: "bmi",          label: "BMI Calculator",        hint: "Height · Weight" },
-  { slug: "calories",     label: "Calorie Calculator",     hint: "Age · Gender · Activity" },
-  { slug: "body-fat",     label: "Body Fat % Estimator",   hint: "Height · Waist · Neck" },
-  { slug: "macros",       label: "Macro Planner",          hint: "Calories · Goal" },
-  { slug: "one-rep-max",  label: "One Rep Max",            hint: "Weight · Reps" },
-  { slug: "ideal-weight", label: "Ideal Weight",           hint: "Height · Gender" },
-  { slug: "water",        label: "Water Intake",           hint: "Weight · Activity" },
-  { slug: "heart-rate",   label: "Heart Rate Zones",       hint: "Age" },
-  { slug: "lean-mass",    label: "Lean Body Mass",         hint: "Weight · Height · Gender" },
-  { slug: "protein",      label: "Protein Calculator",     hint: "Weight · Goal" },
-  { slug: "running-pace", label: "Running Pace",           hint: "Distance · Time" },
-  { slug: "waist-height", label: "Waist-Height Ratio",     hint: "Waist · Height" },
+  { slug: "bmi",          label: "BMI Calculator",        hint: "Height · Weight",          icon: "⚖️", color: "#f5a623" },
+  { slug: "calories",     label: "Calorie Calculator",     hint: "Age · Gender · Activity",  icon: "🔥", color: "#ef4444" },
+  { slug: "body-fat",     label: "Body Fat % Estimator",   hint: "Height · Waist · Neck",    icon: "📏", color: "#8b5cf6" },
+  { slug: "macros",       label: "Macro Planner",          hint: "Calories · Goal",          icon: "🥗", color: "#22c55e" },
+  { slug: "one-rep-max",  label: "One Rep Max",            hint: "Weight · Reps",            icon: "💪", color: "#f97316" },
+  { slug: "ideal-weight", label: "Ideal Weight",           hint: "Height · Gender",          icon: "⭐", color: "#eab308" },
+  { slug: "water",        label: "Water Intake",           hint: "Weight · Activity",        icon: "💧", color: "#3b82f6" },
+  { slug: "heart-rate",   label: "Heart Rate Zones",       hint: "Age",                      icon: "❤️", color: "#ef4444" },
+  { slug: "lean-mass",    label: "Lean Body Mass",         hint: "Weight · Height · Gender", icon: "🏋️", color: "#f5a623" },
+  { slug: "protein",      label: "Protein Calculator",     hint: "Weight · Goal",            icon: "🥩", color: "#e11d48" },
+  { slug: "running-pace", label: "Running Pace",           hint: "Distance · Time",          icon: "🏃", color: "#10b981" },
+  { slug: "waist-height", label: "Waist-Height Ratio",     hint: "Waist · Height",           icon: "📐", color: "#6366f1" },
 ]
 
 export default function Navbar() {
@@ -176,30 +176,48 @@ export default function Navbar() {
               {/* Dropdown Panel */}
               {toolsOpen && (
                 <div
-                  className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[480px]"
+                  className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[480px] dropdown-animate"
                   onMouseEnter={handleToolsEnter}
                   onMouseLeave={handleToolsLeave}
                 >
-                  <div className="bg-[#141414]/95 backdrop-blur-md border border-[#2a2a2a] rounded-xl shadow-2xl shadow-black/60 overflow-hidden">
+                  <div className="bg-[#141414]/97 backdrop-blur-xl border border-[#2a2a2a] rounded-xl shadow-2xl shadow-black/70 overflow-hidden">
                     {/* Header */}
-                    <div className="px-4 py-3 border-b border-[#2a2a2a]">
-                      <p className="text-[#f5a623] text-[11px] font-bold uppercase tracking-[0.2em]">Health & Fitness Tools</p>
+                    <div className="px-5 py-3 border-b border-[#2a2a2a] flex items-center justify-between bg-gradient-to-r from-[#f5a623]/8 to-transparent">
+                      <p className="text-[#f5a623] text-[11px] font-bold uppercase tracking-[0.25em]">Health &amp; Fitness Tools</p>
+                      <span className="text-gray-600 text-[10px]">12 calculators</span>
                     </div>
                     {/* Tools Grid */}
-                    <div className="grid grid-cols-2 gap-px bg-[#2a2a2a]">
+                    <div className="grid grid-cols-2">
                       {toolsMenu.map((tool) => (
                         <Link
                           key={tool.slug}
                           href={`/tools?tool=${tool.slug}`}
                           onClick={() => setToolsOpen(false)}
-                          className="group bg-[#141414] hover:bg-[#1a1a1a] px-4 py-3.5 transition-colors duration-150 text-left w-full block"
+                          className="group flex items-center gap-3 px-4 py-3 border-b border-r border-[#1e1e1e] hover:bg-[#1a1a1a] transition-all duration-150 text-left w-full last:border-b-0"
+                          style={{ borderColor: "rgba(255,255,255,0.04)" }}
                         >
-                          <p className="text-white group-hover:text-[#f5a623] text-[13px] font-semibold transition-colors leading-snug">
-                            {tool.label}
-                          </p>
-                          <p className="text-gray-600 text-[11px] mt-0.5">{tool.hint}</p>
+                          {/* Colored icon bubble */}
+                          <span
+                            className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-sm transition-transform duration-150 group-hover:scale-110"
+                            style={{ backgroundColor: `${tool.color}18` }}
+                          >
+                            {tool.icon}
+                          </span>
+                          <div className="min-w-0">
+                            <p className="text-white group-hover:text-[#f5a623] text-[12.5px] font-semibold transition-colors leading-snug truncate">
+                              {tool.label}
+                            </p>
+                            <p className="text-gray-600 text-[10.5px] mt-0.5 group-hover:text-gray-500 transition-colors">{tool.hint}</p>
+                          </div>
                         </Link>
                       ))}
+                    </div>
+                    {/* Footer CTA */}
+                    <div className="px-5 py-2.5 border-t border-[#2a2a2a] bg-[#111] flex items-center justify-between">
+                      <span className="text-gray-600 text-[10px]">All tools are free · No signup needed</span>
+                      <Link href="/tools" onClick={() => setToolsOpen(false)} className="text-[#f5a623] text-[10.5px] font-bold uppercase tracking-wider hover:text-[#e09410] transition-colors">
+                        View All →
+                      </Link>
                     </div>
                   </div>
                 </div>

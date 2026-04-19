@@ -279,6 +279,14 @@ nextjs-portal {
   to   { transform: translateY(0); }
 }
 
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+.dropdown-animate {
+  animation: dropdownIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* ── Scroll Reveal ────────────────────────────────────────────────────────── */
 [data-reveal] {
   opacity: 0;
