@@ -521,7 +521,6 @@ export default function HomePage() {
       <ParallaxBreak
         src="/images/gallery/running.webp"
         quote="Your Only Competition Is Who You Were Yesterday"
-        overlay="rgba(0,0,0,0.65)"
       />
 
       {/* ── TESTIMONIALS ── */}

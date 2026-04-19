@@ -15,12 +15,13 @@ export default function ParallaxBreak({
   src,
   quote,
   sub,
-  overlay = "rgba(0,0,0,0.60)",
+  overlay = "rgba(0,0,0,0.38)",
 }: Props) {
   return (
     <div
-      className="relative h-56 sm:h-72 flex items-center justify-center"
+      className="relative h-56 sm:h-72 flex items-center justify-center overflow-hidden"
       style={{
+        backgroundColor: "#111",
         backgroundImage: `url(${src})`,
         backgroundAttachment: "fixed",
         backgroundSize: "cover",
