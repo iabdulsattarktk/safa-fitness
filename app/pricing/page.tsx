@@ -58,6 +58,9 @@ const plans = [
     id: "day-pass",
     name: "Day Pass",
     price: "2,500",
+    originalPrice: null,
+    savingsTag: null,
+    socialProof: null,
     period: "per visit",
     registration: null,
     badge: null,
@@ -78,6 +81,9 @@ const plans = [
     id: "swimming",
     name: "Swimming Pool",
     price: "12,000",
+    originalPrice: null,
+    savingsTag: null,
+    socialProof: null,
     period: "per month",
     registration: "18,000",
     badge: null,
@@ -98,6 +104,9 @@ const plans = [
     id: "gym",
     name: "Gym Only",
     price: "18,000",
+    originalPrice: null,
+    savingsTag: null,
+    socialProof: null,
     period: "per month",
     registration: "18,000",
     badge: null,
@@ -118,6 +127,9 @@ const plans = [
     id: "gym-vip",
     name: "Gym + VIP Lockers",
     price: "24,000",
+    originalPrice: "26,000",
+    savingsTag: "Save PKR 2,000/mo vs. separate add-on",
+    socialProof: null,
     period: "per month",
     registration: "18,000",
     badge: "Enhanced",
@@ -138,6 +150,9 @@ const plans = [
     id: "gym-pool",
     name: "Gym + Pool",
     price: "28,000",
+    originalPrice: "30,000",
+    savingsTag: "Save PKR 24,000/year vs. buying separately",
+    socialProof: "Most chosen plan by Safa Fitness members",
     period: "per month",
     registration: "18,000",
     badge: "Most Popular",
@@ -151,13 +166,16 @@ const plans = [
       "VIP lockers & premium showers",
       "Snooker lounge & Safa Bar",
     ],
-    cta: "Join Now",
+    cta: "Join Now — Best Value",
     ctaNote: "One-time registration: PKR 18,000",
   },
   {
     id: "kids",
     name: "Kids",
     price: "18,000",
+    originalPrice: null,
+    savingsTag: null,
+    socialProof: null,
     period: "per month",
     registration: "10,000",
     badge: "Ages 6–16",
@@ -273,37 +291,50 @@ export default function PricingPage() {
               <div
                 key={plan.id}
                 data-reveal data-delay={String((i % 3) + 1)}
-                className={`relative flex flex-col rounded-lg overflow-hidden border transition-all duration-300 hover:-translate-y-1 ${
+                className={`relative flex flex-col rounded-xl overflow-hidden border transition-all duration-300 hover:-translate-y-1 ${
                   plan.highlight
-                    ? "border-[#f5a623] bg-[#141414] shadow-[0_0_30px_rgba(245,166,35,0.15)]"
+                    ? "border-[#f5a623] bg-[#141414] shadow-[0_0_40px_rgba(245,166,35,0.22)]"
                     : "border-[#2a2a2a] bg-[#141414] hover:border-[#f5a623]/40"
                 }`}
               >
-                {/* Badge */}
-                {plan.badge && (
-                  <div className={`absolute top-3 right-3 z-10 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded ${
-                    plan.highlight ? "bg-[#f5a623] text-black" : "bg-[#2a2a2a] text-[#f5a623] border border-[#f5a623]/30"
-                  }`}>
+                {/* ── SOCIAL PROOF: Most Popular badge — centered top ── */}
+                {plan.highlight && plan.badge && (
+                  <div className="absolute -top-px left-1/2 -translate-x-1/2 z-20">
+                    <span className="inline-block px-5 py-1.5 bg-[#f5a623] text-black text-xs font-bold uppercase tracking-widest rounded-b-lg shadow-lg">
+                      ★ {plan.badge}
+                    </span>
+                  </div>
+                )}
+
+                {/* Non-highlight badge (corner) */}
+                {plan.badge && !plan.highlight && (
+                  <div className="absolute top-3 right-3 z-10 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded bg-[#2a2a2a] text-[#f5a623] border border-[#f5a623]/30">
                     {plan.badge}
                   </div>
                 )}
 
                 {/* Image */}
-                <div className="relative h-44 overflow-hidden">
+                <div className={`relative overflow-hidden ${plan.highlight ? "h-44 mt-4" : "h-44"}`}>
                   <Image src={plan.img} alt={plan.name} fill className="object-cover" />
                 </div>
 
                 {/* Content */}
                 <div className="flex flex-col flex-1 p-6">
                   <h3
-                    className="text-white font-bold text-2xl uppercase mb-1"
+                    className="text-white font-bold text-2xl uppercase mb-3"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
                     {plan.name}
                   </h3>
 
-                  {/* Price */}
-                  <div className="mb-5">
+                  {/* ── ANCHORING: strikethrough original + actual price ── */}
+                  <div className="mb-2">
+                    {plan.originalPrice && (
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-gray-500 text-sm line-through">PKR {plan.originalPrice}</span>
+                        <span className="text-xs text-gray-600">if bought separately</span>
+                      </div>
+                    )}
                     <div className="flex items-end gap-2">
                       <span className="text-[#f5a623] text-xs font-bold uppercase">PKR</span>
                       <span
@@ -312,9 +343,35 @@ export default function PricingPage() {
                       >
                         {plan.price}
                       </span>
+                      <span className="text-gray-500 text-xs mb-1">{plan.period}</span>
                     </div>
-                    <p className="text-gray-500 text-xs mt-1">{plan.period}</p>
                   </div>
+
+                  {/* ── LOSS AVERSION: savings badge ── */}
+                  {plan.savingsTag && (
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md mb-4 bg-green-500/10 border border-green-500/30 w-fit">
+                      <svg className="w-3 h-3 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-green-400 text-xs font-semibold">{plan.savingsTag}</span>
+                    </div>
+                  )}
+
+                  {/* ── SOCIAL PROOF: member testimonial line ── */}
+                  {plan.socialProof && (
+                    <div className="flex items-center gap-2 mb-4 pb-4 border-b border-[#2a2a2a]">
+                      <div className="flex -space-x-1.5">
+                        {[1,2,3,4].map(n => (
+                          <div key={n} className="w-5 h-5 rounded-full bg-[#f5a623]/20 border border-[#f5a623]/40 flex items-center justify-center flex-shrink-0">
+                            <svg className="w-3 h-3 text-[#f5a623]" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
+                            </svg>
+                          </div>
+                        ))}
+                      </div>
+                      <p className="text-gray-400 text-xs">{plan.socialProof}</p>
+                    </div>
+                  )}
 
                   {/* Features */}
                   <ul className="space-y-2 mb-6 flex-1">
@@ -332,9 +389,9 @@ export default function PricingPage() {
                       href="https://wa.me/923115156949"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`block text-center py-3 px-6 font-bold text-sm uppercase tracking-wider rounded transition-colors ${
+                      className={`block text-center py-3 px-6 font-bold text-sm uppercase tracking-wider rounded-lg transition-all duration-200 ${
                         plan.highlight
-                          ? "bg-[#f5a623] hover:bg-[#e09410] text-black"
+                          ? "bg-[#f5a623] hover:bg-[#e09410] text-black shadow-lg shadow-[#f5a623]/25 hover:shadow-[#f5a623]/40"
                           : "bg-[#1a1a1a] hover:bg-[#222] text-white border border-[#2a2a2a] hover:border-[#f5a623]/50"
                       }`}
                     >
@@ -342,6 +399,12 @@ export default function PricingPage() {
                     </a>
                     {plan.ctaNote && (
                       <p className="text-gray-600 text-xs text-center mt-2">{plan.ctaNote}</p>
+                    )}
+                    {/* ── LOSS AVERSION: multi-month savings nudge ── */}
+                    {plan.registration && (
+                      <p className="text-[#f5a623]/60 text-xs text-center mt-2 hover:text-[#f5a623] transition-colors">
+                        Save more with 3, 6 or 12-month plans →
+                      </p>
                     )}
                   </div>
                 </div>
