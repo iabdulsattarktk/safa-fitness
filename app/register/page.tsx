@@ -13,7 +13,7 @@ export default async function RegisterPage() {
   if (session) redirect("/dashboard")
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-4">
+    <main data-auth className="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-4">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#f5a623]/5 rounded-full blur-[120px]" />
       </div>
@@ -40,7 +40,7 @@ export default async function RegisterPage() {
               Create <span className="text-[#f5a623]">Account</span>
             </h1>
             <p className="text-gray-500 text-sm">
-              Naya member account banao
+              Create your member account
             </p>
           </div>
 
@@ -48,9 +48,9 @@ export default async function RegisterPage() {
 
           <div className="mt-8 pt-6 border-t border-[#2a2a2a] text-center">
             <p className="text-gray-600 text-xs">
-              Pehle se account hai?{" "}
+              Already have an account?{" "}
               <a href="/login" className="text-[#f5a623] hover:text-[#e09410] transition-colors">
-                Sign In karo
+                Sign In
               </a>
             </p>
           </div>

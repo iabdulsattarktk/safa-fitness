@@ -98,7 +98,7 @@ export default function SocialLinks({
           }}
           onMouseLeave={e => {
             const el = e.currentTarget
-            el.style.backgroundColor = ""
+            el.style.backgroundColor = "#2a2318"
             el.style.boxShadow = ""
           }}
         >

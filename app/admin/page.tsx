@@ -1,7 +1,9 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { db } from "@/lib/db"
+import { CONTENT_DEFAULTS } from "@/lib/site-content"
 import SignOutButton from "@/components/auth/SignOutButton"
+import AdminTabs from "@/components/admin/AdminTabs"
 import Image from "next/image"
 import type { Metadata } from "next"
 
@@ -24,20 +26,57 @@ export default async function AdminPage() {
   const activeMembers = members.filter((m) => m.membership?.status === "ACTIVE").length
   const expiredMembers = members.filter((m) => m.membership?.status === "EXPIRED").length
   const noMembership = members.filter((m) => !m.membership).length
+  const basicCount = members.filter((m) => m.membership?.plan === "BASIC").length
+  const championCount = members.filter((m) => m.membership?.plan === "CHAMPION").length
+  const eliteCount = members.filter((m) => m.membership?.plan === "ELITE").length
 
-  const planLabels: Record<string, string> = {
-    BASIC: "Basic", CHAMPION: "Champion", ELITE: "Elite"
-  }
-  const planColors: Record<string, string> = {
-    BASIC:    "text-blue-400 bg-blue-400/10",
-    CHAMPION: "text-[#f5a623] bg-[#f5a623]/10",
-    ELITE:    "text-purple-400 bg-purple-400/10",
-  }
-  const statusColors: Record<string, string> = {
-    ACTIVE:  "text-green-400 bg-green-400/10",
-    EXPIRED: "text-red-400 bg-red-400/10",
-    PENDING: "text-yellow-400 bg-yellow-400/10",
-  }
+  // Serialize dates — client components receive plain JSON
+  const membersData = members.map((m) => ({
+    id: m.id,
+    name: m.name,
+    email: m.email,
+    image: m.image,
+    phone: m.phone,
+    createdAt: m.createdAt.toISOString(),
+    membership: m.membership
+      ? {
+          plan: m.membership.plan as string,
+          status: m.membership.status as string,
+          endDate: m.membership.endDate?.toISOString() ?? null,
+        }
+      : null,
+  }))
+
+  // Content for editor
+  const contentRows = await db.siteContent.findMany()
+  const overrideMap = Object.fromEntries(contentRows.map((r) => [r.key, r.value]))
+  const initialContent = Object.entries(CONTENT_DEFAULTS).map(([key, meta]) => ({
+    key,
+    value: overrideMap[key] ?? meta.value,
+    label: meta.label,
+    type: meta.type,
+    isDefault: !overrideMap[key],
+  }))
+
+  // Blog posts for editor
+  const blogPosts = await db.blogPost.findMany({ orderBy: [{ order: "asc" }, { createdAt: "desc" }] })
+  const initialPosts = blogPosts.map((p) => ({
+    id: p.id,
+    slug: p.slug,
+    title: p.title,
+    subtitle: p.subtitle,
+    description: p.description,
+    category: p.category,
+    categoryColor: p.categoryColor,
+    date: p.date,
+    readTime: p.readTime,
+    img: p.img,
+    author: p.author,
+    sections: p.sections as { heading: string; paragraphs: string[] }[],
+    faqs: p.faqs as { q: string; a: string }[],
+    published: p.published,
+    order: p.order,
+  }))
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] pt-20 pb-16 px-4">
@@ -56,10 +95,7 @@ export default async function AdminPage() {
               />
             )}
             <div>
-              <h1
-                className="text-2xl font-bold uppercase text-white"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
+              <h1 className="text-2xl font-bold uppercase text-white" style={{ fontFamily: "var(--font-display)" }}>
                 Admin <span className="text-[#f5a623]">Panel</span>
               </h1>
               <p className="text-gray-500 text-sm">{session.user.email}</p>
@@ -68,13 +104,13 @@ export default async function AdminPage() {
           <SignOutButton />
         </div>
 
-        {/* Stats Row */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        {/* Stats */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
           {[
-            { label: "Total Members",   value: totalMembers,   color: "text-white" },
-            { label: "Active",          value: activeMembers,  color: "text-green-400" },
-            { label: "Expired",         value: expiredMembers, color: "text-red-400" },
-            { label: "No Membership",   value: noMembership,   color: "text-gray-400" },
+            { label: "Total Members",  value: totalMembers,   color: "text-white" },
+            { label: "Active",         value: activeMembers,  color: "text-green-400" },
+            { label: "Expired",        value: expiredMembers, color: "text-red-400" },
+            { label: "No Membership",  value: noMembership,   color: "text-gray-400" },
           ].map((stat) => (
             <div key={stat.label} className="bg-[#141414] border border-[#2a2a2a] rounded-xl p-4 text-center">
               <p className={`text-3xl font-bold ${stat.color}`} style={{ fontFamily: "var(--font-display)" }}>
@@ -85,107 +121,23 @@ export default async function AdminPage() {
           ))}
         </div>
 
-        {/* Members Table */}
-        <div className="bg-[#141414] border border-[#2a2a2a] rounded-2xl overflow-hidden">
-          <div className="px-6 py-4 border-b border-[#2a2a2a]">
-            <h2
-              className="text-white font-bold uppercase"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              All Members
-            </h2>
-          </div>
-
-          {members.length === 0 ? (
-            <div className="py-16 text-center text-gray-600 text-sm">
-              No members yet.
+        {/* Plan breakdown */}
+        <div className="grid grid-cols-3 gap-3 mb-8">
+          {[
+            { label: "Basic",    value: basicCount,    color: "text-blue-400" },
+            { label: "Champion", value: championCount, color: "text-[#f5a623]" },
+            { label: "Elite",    value: eliteCount,    color: "text-purple-400" },
+          ].map((stat) => (
+            <div key={stat.label} className="bg-[#141414] border border-[#2a2a2a] rounded-xl px-4 py-3 flex items-center justify-between">
+              <p className="text-gray-500 text-xs">{stat.label}</p>
+              <p className={`font-bold text-lg ${stat.color}`} style={{ fontFamily: "var(--font-display)" }}>
+                {stat.value}
+              </p>
             </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-[#2a2a2a] text-gray-600 text-xs uppercase tracking-wider">
-                    <th className="text-left px-6 py-3">Member</th>
-                    <th className="text-left px-4 py-3">Plan</th>
-                    <th className="text-left px-4 py-3">Status</th>
-                    <th className="text-left px-4 py-3">Expiry</th>
-                    <th className="text-left px-4 py-3">Joined</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {members.map((member) => (
-                    <tr
-                      key={member.id}
-                      className="border-b border-[#1a1a1a] hover:bg-[#1a1a1a] transition-colors"
-                    >
-                      {/* Member info */}
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
-                          {member.image ? (
-                            <Image
-                              src={member.image}
-                              alt={member.name ?? ""}
-                              width={32}
-                              height={32}
-                              className="rounded-full flex-shrink-0"
-                            />
-                          ) : (
-                            <div className="w-8 h-8 rounded-full bg-[#2a2a2a] flex items-center justify-center text-gray-400 text-xs font-bold flex-shrink-0">
-                              {member.name?.[0] ?? "?"}
-                            </div>
-                          )}
-                          <div className="min-w-0">
-                            <p className="text-white font-medium truncate">{member.name ?? "—"}</p>
-                            <p className="text-gray-600 text-xs truncate">{member.email}</p>
-                          </div>
-                        </div>
-                      </td>
-
-                      {/* Plan */}
-                      <td className="px-4 py-4">
-                        {member.membership ? (
-                          <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${planColors[member.membership.plan]}`}>
-                            {planLabels[member.membership.plan]}
-                          </span>
-                        ) : (
-                          <span className="text-gray-600 text-xs">—</span>
-                        )}
-                      </td>
-
-                      {/* Status */}
-                      <td className="px-4 py-4">
-                        {member.membership ? (
-                          <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${statusColors[member.membership.status]}`}>
-                            {member.membership.status}
-                          </span>
-                        ) : (
-                          <span className="text-gray-600 text-xs">No Plan</span>
-                        )}
-                      </td>
-
-                      {/* Expiry */}
-                      <td className="px-4 py-4 text-gray-400 text-xs">
-                        {member.membership?.endDate
-                          ? new Date(member.membership.endDate).toLocaleDateString("en-PK", {
-                              day: "numeric", month: "short", year: "numeric",
-                            })
-                          : "—"}
-                      </td>
-
-                      {/* Joined */}
-                      <td className="px-4 py-4 text-gray-500 text-xs">
-                        {new Date(member.createdAt).toLocaleDateString("en-PK", {
-                          day: "numeric", month: "short", year: "numeric",
-                        })}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+          ))}
         </div>
 
+        <AdminTabs membersData={membersData} initialContent={initialContent} initialPosts={initialPosts} />
       </div>
     </main>
   )

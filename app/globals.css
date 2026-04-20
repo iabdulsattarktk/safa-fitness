@@ -2,28 +2,52 @@
 
 /* ── Safa Fitness Design Tokens ───────────────────────────────────────────── */
 @theme inline {
-  /* Colors */
-  --color-brand-orange:   #f5a623;
+  --color-brand-orange:      #f5a623;
   --color-brand-orange-dark: #e09410;
-  --color-bg-base:        #faf7f2;
-  --color-bg-card:        #ffffff;
-  --color-bg-section:     #f0ebe0;
-  --color-border:         #e8dcc8;
-  --color-text-primary:   #1a1505;
-  --color-text-secondary: #5a5040;
-  --color-text-muted:     #8a7d68;
-
-  /* Fonts */
   --font-display: "Oswald", "Arial Narrow", sans-serif;
   --font-body:    "Inter", "Helvetica Neue", sans-serif;
 }
 
-/* ── Base (Light Theme is Default) ───────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════════════════
+   LIGHT THEME  —  "Stone White"
+   Inspired by: Equinox, Lululemon, Apple
+   Feel: Premium · Airy · Clean · Energetic
+   The warm-stone neutral lets the orange #f5a623 pop without competition.
+   ══════════════════════════════════════════════════════════════════════════
+   Base       #f4f3f0  warm stone white
+   Card       #ffffff  crisp white cards — depth via shadow
+   Section    #eceae6  slightly deeper stone for alternate rows
+   Elevated   #e6e4e0  inputs, raised surfaces
+   Border     #d6d3cc  warm visible border
+   Text       #141210  near-black (warm toned — not cold grey)
+   Sub text   #49453f  dark warm grey
+   Muted      #827d77  medium warm grey
+   Hover      #dfdcd6  hover surface
+   ══════════════════════════════════════════════════════════════════════════ */
+
 :root {
-  --background: #faf7f2;
-  --foreground: #1a1505;
+  --background: #f4f3f0;
+  --foreground: #141210;
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   DARK THEME  —  "Midnight Navy"
+   Inspired by: Peloton, Nike Training Club, Equinox Dark
+   Feel: Powerful · Sleek · Premium · Electric
+   Deep midnight-navy base makes orange #f5a623 glow like fire.
+   ══════════════════════════════════════════════════════════════════════════
+   Base       #0c0e15  deep midnight navy
+   Section    #10121c  slightly lighter navy
+   Card       #161a28  navy-dark card surface
+   Elevated   #1c2034  raised elements, inputs
+   Border     #252a40  subtle indigo border
+   Text       #eef0f5  crisp off-white (slight cool tone)
+   Sub text   #8d94aa  blue-grey secondary
+   Muted      #525b72  dark muted blue-grey
+   Hover      #1c2034  same as elevated
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Base reset ──────────────────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -42,295 +66,354 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* Smooth theme transition */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ── Light Theme (default) ────────────────────────────────────────────────── */
-/*
-  Palette:
-    bg-base    #faf7f2  warm cream
-    bg-card    #ffffff  white cards
-    bg-section #f0ebe0  slightly deeper cream
-    bg-input   #f2ede4  input fields
-    border     #e8dcc8  warm beige border
-    text       #1a1505  near-black warm
-    text-sub   #5a5040  warm brown secondary
-    accent     #f5a623  orange — unchanged in both themes
-*/
+/* Smooth transition on all key surfaces when toggling theme */
+header,
+footer,
+section,
+main,
+article,
+aside,
+nav,
+details,
+summary,
+table,
+th,
+td,
+input,
+textarea,
+select {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
 
-/* ── Section & card backgrounds ── */
-.bg-\[\#0a0a0a\]   { background-color: #faf7f2; }
-.bg-\[\#0d0d0d\]   { background-color: #f0ebe0; }
+/* ── LIGHT THEME — Section & card backgrounds ──────────────────────────── */
+.bg-\[\#0a0a0a\]   { background-color: #f4f3f0; }
+.bg-\[\#0d0d0d\]   { background-color: #eceae6; }
 .bg-\[\#141414\]   { background-color: #ffffff; }
-.bg-\[\#1a1a1a\]   { background-color: #f2ede4; }
-.bg-\[\#111\]      { background-color: #faf7f2; }
+.bg-\[\#1a1a1a\]   { background-color: #e6e4e0; }
+.bg-\[\#111\]      { background-color: #f4f3f0; }
 
-/* Text */
-.text-white    { color: #1a1505; }
-.text-gray-300 { color: #5a5040; }
-.text-gray-400 { color: #6b5e48; }
-.text-gray-500 { color: #7a6d58; }
-.text-gray-600 { color: #8a7d68; }
+/* ── LIGHT THEME — Text ────────────────────────────────────────────────── */
+.text-white    { color: #141210; }
+.text-gray-300 { color: #49453f; }
+.text-gray-400 { color: #5e5a54; }
+.text-gray-500 { color: #74706a; }
+.text-gray-600 { color: #908b85; }
 
-/* Keep white text INSIDE orange/dark buttons */
+/* White text stays white inside orange buttons and on dark backgrounds */
 .bg-\[\#f5a623\] .text-white,
 .bg-\[\#f5a623\].text-white,
 .bg-\[\#e09410\] .text-white,
 .bg-black .text-white,
 .bg-black.text-white { color: #ffffff; }
 
-/* Hero & banner sections: always white text + shadow for readability */
+/* Hero & banner: always white + shadow (video/image backgrounds are dark) */
 .min-h-screen .text-white,
-.overflow-hidden.items-end .text-white    { color: #ffffff !important; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
+.overflow-hidden.items-end .text-white    { color: #ffffff !important; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
 .min-h-screen .text-gray-300,
-.overflow-hidden.items-end .text-gray-300 { color: rgba(255,255,255,0.88) !important; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
+.overflow-hidden.items-end .text-gray-300 { color: rgba(255,255,255,0.88) !important; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
 .min-h-screen .text-gray-400,
-.overflow-hidden.items-end .text-gray-400 { color: rgba(255,255,255,0.75) !important; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
+.overflow-hidden.items-end .text-gray-400 { color: rgba(255,255,255,0.75) !important; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
 
-/* ParallaxBreak sections: always white text on dark bg-image */
-[style*="background-image"] .text-white { color: #ffffff !important; text-shadow: 0 1px 8px rgba(0,0,0,0.8); }
+/* ParallaxBreak: white text on dark image backgrounds */
+[style*="background-image"] .text-white { color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.85); }
 
-/* Hero image overlay — transparent in both themes (text uses shadow for readability) */
-.bg-\[\#0a0a0a\]\/55  { background-color: transparent !important; }
+/* Hero overlay: transparent — readability via video dark + text-shadow */
+.bg-\[\#0a0a0a\]\/55 { background-color: transparent !important; }
 
-/* Colored badges */
+/* Colored status/category badges always white text */
 .bg-blue-500,
 .bg-red-600,
 .bg-green-500,
 .bg-purple-600,
 .bg-orange-500 { color: #ffffff; }
 
-/* Borders */
-.border-\[\#2a2a2a\]          { border-color: #e8dcc8; }
-.divide-\[\#2a2a2a\] > * + *  { border-color: #e8dcc8; }
-.border-white\/5               { border-color: rgba(26,21,5,0.08); }
-.border-\[\#f5a623\]\/50       { border-color: rgba(245,166,35,0.5); }
+/* ── LIGHT THEME — Borders ─────────────────────────────────────────────── */
+.border-\[\#2a2a2a\]         { border-color: #d6d3cc; }
+.divide-\[\#2a2a2a\] > * + * { border-color: #d6d3cc; }
+.border-white\/5              { border-color: rgba(20,18,16,0.07); }
+.border-\[\#f5a623\]\/50      { border-color: rgba(245,166,35,0.5); }
+.border-gray-700              { border-color: #d6d3cc; }
 
-/* Hover */
-.hover\:bg-\[\#1a1a1a\]:hover  { background-color: #e8dcc8; }
-.hover\:text-white:hover        { color: #1a1505; }
+/* ── LIGHT THEME — Hover ───────────────────────────────────────────────── */
+.hover\:bg-\[\#1a1a1a\]:hover  { background-color: #dfdcd6; }
+.hover\:text-white:hover        { color: #141210; }
 
-/* ── Navbar ── */
-header {
-  background-color: transparent;
-}
-/* Scrolled state */
+/* ── LIGHT THEME — Navbar ──────────────────────────────────────────────── */
+header { background-color: transparent; }
+
+/* Scrolled: crisp stone-white glass */
 .bg-\[\#0a0a0a\]\/80 {
-  background-color: rgba(250,247,242,0.72) !important;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom-color: rgba(232,220,200,0.6) !important;
-  box-shadow: 0 1px 12px rgba(26,21,5,0.05) !important;
+  background-color: rgba(244,243,240,0.88) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(214,211,204,0.5) !important;
+  box-shadow: 0 1px 20px rgba(20,18,16,0.06), 0 0 0 0 transparent !important;
 }
 
 /* Nav links */
-.text-gray-400 { color: #6b5e48; }
-.hover\:text-white:hover { color: #1a1505 !important; }
-
-/* Hamburger icon */
-header button svg { color: #5a5040; }
+.hover\:text-white:hover { color: #141210 !important; }
+header button svg { color: #49453f; }
 
 /* Fitness Tools Dropdown */
 .bg-\[\#141414\]\/95 {
-  background-color: rgba(255,255,255,0.97) !important;
-  box-shadow: 0 4px 24px rgba(26,21,5,0.12) !important;
+  background-color: rgba(255,255,255,0.98) !important;
+  box-shadow: 0 8px 40px rgba(20,18,16,0.12), 0 2px 8px rgba(20,18,16,0.06) !important;
 }
 
 /* Mobile menu */
-.border-\[\#2a2a2a\] { border-color: #e8dcc8; }
-.hover\:bg-\[\#1a1a1a\]:hover { background-color: #f2ede4; }
+.border-\[\#2a2a2a\] { border-color: #d6d3cc; }
+.hover\:bg-\[\#1a1a1a\]:hover { background-color: #dfdcd6; }
 
-/* ── Footer ── */
-footer {
-  background-color: #1a1505 !important;
-  color: #f0ebe0 !important;
+/* ── AUTH PAGES — always dark regardless of theme ──────────────────────── */
+[data-auth] {
+  background-color: #0c0e15 !important;
 }
-footer .text-white  { color: #faf7f2 !important; }
-footer .text-gray-400 { color: #c4b49a !important; }
-footer .text-gray-500 { color: #a89070 !important; }
-footer .text-gray-600 { color: #8a7060 !important; }
-footer .border-\[\#2a2a2a\] { border-color: rgba(250,247,242,0.1) !important; }
-footer .bg-\[\#0a0a0a\] { background-color: #111 !important; }
+[data-auth] .bg-\[\#141414\] {
+  background-color: #161a28 !important;
+  color: #eef0f5 !important;
+}
+[data-auth] .bg-\[\#0a0a0a\] {
+  background-color: #0c0e15 !important;
+}
+[data-auth] .bg-\[\#1e1e1e\] {
+  background-color: #1c2034 !important;
+}
+[data-auth] .border-\[\#2a2a2a\] {
+  border-color: #252a40 !important;
+}
+[data-auth] .text-white {
+  color: #eef0f5 !important;
+  text-shadow: none !important;
+}
+[data-auth] .text-gray-400 {
+  color: #8d94aa !important;
+  text-shadow: none !important;
+}
+[data-auth] .text-gray-500 {
+  color: #636b82 !important;
+}
+[data-auth] .text-gray-600 {
+  color: #444d62 !important;
+}
+[data-auth] input,
+[data-auth] textarea {
+  background-color: #1c2034 !important;
+  color: #eef0f5 !important;
+  border-color: #252a40 !important;
+}
+[data-auth] ::placeholder {
+  color: #444d62 !important;
+}
 
+/* ── FOOTER — always dark warm brown, same in both themes ──────────────── */
+footer {
+  background-color: #111008 !important;
+  color: #e8e2d8 !important;
+}
+footer .text-white   { color: #f0ebe0 !important; }
+footer .text-gray-400 { color: #b8a888 !important; }
+footer .text-gray-500 { color: #8a7a60 !important; }
+footer .text-gray-600 { color: #6a5c44 !important; }
+footer .border-\[\#2a2a2a\] { border-color: rgba(240,235,224,0.08) !important; }
+footer .bg-\[\#0a0a0a\]    { background-color: #0a0905 !important; }
+footer .bg-\[\#1a1a1a\]    { background-color: #1e1a0f !important; }
 
-/* ── Inputs & forms ── */
+/* ── LIGHT THEME — Inputs & forms ─────────────────────────────────────── */
 input,
 textarea,
 select {
-  background-color: #f2ede4;
-  color: #1a1505;
-  border-color: #e8dcc8;
+  background-color: #e6e4e0;
+  color: #141210;
+  border-color: #d6d3cc;
 }
-::placeholder { color: #b0a090; }
+.bg-\[\#1e1e1e\] { background-color: #e6e4e0; }
+::placeholder { color: #a09a94; }
 
-/* ── Tables (admin / pricing) ── */
-table { background-color: #ffffff; }
-th { background-color: #f2ede4 !important; color: #1a1505 !important; border-color: #e8dcc8 !important; }
-td { color: #1a1505 !important; border-color: #e8dcc8 !important; }
-tr:hover td { background-color: #faf0dc !important; }
+/* ── LIGHT THEME — Tables ──────────────────────────────────────────────── */
+table         { background-color: #ffffff; }
+th            { background-color: #eceae6 !important; color: #141210 !important; border-color: #d6d3cc !important; }
+td            { color: #141210 !important; border-color: #d6d3cc !important; }
+tr:hover td   { background-color: #f0eeea !important; }
 
-/* ── FAQ accordion ── */
-details { background-color: #ffffff !important; border-color: #e8dcc8 !important; }
-summary { color: #1a1505 !important; }
+/* ── LIGHT THEME — FAQ / accordion ────────────────────────────────────── */
+details { background-color: #ffffff !important; border-color: #d6d3cc !important; }
+summary { color: #141210 !important; }
 
-/* ── Pricing cards ── */
-.border-gray-700 { border-color: #e8dcc8; }
 
-/* ── Dark Theme (toggled via ThemeToggle) ──────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════════════════════
+   DARK THEME  —  toggled by data-theme="dark" on <html>
+   ══════════════════════════════════════════════════════════════════════════ */
 [data-theme="dark"] {
-  --background: #0a0a0a;
-  --foreground: #ffffff;
+  --background: #0c0e15;
+  --foreground: #eef0f5;
 }
+
 [data-theme="dark"] body,
 [data-theme="dark"] {
-  background-color: #0a0a0a;
-  color: #ffffff;
+  background-color: #0c0e15;
+  color: #eef0f5;
 }
 
-/* Restore all dark-mode class values */
-[data-theme="dark"] .bg-\[\#0a0a0a\]  { background-color: #0a0a0a; }
-[data-theme="dark"] .bg-\[\#0d0d0d\]  { background-color: #0d0d0d; }
-[data-theme="dark"] .bg-\[\#141414\]  { background-color: #141414; }
-[data-theme="dark"] .bg-\[\#1a1a1a\]  { background-color: #1a1a1a; }
-[data-theme="dark"] .text-white        { color: #ffffff; }
-[data-theme="dark"] .text-gray-300     { color: #d1d5db; }
-[data-theme="dark"] .text-gray-400     { color: #9ca3af; }
-[data-theme="dark"] .text-gray-500     { color: #6b7280; }
-[data-theme="dark"] .text-gray-600     { color: #4b5563; }
-[data-theme="dark"] .border-\[\#2a2a2a\] { border-color: #2a2a2a; }
-[data-theme="dark"] .border-white\/5    { border-color: rgba(255,255,255,0.05); }
-[data-theme="dark"] .border-gray-700    { border-color: #374151; }
-[data-theme="dark"] .hover\:bg-\[\#1a1a1a\]:hover { background-color: #1a1a1a; }
-[data-theme="dark"] .hover\:text-white:hover       { color: #ffffff; }
+/* ── DARK — Backgrounds ────────────────────────────────────────────────── */
+[data-theme="dark"] .bg-\[\#0a0a0a\]  { background-color: #0c0e15; }
+[data-theme="dark"] .bg-\[\#0d0d0d\]  { background-color: #10121c; }
+[data-theme="dark"] .bg-\[\#141414\]  { background-color: #161a28; }
+[data-theme="dark"] .bg-\[\#1a1a1a\]  { background-color: #1c2034; }
+[data-theme="dark"] .bg-\[\#111\]     { background-color: #0c0e15; }
+
+/* ── DARK — Text ───────────────────────────────────────────────────────── */
+[data-theme="dark"] .text-white    { color: #eef0f5; }
+[data-theme="dark"] .text-gray-300 { color: #c4c9d8; }
+[data-theme="dark"] .text-gray-400 { color: #8d94aa; }
+[data-theme="dark"] .text-gray-500 { color: #636b82; }
+[data-theme="dark"] .text-gray-600 { color: #444d62; }
+
+/* ── DARK — Borders ────────────────────────────────────────────────────── */
+[data-theme="dark"] .border-\[\#2a2a2a\]  { border-color: #252a40; }
+[data-theme="dark"] .border-white\/5      { border-color: rgba(238,240,245,0.06); }
+[data-theme="dark"] .border-gray-700      { border-color: #2e3450; }
+
+/* ── DARK — Hover ──────────────────────────────────────────────────────── */
+[data-theme="dark"] .hover\:bg-\[\#1a1a1a\]:hover { background-color: #1c2034; }
+[data-theme="dark"] .hover\:text-white:hover       { color: #eef0f5; }
+
+/* ── DARK — Navbar glass ───────────────────────────────────────────────── */
 [data-theme="dark"] .bg-\[\#0a0a0a\]\/80 {
-  background-color: rgba(10,10,10,0.6) !important;
-  border-bottom-color: rgba(255,255,255,0.05) !important;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.3) !important;
-}
-[data-theme="dark"] .bg-\[\#141414\]\/95 {
-  background-color: rgba(20,20,20,0.95) !important;
-}
-[data-theme="dark"] footer                  { background-color: #111 !important; color: #fff !important; }
-[data-theme="dark"] footer .text-white      { color: #ffffff !important; }
-[data-theme="dark"] footer .text-gray-400   { color: #9ca3af !important; }
-[data-theme="dark"] footer .text-gray-500   { color: #6b7280 !important; }
-[data-theme="dark"] footer .border-\[\#2a2a2a\] { border-color: #2a2a2a !important; }
-[data-theme="dark"] .bg-\[\#0a0a0a\]\/55 {
-  background-color: transparent !important;
+  background-color: rgba(12,14,21,0.85) !important;
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid rgba(37,42,64,0.7) !important;
+  box-shadow: 0 1px 24px rgba(0,0,0,0.4) !important;
 }
 
-/* ── Card images: brighter in dark mode ── */
-[data-theme="dark"] .overflow-hidden img {
-  filter: brightness(1.15) contrast(1.05);
+/* ── DARK — Fitness Tools Dropdown ────────────────────────────────────── */
+[data-theme="dark"] .bg-\[\#141414\]\/95 {
+  background-color: rgba(22,26,40,0.98) !important;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(37,42,64,0.6) !important;
 }
+
+/* ── DARK — Hero overlay ───────────────────────────────────────────────── */
+[data-theme="dark"] .bg-\[\#0a0a0a\]\/55 { background-color: transparent !important; }
+
+/* ── DARK — Footer (deeper navy-black) ─────────────────────────────────── */
+[data-theme="dark"] footer                      { background-color: #080a10 !important; color: #eef0f5 !important; }
+[data-theme="dark"] footer .text-white          { color: #eef0f5 !important; }
+[data-theme="dark"] footer .text-gray-400       { color: #8d94aa !important; }
+[data-theme="dark"] footer .text-gray-500       { color: #636b82 !important; }
+[data-theme="dark"] footer .border-\[\#2a2a2a\] { border-color: rgba(238,240,245,0.08) !important; }
+
+/* ── DARK — Inputs & forms ─────────────────────────────────────────────── */
 [data-theme="dark"] input,
 [data-theme="dark"] textarea,
 [data-theme="dark"] select {
-  background-color: #1e1e1e;
-  color: #ffffff;
-  border-color: #2a2a2a;
+  background-color: #1c2034;
+  color: #eef0f5;
+  border-color: #252a40;
 }
-[data-theme="dark"] ::placeholder { color: #4b5563; }
-[data-theme="dark"] table  { background-color: #141414; }
-[data-theme="dark"] th     { background-color: #1a1a1a !important; color: #ffffff !important; border-color: #2a2a2a !important; }
-[data-theme="dark"] td     { color: #d1d5db !important; border-color: #2a2a2a !important; }
-[data-theme="dark"] tr:hover td { background-color: #1e1e1e !important; }
-[data-theme="dark"] details { background-color: #141414 !important; border-color: #2a2a2a !important; }
-[data-theme="dark"] summary { color: #ffffff !important; }
+[data-theme="dark"] .bg-\[\#1e1e1e\] { background-color: #1c2034; }
+[data-theme="dark"] ::placeholder { color: #444d62; }
+
+/* ── DARK — Tables ─────────────────────────────────────────────────────── */
+[data-theme="dark"] table       { background-color: #161a28; }
+[data-theme="dark"] th          { background-color: #1c2034 !important; color: #eef0f5 !important; border-color: #252a40 !important; }
+[data-theme="dark"] td          { color: #c4c9d8 !important; border-color: #252a40 !important; }
+[data-theme="dark"] tr:hover td { background-color: #1c2034 !important; }
+
+/* ── DARK — FAQ / accordion ────────────────────────────────────────────── */
+[data-theme="dark"] details { background-color: #161a28 !important; border-color: #252a40 !important; }
+[data-theme="dark"] summary { color: #eef0f5 !important; }
+
+/* ── DARK — Button text on orange stays white ──────────────────────────── */
 [data-theme="dark"] .bg-\[\#f5a623\] .text-white { color: #ffffff !important; }
 [data-theme="dark"] .bg-black .text-white         { color: #ffffff !important; }
 
-/* ── Hide Next.js dev overlay ─────────────────────────────────────────────── */
-nextjs-portal {
-  display: none !important;
+/* ── DARK — Card images slightly boosted ───────────────────────────────── */
+[data-theme="dark"] .overflow-hidden img {
+  filter: brightness(1.08) contrast(1.04) saturate(1.05);
 }
 
-/* ── Scrollbar ────────────────────────────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #f2ede4;
-}
-::-webkit-scrollbar-thumb {
-  background: #f5a623;
-  border-radius: 3px;
-}
-[data-theme="dark"] ::-webkit-scrollbar-track { background: #141414; }
 
-/* ── Selection ────────────────────────────────────────────────────────────── */
+/* ── Hide Next.js dev overlay ─────────────────────────────────────────── */
+nextjs-portal { display: none !important; }
+
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: #eceae6; }
+::-webkit-scrollbar-thumb { background: #f5a623; border-radius: 4px; }
+[data-theme="dark"] ::-webkit-scrollbar-track { background: #10121c; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: #f5a623; }
+
+
+/* ── Text selection ────────────────────────────────────────────────────── */
 ::selection {
   background-color: #f5a623;
   color: #000000;
 }
 
-/* ── Sidebar Pattern Animations ──────────────────────────────────────────── */
+
+/* ── Animations ────────────────────────────────────────────────────────── */
 @keyframes orbFloat {
   0%, 100% { transform: translateY(0px) scale(1); }
   50%       { transform: translateY(-30px) scale(1.05); }
 }
-
 @keyframes fadeShift {
   0%, 100% { opacity: 0.06; transform: translateY(0); }
   50%       { opacity: 0.10; transform: translateY(-12px); }
 }
-
 @keyframes slideDown {
   from { transform: translateY(-50%); }
   to   { transform: translateY(0); }
 }
-
+@keyframes slideDownToast {
+  from { opacity: 0; transform: translate(-50%, -20px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+.animate-slide-down {
+  animation: slideDownToast 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 @keyframes dropdownIn {
-  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+  from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
 }
 .dropdown-animate {
-  animation: dropdownIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: dropdownIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* ── Scroll Reveal ────────────────────────────────────────────────────────── */
+
+/* ── Scroll Reveal ─────────────────────────────────────────────────────── */
 [data-reveal] {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
-
 [data-reveal].is-revealed {
   opacity: 1;
   transform: translateY(0);
 }
-
 [data-reveal][data-delay="1"] { transition-delay: 0.08s; }
 [data-reveal][data-delay="2"] { transition-delay: 0.16s; }
 [data-reveal][data-delay="3"] { transition-delay: 0.24s; }
 [data-reveal][data-delay="4"] { transition-delay: 0.32s; }
 [data-reveal][data-delay="5"] { transition-delay: 0.40s; }
 [data-reveal][data-delay="6"] { transition-delay: 0.48s; }
-
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
 }
 
-/* ── Utility: Orange gradient text ───────────────────────────────────────── */
+
+/* ── Utilities ─────────────────────────────────────────────────────────── */
 .text-gradient {
   background: linear-gradient(135deg, #f5a623, #ff6b35);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
-/* ── Utility: Section padding ────────────────────────────────────────────── */
-.section-padding {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-}
-
+.section-padding { padding-top: 5rem; padding-bottom: 5rem; }
 @media (min-width: 768px) {
-  .section-padding {
-    padding-top: 7rem;
-    padding-bottom: 7rem;
-  }
+  .section-padding { padding-top: 7rem; padding-bottom: 7rem; }
 }

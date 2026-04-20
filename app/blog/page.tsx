@@ -1,8 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
 import CTABanner from "@/components/layout/CTABanner"
-import { posts } from "@/lib/blog"
+import { db } from "@/lib/db"
 import type { Metadata } from "next"
+
+export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
   title: "Blog | Safa Fitness Club – Fitness Tips & Guides",
@@ -10,8 +12,34 @@ export const metadata: Metadata = {
     "Expert fitness articles from Safa Fitness Club Islamabad — gym guides, nutrition science, boxing tips, swimming benefits, BMI, calorie needs, and more.",
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await db.blogPost.findMany({
+    where: { published: true },
+    orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+  })
+
   const [featured, ...rest] = posts
+
+  if (!featured) {
+    return (
+      <>
+        <section className="relative h-72 sm:h-96 flex items-end overflow-hidden bg-[#0a0a0a]">
+          <Image src="/images/team-banner2.webp" alt="Safa Fitness Club Blog" fill priority className="object-cover object-center" />
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
+            <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-2">Expert Guides</p>
+            <h1 className="text-5xl sm:text-7xl font-bold uppercase text-white leading-none" style={{ fontFamily: "var(--font-display)" }}>
+              Fitness <span className="text-[#f5a623]">Blog</span>
+            </h1>
+          </div>
+        </section>
+        <section className="section-padding bg-[#0a0a0a]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+            <p className="text-gray-500">No articles published yet. Check back soon!</p>
+          </div>
+        </section>
+      </>
+    )
+  }
 
   return (
     <>
@@ -80,51 +108,53 @@ export default function BlogPage() {
           </div>
 
           {/* ── REST OF POSTS ── */}
-          <div className="mb-6">
-            <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-8">All Articles</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {rest.map((post, i) => (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  data-reveal data-delay={String((i % 3) + 1)}
-                  className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={post.img}
-                      alt={post.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <span className={`absolute top-3 left-3 px-2 py-1 ${post.categoryColor} text-white text-xs font-bold uppercase tracking-wider rounded`}>
-                      {post.category}
-                    </span>
-                  </div>
-                  <div className="p-5 flex flex-col flex-1">
-                    <div className="flex items-center gap-2 text-gray-500 text-xs mb-2">
-                      <span>{post.date}</span>
-                      <span>·</span>
-                      <span>{post.readTime}</span>
+          {rest.length > 0 && (
+            <div className="mb-6">
+              <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-8">All Articles</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {rest.map((post, i) => (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    data-reveal data-delay={String((i % 3) + 1)}
+                    className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                  >
+                    <div className="relative h-48 overflow-hidden">
+                      <Image
+                        src={post.img}
+                        alt={post.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <span className={`absolute top-3 left-3 px-2 py-1 ${post.categoryColor} text-white text-xs font-bold uppercase tracking-wider rounded`}>
+                        {post.category}
+                      </span>
                     </div>
-                    <h3
-                      className="text-white font-bold text-lg uppercase mb-2 group-hover:text-[#f5a623] transition-colors leading-tight flex-1"
-                      style={{ fontFamily: "var(--font-display)" }}
-                    >
-                      {post.title}
-                    </h3>
-                    <p className="text-gray-400 text-xs leading-relaxed mb-4 line-clamp-2">{post.subtitle}</p>
-                    <span className="flex items-center gap-1.5 text-[#f5a623] text-xs font-bold uppercase tracking-wider group-hover:gap-2.5 transition-all mt-auto">
-                      Read More
-                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </span>
-                  </div>
-                </Link>
-              ))}
+                    <div className="p-5 flex flex-col flex-1">
+                      <div className="flex items-center gap-2 text-gray-500 text-xs mb-2">
+                        <span>{post.date}</span>
+                        <span>·</span>
+                        <span>{post.readTime}</span>
+                      </div>
+                      <h3
+                        className="text-white font-bold text-lg uppercase mb-2 group-hover:text-[#f5a623] transition-colors leading-tight flex-1"
+                        style={{ fontFamily: "var(--font-display)" }}
+                      >
+                        {post.title}
+                      </h3>
+                      <p className="text-gray-400 text-xs leading-relaxed mb-4 line-clamp-2">{post.subtitle}</p>
+                      <span className="flex items-center gap-1.5 text-[#f5a623] text-xs font-bold uppercase tracking-wider group-hover:gap-2.5 transition-all mt-auto">
+                        Read More
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

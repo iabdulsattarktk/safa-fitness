@@ -1,13 +1,14 @@
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { posts, getPost } from "@/lib/blog"
+import { db } from "@/lib/db"
 import CTABanner from "@/components/layout/CTABanner"
 import type { Metadata } from "next"
 
-export function generateStaticParams() {
-  return posts.map((p) => ({ slug: p.slug }))
-}
+export const dynamic = "force-dynamic"
+
+type Section = { heading?: string; paragraphs: string[] }
+type FAQ = { q: string; a: string }
 
 export async function generateMetadata({
   params,
@@ -15,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug } = await params
-  const post = getPost(slug)
+  const post = await db.blogPost.findUnique({ where: { slug } })
   if (!post) return {}
   return {
     title: `${post.title} | Safa Fitness Club Blog`,
@@ -36,11 +37,18 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const post = getPost(slug)
+  const post = await db.blogPost.findUnique({ where: { slug, published: true } })
   if (!post) notFound()
 
-  // Related posts: up to 3 other posts (exclude current)
-  const related = posts.filter((p) => p.slug !== slug).slice(0, 3)
+  const sections = post.sections as Section[]
+  const faqs = post.faqs as FAQ[]
+
+  // Related posts: up to 3 other published posts (exclude current)
+  const related = await db.blogPost.findMany({
+    where: { published: true, NOT: { slug } },
+    orderBy: [{ order: "asc" }, { createdAt: "desc" }],
+    take: 3,
+  })
 
   return (
     <>
@@ -97,7 +105,7 @@ export default async function BlogPostPage({
 
           {/* Sections */}
           <div className="space-y-8">
-            {post.sections.map((section, i) => (
+            {sections.map((section, i) => (
               <div key={i} data-reveal data-delay="1">
                 {section.heading && (
                   <h2
@@ -119,7 +127,7 @@ export default async function BlogPostPage({
           </div>
 
           {/* ── FAQ ── */}
-          {post.faqs.length > 0 && (
+          {faqs.length > 0 && (
             <div className="mt-14">
               <h2
                 className="text-white font-bold text-2xl uppercase mb-6"
@@ -128,7 +136,7 @@ export default async function BlogPostPage({
                 Frequently Asked <span className="text-[#f5a623]">Questions</span>
               </h2>
               <div className="space-y-3">
-                {post.faqs.map((faq, i) => (
+                {faqs.map((faq, i) => (
                   <details
                     key={i}
                     className="group bg-[#141414] border border-[#2a2a2a] rounded-lg overflow-hidden"
@@ -188,54 +196,56 @@ export default async function BlogPostPage({
       </section>
 
       {/* ── RELATED POSTS ── */}
-      <section className="bg-[#0a0a0a] pb-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-6">More Articles</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            {related.map((p, i) => (
-              <Link
-                key={p.slug}
-                href={`/blog/${p.slug}`}
-                data-reveal data-delay={String(i + 1)}
-                className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col"
-              >
-                <div className="relative h-40 overflow-hidden">
-                  <Image
-                    src={p.img}
-                    alt={p.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span
-                    className={`absolute top-3 left-3 px-2 py-1 ${p.categoryColor} text-white text-xs font-bold uppercase tracking-wider rounded`}
-                  >
-                    {p.category}
-                  </span>
-                </div>
-                <div className="p-4 flex flex-col flex-1">
-                  <div className="flex items-center gap-2 text-gray-500 text-xs mb-2">
-                    <span>{p.date}</span>
-                    <span>·</span>
-                    <span>{p.readTime}</span>
+      {related.length > 0 && (
+        <section className="bg-[#0a0a0a] pb-20">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p className="text-[#f5a623] text-xs font-bold uppercase tracking-[0.3em] mb-6">More Articles</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              {related.map((p, i) => (
+                <Link
+                  key={p.slug}
+                  href={`/blog/${p.slug}`}
+                  data-reveal data-delay={String(i + 1)}
+                  className="group bg-[#141414] border border-[#2a2a2a] hover:border-[#f5a623]/50 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                >
+                  <div className="relative h-40 overflow-hidden">
+                    <Image
+                      src={p.img}
+                      alt={p.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <span
+                      className={`absolute top-3 left-3 px-2 py-1 ${p.categoryColor} text-white text-xs font-bold uppercase tracking-wider rounded`}
+                    >
+                      {p.category}
+                    </span>
                   </div>
-                  <h3
-                    className="text-white font-bold text-sm uppercase mb-auto group-hover:text-[#f5a623] transition-colors leading-tight"
-                    style={{ fontFamily: "var(--font-display)" }}
-                  >
-                    {p.title}
-                  </h3>
-                  <span className="flex items-center gap-1.5 text-[#f5a623] text-xs font-bold uppercase tracking-wider group-hover:gap-2.5 transition-all mt-3">
-                    Read More
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </span>
-                </div>
-              </Link>
-            ))}
+                  <div className="p-4 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 text-gray-500 text-xs mb-2">
+                      <span>{p.date}</span>
+                      <span>·</span>
+                      <span>{p.readTime}</span>
+                    </div>
+                    <h3
+                      className="text-white font-bold text-sm uppercase mb-auto group-hover:text-[#f5a623] transition-colors leading-tight"
+                      style={{ fontFamily: "var(--font-display)" }}
+                    >
+                      {p.title}
+                    </h3>
+                    <span className="flex items-center gap-1.5 text-[#f5a623] text-xs font-bold uppercase tracking-wider group-hover:gap-2.5 transition-all mt-3">
+                      Read More
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <CTABanner
         heading="Train Smarter, Not Just Harder"

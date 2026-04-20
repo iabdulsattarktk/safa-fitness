@@ -113,10 +113,24 @@ export default function Footer() {
                 <span className="text-[#f5a623] text-sm font-medium whitespace-nowrap">12PM – 10PM</span>
               </li>
             </ul>
-            <div className="mt-6 p-4 bg-[#1a1a1a] rounded-lg border border-[#2a2a2a]">
-              <p className="text-gray-400 text-xs leading-relaxed">
-                Walk-ins welcome. Bring a valid ID for first-time registration.
-              </p>
+            <div
+              className="mt-6 p-4 rounded-xl"
+              style={{
+                background: "linear-gradient(135deg, rgba(245,166,35,0.14) 0%, rgba(245,166,35,0.04) 100%)",
+                border: "1px solid rgba(245,166,35,0.25)",
+              }}
+            >
+              <div className="flex items-start gap-3">
+                <span className="text-[#f5a623] text-base leading-none mt-0.5 flex-shrink-0">🚶</span>
+                <div>
+                  <p className="text-[#f5a623] text-[11px] font-bold uppercase tracking-[0.15em] mb-1">
+                    Walk-ins Welcome
+                  </p>
+                  <p className="text-gray-400 text-xs leading-relaxed">
+                    Bring a valid ID for first-time registration.
+                  </p>
+                </div>
+              </div>
             </div>
             <a
               href="https://maps.google.com/?q=Safa+Fitness+Club,Safa+Gold+Mall,F-7+Markaz,Islamabad"

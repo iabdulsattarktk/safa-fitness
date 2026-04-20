@@ -14,7 +14,7 @@ export default async function LoginPage() {
   if (session) redirect("/dashboard")
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-4">
+    <main data-auth className="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-4">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#f5a623]/5 rounded-full blur-[120px]" />
       </div>
@@ -41,7 +41,7 @@ export default async function LoginPage() {
               Member <span className="text-[#f5a623]">Login</span>
             </h1>
             <p className="text-gray-500 text-sm">
-              Apne member portal mein sign in karo
+              Sign in to your member portal
             </p>
           </div>
 
@@ -55,6 +55,7 @@ export default async function LoginPage() {
               </a>
             </p>
           </div>
+
         </div>
 
         <div className="text-center mt-4">

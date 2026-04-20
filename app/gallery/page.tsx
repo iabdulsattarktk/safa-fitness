@@ -2,6 +2,7 @@ import Image from "next/image"
 import CTABanner from "@/components/layout/CTABanner"
 import SocialLinks from "@/components/ui/SocialLinks"
 import type { Metadata } from "next"
+import { getSiteContent, parseGalleryImages } from "@/lib/site-content"
 
 export const metadata: Metadata = {
   title: "Gallery | Safa Fitness Club – Islamabad",
@@ -9,108 +10,31 @@ export const metadata: Metadata = {
     "Explore Safa Fitness Club's world-class facilities — gym, swimming pool, boxing ring, massage & spa, sauna, snooker lounge, salon, lockers, and Safa Bar.",
 }
 
-// ─── Category data ────────────────────────────────────────────────────────────
+export const dynamic = "force-dynamic"
 
-const categories = [
-  {
-    id: "gym",
-    label: "Gym & Fitness",
-    images: [
-      { src: "/images/gallery/gym-floor.webp",    alt: "Gym Floor" },
-      { src: "/images/gallery/gym-strength.webp", alt: "Strength Training" },
-      { src: "/images/gallery/gym-amenity.webp",  alt: "Gym Equipment" },
-      { src: "/images/gallery/gym-2.webp",        alt: "Gym Interior" },
-      { src: "/images/gallery/running.webp",      alt: "Run With Us" },
-      { src: "/images/gallery/kishwar-pose.webp", alt: "Trainer – Kishwar Ali" },
-    ],
-  },
-  {
-    id: "pool",
-    label: "Swimming Pool",
-    images: [
-      { src: "/images/gallery/pool-1.webp", alt: "Swimming Pool Banner" },
-      { src: "/images/gallery/pool-2.webp", alt: "Pool Amenity" },
-      { src: "/images/gallery/pool-3.webp", alt: "Swimming Pool" },
-      { src: "/images/gallery/pool-4.webp", alt: "Swimming Pool" },
-    ],
-  },
-  {
-    id: "boxing",
-    label: "Boxing Ring",
-    images: [
-      { src: "/images/gallery/boxing-1.webp", alt: "Boxing Ring" },
-      { src: "/images/gallery/boxing.webp",   alt: "Boxing Training" },
-    ],
-  },
-  {
-    id: "sauna",
-    label: "Steam, Sauna & Jacuzzi",
-    images: [
-      { src: "/images/gallery/sauna-1.webp", alt: "Sauna" },
-      { src: "/images/gallery/sauna-2.webp", alt: "Sauna Amenity" },
-      { src: "/images/gallery/sauna-3.webp", alt: "Steam Sauna Jacuzzi" },
-    ],
-  },
-  {
-    id: "spa",
-    label: "Massage & Spa",
-    images: [
-      { src: "/images/gallery/spa-1.webp",  alt: "Massage & Spa" },
-      { src: "/images/gallery/spa-2.webp",  alt: "Massage Amenity" },
-    ],
-  },
-  {
-    id: "snooker",
-    label: "Snooker Lounge",
-    images: [
-      { src: "/images/gallery/snooker-1.webp", alt: "Snooker Lounge" },
-      { src: "/images/gallery/snooker-2.webp", alt: "Snooker Amenity" },
-      { src: "/images/gallery/snooker-3.webp", alt: "Snooker Lounge Banner" },
-    ],
-  },
-  {
-    id: "salon",
-    label: "Beauty Salon – Men",
-    images: [
-      { src: "/images/gallery/salon-1.webp",        alt: "Men's Beauty Salon" },
-      { src: "/images/facilities/salon.webp",        alt: "Salon Interior" },
-    ],
-  },
-  {
-    id: "lockers",
-    label: "VIP Lockers & Shower",
-    images: [
-      { src: "/images/gallery/locker-1.webp", alt: "VIP Lockers & Showers" },
-      { src: "/images/gallery/locker-2.webp", alt: "Lockers Banner" },
-      { src: "/images/gallery/locker-3.webp", alt: "VIP Lockers" },
-    ],
-  },
-  {
-    id: "bar",
-    label: "Safa Bar",
-    images: [
-      { src: "/images/gallery/bar-1.webp", alt: "Safa Bar" },
-      { src: "/images/gallery/bar-2.webp", alt: "Safa Bar Amenity" },
-      { src: "/images/gallery/bar-3.webp", alt: "Safa Bar Banner" },
-    ],
-  },
-  {
-    id: "team",
-    label: "Our Team",
-    images: [
-      { src: "/images/gallery/team-1.webp",          alt: "Safa Elite Team" },
-      { src: "/images/gallery/team-2.webp",          alt: "Meet Our Team" },
-      { src: "/images/trainers/kishwar-ali.webp",    alt: "Kishwar Ali" },
-      { src: "/images/trainers/trainer-1.webp",      alt: "Trainer" },
-      { src: "/images/trainers/trainer-2.webp",      alt: "Trainer" },
-      { src: "/images/trainers/kishwar-trainer.webp", alt: "Trainer in Action" },
-    ],
-  },
+// ─── Static category labels & ids ────────────────────────────────────────────
+
+const CATEGORY_META = [
+  { id: "gym",     label: "Gym & Fitness",          key: "gallery_gym" },
+  { id: "pool",    label: "Swimming Pool",           key: "gallery_pool" },
+  { id: "boxing",  label: "Boxing Ring",             key: "gallery_boxing" },
+  { id: "sauna",   label: "Steam, Sauna & Jacuzzi",  key: "gallery_sauna" },
+  { id: "spa",     label: "Massage & Spa",           key: "gallery_spa" },
+  { id: "snooker", label: "Snooker Lounge",          key: "gallery_snooker" },
+  { id: "salon",   label: "Beauty Salon – Men",      key: "gallery_salon" },
+  { id: "lockers", label: "VIP Lockers & Shower",    key: "gallery_lockers" },
+  { id: "bar",     label: "Safa Bar",                key: "gallery_bar" },
+  { id: "team",    label: "Our Team",                key: "gallery_team" },
 ]
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  const content = await getSiteContent()
+  const categories = CATEGORY_META.map((meta) => ({
+    ...meta,
+    images: parseGalleryImages(content[meta.key] ?? ""),
+  })).filter((cat) => cat.images.length > 0)
   return (
     <>
       {/* ── PAGE HERO ── */}
